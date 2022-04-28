@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="jquerystyle.css">
+    <title>jquery</title>
+    <script>
+        $(document).ready(function(){
+            $("#btn").click(function(){
+               alert( "Name: " + $("#name").val());
+               alert("Address: " + $("#address").val())
+               alert("Birthday: " + $("#bday").val())
+               alert("Contact: " + $("#contact").val())
+            });
+  
+});
+        </script>
+</head>
+<body>
+    <h3>Jquery get set and add values</h3>
+    <form action="">
+        <div class="inputs">
+            <div>
+                <label>Fullname:</label>
+                <input type="text" name="name" id="name" class="form-control" value="">
+            </div>
+            <br>
+            <div>
+                <label>Address:</label>
+                <input type="text" name="address" id="address" class="form-control" value="">
+            </div>
+            <br>
+            <div>
+                <label>Birthday:</label>
+                <input type="date" name="bday" id="bday" class="form-control" value="">
+            </div>
+            <br>
+            <div>
+                <label>Contact:</label>
+                <input type="text" name="contact" id="contact" class="form-control" value="">
+            </div>
+            <br>
+            <button id="btn">show</button>
+        </div>
+    </form>
+    <!-- <button id="btn">Set</button> -->
+
+    <!-- <p id="userinput">User input</p> -->
+
+</body>
+
+</html>
