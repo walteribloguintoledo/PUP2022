@@ -26,22 +26,31 @@ text += "</ul>";
 document.getElementById("arr").innerHTML = text;
 </script>
 <h2>Multi Dimensional Array</h2>
-<table id="mlarr"><th>Name</th><th>Age</th> </table>
 <script>
     const mlarr = [
-        ["John","20"],
-        ["Dewey", "30"],
-        ["Lyn","40"],
-        ["Sam", "18"]
+        ["100","200"],
+        ["300", "530"],
+        ["29","540"],
+        ["41", "18"]
     ];
     let mlen = mlarr.length;
     
-    for(let x = 0; x < mlen; i++) {
-    document.write(mlarr[i] + "<br>");
-}
-    
-    
-    
+    for(let i = 0; i < mlarr.length; i++){
+        for (let j = 0; j < mlarr[i].length; j++)
+        {
+            document.write(mlarr[i][j] +" ");
+        }
+        document.write("<br>");
+    }
     </script>
+<h2>Associative Array</h2>
+<script>
+    var arrAssociative = {
+    "Company Name": 'Flexiple',
+    "ID": 123 };
+    document.write(arrAssociative);
+
+</script>
+
 </body>
 </html>
