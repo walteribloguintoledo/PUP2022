@@ -24,14 +24,16 @@ for (let i = 0; i < alen; i++) {
 text += "</ul>";
 
 document.getElementById("arr").innerHTML = text;
+console.log(arr);
+
 </script>
 <h2>Multi Dimensional Array</h2>
 <script>
     const mlarr = [
-        ["100","200"],
-        ["300", "530"],
-        ["29","540"],
-        ["41", "18"]
+        ["one","200","100", "89"],
+        ["300", 530, 90, 98],
+        ["29","two", "qwerty"],
+        ["41", "18", 4, 5 ,6]
     ];
     let mlen = mlarr.length;
     
@@ -42,13 +44,20 @@ document.getElementById("arr").innerHTML = text;
         }
         document.write("<br>");
     }
+    console.table(mlarr);
     </script>
 <h2>Associative Array</h2>
 <script>
     var arrAssociative = {
-    "Company Name": 'Flexiple',
-    "ID": 123 };
-    document.write(arrAssociative);
+    "Name": 'Ed Gallardo',
+    "Address": 'Mandaluyong City',
+    "Age" : '22',
+    "Contact no": '09392608805' };
+    for (var key in arrAssociative) {
+    var value = arrAssociative[key];
+    document.write(key + " = " + value + '' + '<br>');
+}
+console.log(arrAssociative);
 
 </script>
 
