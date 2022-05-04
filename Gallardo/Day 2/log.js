@@ -7,7 +7,7 @@ const errorUname = document.getElementById('errorUname');
 const errorEmail = document.getElementById('errorEmail');
 const errorBday = document.getElementById('errorBday');
 const errorContact = document.getElementById('errorContact');
-form.addEventListener('submit', (e) => {
+document.getElementById('submit').addEventListener('click', (e) => {
     e.preventDefault();
     var name = document.getElementById('fullname').value;
     var address = document.getElementById('address').value;
@@ -56,13 +56,28 @@ form.addEventListener('submit', (e) => {
         calcAge();
         timeSubmit();
         let array = [];
-        console.log(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
+        // console.log(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
         alert(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
-        array.push(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
-       console.log(array);
+        array.push(name, address, bday, contact, uname, email);
+        const inputArr = [];
+        const inputs = { 
+            "Time Submited" : Date.now(),
+            "name": document.getElementById('fullname').value,
+            "Address: " : document.getElementById('address').value,
+            "Username: " : document.getElementById('username').value,
+            "Email: " : document.getElementById('email').value,
+            "Birthday: " : document.getElementById('bday').value,
+            "Contact: " : document.getElementById('contact').value
+        };
+        inputArr.push(inputs);
+        document.getElementById('input').reset();
+        console.log(inputArr);
+        // saveArr();
+        dispArr(array)
+        // console.log(array);
     //    document.getElementById('input').reset();
 
-        saveArr();
+        
     }
     
     
@@ -82,7 +97,7 @@ function calcAge(){
 
     var calcAge = 0;
 
-    if(todayMonth > birthMonth)  // may kulang sa condition
+    if(todayMonth > birthMonth)
     {
         calcAge = todayYear - birthYear;
     }
@@ -111,32 +126,45 @@ function timeSubmit(){
     // var currdate = '${month}/${date}/${year}';
     console.log(todayDate);
 }
-function saveArr(){
-    let inputArr = [];
-    var name = document.getElementById('fullname').value;
-    var address = document.getElementById('address').value;
-    var uname = document.getElementById('username').value;
-    var email = document.getElementById('email').value;
-    var bday = document.getElementById('bday').value;
-    var contact = document.getElementById('contact').value;
-    let inputs = {
-        "Time Submited" : Date.now(),
-        "Name: " : document.getElementById('fullname').value,
-        "Address: " : document.getElementById('address').value,
-        "Username: " : document.getElementById('username').value,
-        "Email: " : document.getElementById('email').value,
-        "Birthday: " : document.getElementById('bday').value,
-        "Contact: " : document.getElementById('contact').value
-    }
+// // function saveArr(){
+// //     const inputArr = new Array();
+// //     // var name = document.getElementById('fullname').value;
+// //     // var address = document.getElementById('address').value;
+// //     // var uname = document.getElementById('username').value;
+// //     // var email = document.getElementById('email').value;
+// //     // var bday = document.getElementById('bday').value;
+// //     // var contact = document.getElementById('contact').value;
+// //     const inputs = new Array( { 
+// //         "Time Submited" : Date.now(),
+// //         "name": document.getElementById('fullname').value,
+// //         "Address: " : document.getElementById('address').value,
+// //         "Username: " : document.getElementById('username').value,
+// //         "Email: " : document.getElementById('email').value,
+// //         "Birthday: " : document.getElementById('bday').value,
+// //         "Contact: " : document.getElementById('contact').value
+// //     });
     
-    // inputArr.push(name, address, uname, email, bday, contact);
-    inputArr.push(inputs);
-    document.getElementById('input').reset();
-    // inputArr.push(inputs);
-    console.log(inputArr); //di nag sesave ang last input napapalitan agad ng bagong ininput
-
-    
+// //     // inputArr.push(name, address, uname, email, bday, contact);
+// //         // array.push(inputs);
+  
+// //     inputArr.push(inputs);
+// //     document.getElementById('input').reset();
+// //     console.log(inputArr); //di nag sesave ang last input napapalitan agad ng bagong ininput
+// //     // console.log(array);
+// }
+function dispArr(array){
+    // let text = "<ul>";
+    // for(let i=0; i<array.length; i++)
+    // {
+       
+    //     text += "<p>" + array[i] + "</p>";
+       
+    // }
+    // text += "</ul>";
+    document.getElementById("array").innerHTML = array;
+    console.log(array);
 }
+    
     // var address = document.getElementById('address').value;
     // var uname = document.getElementById('username').value;
     // var email = document.getElementById('email').value;
