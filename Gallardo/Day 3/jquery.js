@@ -1,22 +1,22 @@
 
 var storeUser = []; // user input storage
-const form = document.getElementById('input');
-const errorName = document.getElementById('errorName');
-const errorAddress = document.getElementById('errorAdd');
-const errorUname = document.getElementById('errorUname');
-const errorEmail = document.getElementById('errorEmail');
-const errorBday = document.getElementById('errorBday');
-const errorContact = document.getElementById('errorContact');
+const form = $('#input');
+const errorName = $('#errorName');
+const errorAddress = $('#errorAdd');
+const errorUname = $('#errorUname');
+const errorEmail = $('#errorEmail');
+const errorBday = $('#errorBday');
+const errorContact = $('#errorContact');
 
 //-------Event Handler for Form submission-------// // jQuery conversions:
-form.addEventListener('submit', (e) => {//$("form").submit(function(e){ actions go here });
+$('#input').submit(function(e){ 
         e.preventDefault();                                   
-        var name = document.getElementById('fullname').value; // => var name = $('#fullname').val();
-        var address = document.getElementById('address').value;// => var address = $('#address').val();
-        var uname = document.getElementById('username').value;// => var uname = $('#username').val();
-        var email = document.getElementById('email').value;// => var email = $('#email').val();
-        var bday = document.getElementById('bday').value;// => var bday = $('#bday').val();
-        var contact = document.getElementById('contact').value;// => var name = $('#fullname').val();
+        var name = $('#fullname').val();
+        var address = $('#address').val();
+        var uname = $('#username').val();
+        var email = $('#email').val();
+        var bday = $('#bday').val();
+        var contact = $('#contact').val();
         var err = 0;
         let messages = [];
 //-----------User Input Validation----------//        
@@ -60,7 +60,7 @@ else
     calcAge();
     timeSubmit();
     // let array = [];
-    // console.log(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
+    //console.log(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
     alert(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
     // array.push(name, address, bday, contact, uname, email);
     // saveArr();
@@ -72,15 +72,15 @@ else
     //document.getElementById('input').reset();
      
 } 
-})
+});
 //-------------Event handler for "show user input" button------------//
-document.getElementById('show').addEventListener('click', (e) => {
+$('#show').click(function(){ 
     dispArr(storeUser);
 });
 //-------------Function for Age Calculation------------//
 function calcAge(){
-    var bday = document.getElementById('bday').value;
-    var birthDate = new Date(document.getElementById('bday').value);
+    var bday = $('#bday').value;
+    var birthDate = new Date($('#bday').value);
     var birthDay = birthDate.getDate();
     var birthMonth = birthDate.getMonth();
     var birthYear = birthDate.getFullYear();
@@ -134,15 +134,15 @@ function saveArr(){
     // var contact = document.getElementById('contact').value;
     const inputs = new Array( { 
         "Time Submited" : Date.now(),
-        "name": document.getElementById('fullname').value,
-        "Address: " : document.getElementById('address').value,
-        "Username: " : document.getElementById('username').value,
-        "Email: " : document.getElementById('email').value,
-        "Birthday: " : document.getElementById('bday').value,
-        "Contact: " : document.getElementById('contact').value
+        "name": $('#fullname').value,
+        "Address: " : $('#address').value,
+        "Username: " : $('#username').value,
+        "Email: " : $('#email').value,
+        "Birthday: " : $('#bday').value,
+        "Contact: " : $('#contact').value
     });
     inputArr.push(inputs);
-    document.getElementById('input').reset();
+    $('#input').reset();
     return inputArr;
     // inputArr.push(name, address, uname, email, bday, contact);
     // array.push(inputs);
@@ -159,7 +159,7 @@ function dispArr(storeUser){
         
     // }
     // text += "</ul>";
-    document.getElementById("array").innerHTML = JSON.stringify(storeUser);
+    $("#array").innerHTML = JSON.stringify(storeUser);
     // document.getElementById("array").innerHTML = storeUser;
     console.log(storeUser);
 }
