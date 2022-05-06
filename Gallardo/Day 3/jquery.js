@@ -1,10 +1,11 @@
-
+$(document).ready(function(){
 var storeUser = []; // user input storage
 const form = $('#input');
 const errorName = $('#errorName');
 const errorAddress = $('#errorAdd');
 const errorUname = $('#errorUname');
 const errorEmail = $('#errorEmail');
+const errorPass = $('#password')
 const errorBday = $('#errorBday');
 const errorContact = $('#errorContact');
 
@@ -15,6 +16,7 @@ $('#input').submit(function(e){
         var address = $('#address').val();
         var uname = $('#username').val();
         var email = $('#email').val();
+        var password = $('#password').val();
         var bday = $('#bday').val();
         var contact = $('#contact').val();
         var err = 0;
@@ -41,6 +43,11 @@ if(email == "" || email == null)
     messages.push("email is required ");
     err = 1;
 }
+if(password == "" || password == null)
+{
+    messages.push("Password is required ");
+    err = 1;
+}
 if(bday == "" || bday == null)
 {
     messages.push("Birthday is required ");
@@ -59,19 +66,13 @@ else
 {
     calcAge();
     timeSubmit();
-    // let array = [];
-    //console.log(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
-    alert(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
-    // array.push(name, address, bday, contact, uname, email);
-    // saveArr();
+    alert(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email+""+password);
     var users = saveArr();
     storeUser.push(users);
-    console.log(storeUser);
-    // dispArr(array)
-    // console.log(array);
-    //document.getElementById('input').reset();
-     
 } 
+ //-----Save to Local Storage-----//
+    localStorage.setItem("userInfo", JSON.stringify(storeUser));
+    console.log(storeUser);
 });
 //-------------Event handler for "show user input" button------------//
 $('#show').click(function(){ 
@@ -79,8 +80,8 @@ $('#show').click(function(){
 });
 //-------------Function for Age Calculation------------//
 function calcAge(){
-    var bday = $('#bday').value;
-    var birthDate = new Date($('#bday').value);
+    var bday = $('#bday').val();
+    var birthDate = new Date($('#bday').val());
     var birthDay = birthDate.getDate();
     var birthMonth = birthDate.getMonth();
     var birthYear = birthDate.getFullYear();
@@ -117,49 +118,40 @@ function calcAge(){
 function timeSubmit(){
     var todayDate = new Date();
     console.log(todayDate);
-    // var todayDay = todayDate.getDate();
-    // var todayMonth = todayDate.getMonth();
-    // var todayYear = todayDate.getFullYear();
-    // var currdate = '${month}/${date}/${year}';
-    
 }
 //-------------Function for User Input Storage------------//
 function saveArr(){
     const inputArr = new Array();
-    // var name = document.getElementById('fullname').value;
-    // var address = document.getElementById('address').value;
-    // var uname = document.getElementById('username').value;
-    // var email = document.getElementById('email').value;
-    // var bday = document.getElementById('bday').value;
-    // var contact = document.getElementById('contact').value;
     const inputs = new Array( { 
         "Time Submited" : Date.now(),
-        "name": $('#fullname').value,
-        "Address: " : $('#address').value,
-        "Username: " : $('#username').value,
-        "Email: " : $('#email').value,
-        "Birthday: " : $('#bday').value,
-        "Contact: " : $('#contact').value
+        "Name": $('#fullname').val(),
+        "Address" : $('#address').val(),
+        "Username" : $('#username').val(),
+        "Email" : $('#email').val(),
+        "Password": $('#password').val(),
+        "Birthday" : $('#bday').val(),
+        "Contact" : $('#contact').val()
     });
     inputArr.push(inputs);
-    $('#input').reset();
+    $('#input').trigger("reset");
     return inputArr;
-    // inputArr.push(name, address, uname, email, bday, contact);
-    // array.push(inputs);
-    // console.log(inputArr); //di nag sesave ang last input napapalitan agad ng bagong ininput
-    // console.log(array);
+    
 }
 //-------------Function for User Input of Array display------------//
 function dispArr(storeUser){
-    // let text = "<ul>";
-    // for(let i=0; i<storeUser.length; i++)
-    // {
-       
-    //     text += "<p>" + storeUser[i] + "</p>";
-        
-    // }
-    // text += "</ul>";
-    $("#array").innerHTML = JSON.stringify(storeUser);
-    // document.getElementById("array").innerHTML = storeUser;
+    $.each(storeUser, function(){
+        // var arr = JSON.stringify(storeUser);
+        var a = 0, b = 0, c = 0;
+        $('#array').html(storeUser[a][b][c]["Name"]);
+        $('#array').html(storeUser[a][b][c]["Address"]);
+        a+=1;
+        b+=1;
+        c+=1;
+    })
+    $("pre").show();
     console.log(storeUser);
 }
+$("#array").click(function(){
+    $("pre").hide();
+  });
+});
