@@ -9,8 +9,9 @@ $(document).ready(function(){
     const errorBday = $('#errorBday');
     const errorContact = $('#errorContact');
     var userInfo = localStorage.getItem('userInfo');
-        var obj = JSON.parse(userInfo);
-        console.log(obj[2][0][0].Username);
+    var obj = JSON.parse(userInfo);
+        console.log(obj);
+
     //-------Event Handler for Form submission-------// // jQuery conversions:
     $('#input').submit(function(e){ 
             e.preventDefault();                                   
@@ -40,17 +41,30 @@ $(document).ready(function(){
     {
         alert(messages);
     }
-    //-----------Check user cred------------//
-    // if(userInfo.Username == uname){
-      
-    // }
+    
     else
     {
+        //-----------Check user cred inputs------------//
+        var found = 0;
+        for(var a = 0; a < obj.length; a++)
+        {
+            if((obj[a][0].Username == uname)&&(obj[a][0].Email == email)&&(obj[a][0].Password == password))
+            {
+                alert('Hello')
+                window.location.replace("file:///C:/PUP2022/Gallardo/Day%201/Home%20page.html")
+                found = 1;
+                console.log(found)
+                break;
+            }
+        }
+        if(found==0)
+        {
+            alert("The username, email, or password is invalid");
+        }
+    
         timeSubmit();
-        alert(uname + " " +email+" "+password);
         saveArr();
-        // usercred.push(users);
-        // console.log(usercred);
+
         //-----Save to Local Storage-----//
         localStorage.setItem("loginCred", JSON.stringify(usercred));
         
@@ -61,11 +75,10 @@ $(document).ready(function(){
     function timeSubmit(){
         var todayDate = new Date();
         console.log(todayDate);
-        
     }
+
     //-------------Function for User Input Storage------------//
     function saveArr(){
-        // const logcred = new Array();
         const inputs = new Array( { 
             "Time Submited" : Date.now(),
             "Username" : $('#username').val(),
@@ -75,5 +88,4 @@ $(document).ready(function(){
         usercred.push(inputs);
         $('#input').trigger("reset");
     }
-    
     });

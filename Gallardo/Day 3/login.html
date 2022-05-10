@@ -21,16 +21,16 @@
                 <br>
                 <div id="errorUname" class="errormes"></div>
                 <div class="form-floating mb-2 w-200">
-                  <input type="text" class="form-control" id="username" placeholder="username" name="username" >
+                  <input type="text" class="form-control" id="username" placeholder="username" name="username" onkeypress="noSpace(event)">
                   <label for="floatingInput">Username</label>
                 </div>
                 <div id="errorEmail" class="errormes"></div>
                 <div class="form-floating mb-2 w-100">
-                  <input type="email" class="form-control" id="email" placeholder="email" name="email" >
+                  <input type="email" class="form-control" id="email" placeholder="email" name="email" onkeypress="noSpace(event)">
                   <label for="floatingInput">Email</label>
                 </div>
                 <div class="form-floating mb-2 w-100">
-                  <input type="password" class="form-control" id="password" placeholder="password" name="password">
+                  <input type="password" class="form-control" id="password" placeholder="password" name="password" onkeypress="noSpace(event)">
                   <label for="floatingInput">Password</label>
                 </div>
                 <div>
@@ -42,63 +42,18 @@
           </div>
           <script>
             function callsignup(){
-              window.location.href="file:///C:/PUP2022/Gallardo/Day%203/Login%20BS.html"
+              window.location.href="file:///C:/PUP2022/Gallardo/Day%203/jquery%20sign%20up.html"
             }
           </script>
           <script src="login.js" type="text/javascript"></script>
           <div id="inArr"> 
           </div>
-          <div class="message">
-            <p id="messageF"> </p>
-            <p id="messageA"> </p>
-            <p id="messageU"> </p>
-            <p id="messageE"> </p>
-            <p id="messageB"> </p>
-            <p id="messageC"> </p>
-        </div>
     </form>
-        
-        <style>
-            p{
-                text-align: center;
-                font-size: large;
-                text-decoration: solid;
-                font-weight: bold;
-            }
-        </style>
           <script>
-            // function myFunction(){
-            // let fullname = document.querySelector ("#fullname");
-            // let messageF = document.querySelector("#messageF");
-            // let address = document.querySelector ("#address");
-            // let messageA = document.querySelector("#messageA");
-            // let bday = document.querySelector ("#bday");
-            // let messageB = document.querySelector("#messageB");
-            // let contact = document.querySelector ("#contact");
-            // let messageC = document.querySelector("#messageC");
-            // let uname = document.querySelector ("#username");
-            // let messageU = document.querySelector("#messageU");
-            // let email = document.querySelector ("#email");
-            // let messageE = document.querySelector("#messageE");
-            // messageF.innerHTML = "Fullname: " + fullname.value;
-            // messageA.innerHTML = "Address: " + address.value;
-            // messageU.innerHTML = "Username: " + uname.value;
-            // messageE.innerHTML = "Email: " + email.value;
-            // messageB.innerHTML = "Birthday: " + bday.value;
-            // messageC.innerHTML = "Contact no. " + contact.value;
-            // console.log(fullname +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
-            // }
-            function numOnly(ev){
-              var ch = String.fromCharCode(ev.which)
-              if(!(/[0-9]/.test(ch)))
-              {
-                ev.preventDefault();
-              }
-            }
-            function lettersOnly(ev){
-              var ch = String.fromCharCode(ev.which)
-              var name = document.getElementById("fullname")
-              var allow = /[a-zA-z " "]/;
+            function noSpace(ev){
+              var ch = String.fromCharCode(ev.which);
+              uname = $('#username');
+              var allow = /^[A-Za-z0-9_@./#&+-]*$/;
               if(!(allow.test(ch))){
                 ev.preventDefault();
               }

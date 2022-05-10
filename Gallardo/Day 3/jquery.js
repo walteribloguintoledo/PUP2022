@@ -67,12 +67,29 @@ else
     calcAge();
     timeSubmit();
     alert(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email+""+password);
-    var users = saveArr();
-    storeUser.push(users);
+    // var users = saveArr();
+    // storeUser.push(users);
+    // localStorage.setItem("userInfo", JSON.stringify(storeUser));
+    //-----Save to Local Storage-----//
+    var existing = JSON.parse(localStorage.getItem("userInfo"));
+    console.log(existing);
+    if(existing!==null)
+    {
+        var users = saveArr();
+        storeUser.push(users);
+        existing.push(users);
+        localStorage.setItem("userInfo", JSON.stringify(existing));
+
+    }
+    else
+    {
+        var users = saveArr();
+        storeUser.push(users);
+        console.log(storeUser);
+        localStorage.setItem("userInfo", JSON.stringify(storeUser));
+    }
 } 
- //-----Save to Local Storage-----//
-    localStorage.setItem("userInfo", JSON.stringify(storeUser));
-    console.log(storeUser);
+ 
 });
 //-------------Event handler for "show user input" button------------//
 $('#show').click(function(){ 
@@ -121,7 +138,7 @@ function timeSubmit(){
 }
 //-------------Function for User Input Storage------------//
 function saveArr(){
-    const inputArr = new Array();
+    // const inputArr = new Array();
     const inputs = new Array( { 
         "Time Submited" : Date.now(),
         "Name": $('#fullname').val(),
@@ -132,26 +149,24 @@ function saveArr(){
         "Birthday" : $('#bday').val(),
         "Contact" : $('#contact').val()
     });
-    inputArr.push(inputs);
     $('#input').trigger("reset");
-    return inputArr;
+    return inputs;
     
 }
 //-------------Function for User Input of Array display------------//
-function dispArr(storeUser){
-    $.each(storeUser, function(){
-        // var arr = JSON.stringify(storeUser);
-        var a = 0, b = 0, c = 0;
-        $('#array').html(storeUser[a][b][c]["Name"]);
-        $('#array').html(storeUser[a][b][c]["Address"]);
-        a+=1;
-        b+=1;
-        c+=1;
-    })
-    $("pre").show();
-    console.log(storeUser);
+function dispArr(){
+    var a = 0
+    var userInfo = localStorage.getItem('userInfo');
+    var obj = JSON.parse(userInfo);
+    var len = obj.length;
+    for(a=0;a<len;a++)
+    {
+        $('#inArr').append("Name: " + obj[a][0].Name + "<br>"+ "Address: "+obj[a][0].Address + "<br>"+ "Username: " + obj[a][0].Username + "<br>" + "Email: "+obj[a][0].Email+"<br>" + "Birthday: " +obj[a][0].Birthday+"<br>"+ "Contact no: " + obj[a][0].Contact+"<br><br>");
+    }
+    $("#inArr").show();
+    console.log(obj);
 }
-$("#array").click(function(){
-    $("pre").hide();
+$("#inArr").click(function(){
+    $("#inArr").hide();
   });
 });
