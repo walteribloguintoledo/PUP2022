@@ -1,0 +1,85 @@
+
+body {
+	color: black;
+	font-family: Ebrima;
+}
+	
+a {
+	color: darkgreen;
+	text-decoration: none;
+	font-family:Ebrima;
+	font-size: 18pt;
+	padding: 5pt;
+	margin-left: 20pt;
+}
+a:hover{
+	color:black;
+}
+.navbar{
+	float: top;
+	padding:5pt;
+	margin-left: 5pt;
+	background-color: lightblue;
+}
+img{
+	height: 500px;
+	padding: 5pt;
+	margin-left: 50pt;
+}
+.pic{
+	display: block;
+	margin-top: 10pt;
+  	margin-left: 100pt;
+ 	margin-right: 50pt;
+  	width: 50%;
+}
+.content1{
+	text-align: center;
+	margin-bottom: 30pt;
+	margin-left: 20pt;
+	margin-right: 20pt;
+	background-color: darkseagreen;
+	height: 120pt;
+}
+.content2{
+	border: dashed;
+	border-radius: 8px;
+	border-width: 1px;
+	text-align: center;
+	display: inline-block;
+	width: 250pt;
+	height: auto;
+	padding: 10pt;
+	margin-left: 50pt;
+	background-color:lightblue
+}
+.content3{
+	border: dashed;
+	border-radius: 8px;
+	border-width: 1px;
+	text-align: center;
+	display: inline-block;
+	width: 250pt;
+	height: auto;
+	padding: 10pt;
+	margin-left: 40pt;
+	background-color:lightblue
+}
+.content4{
+	border: dashed;
+	border-radius: 8px;
+	border-width: 1px;
+	text-align: center;
+	display: inline-block;
+	width: 250pt;
+	height: auto;
+	padding: 10pt;
+	margin-left: 40pt;
+	background-color:lightblue
+}
+p{
+	text-align: justify;
+	margin-left: 25pt;
+	margin-right: 25pt;
+}
+
