@@ -123,6 +123,7 @@ $(document).ready(function(){
     $('#show').click(function(){ 
         dispArr(storeUser);
     });
+    
     //-------------Function for Age Calculation------------//
     function calcAge(){
         var bday = $('#bday').val();
@@ -201,7 +202,7 @@ $(document).ready(function(){
     $("#inArr").click(function(){
         $("#inArr").hide();
       });
-    });
+});
 
     //---------Input Restrictions-------//
     function numOnly(ev){
@@ -227,28 +228,36 @@ $(document).ready(function(){
           ev.preventDefault();
         }
       }
+      function callLogin(){
+        window.location.replace("#/login");
+        window.location.reload();
+      }
+    //   $("#tologin").click(function(){
+    //     window.location.replace("http://localhost/gallardo/Day%203/#/login");
+    //     window.location.reload();
+    //   })
 
-    //---- Prevents user to go back to the previous page -----//
-      function disableBack() { window.history.forward(); }
+    // //---- Prevents user to go back to the previous page -----//
+      function disableBack() { window.history.forward();}
       setTimeout("disableBack()", 0);
       window.onunload = function () { null };
 
     //------ Login Javascripts --------//
-      $(document).ready(function(){
-        var usercred = []; // user input storage
-        const form = $('#input');
-        const errorName = $('#errorName');
-        const errorAddress = $('#errorAdd');
-        const errorUname = $('#errorUname');
-        const errorEmail = $('#errorEmail');
-        const errorPass = $('#password')
-        const errorBday = $('#errorBday');
-        const errorContact = $('#errorContact');
-        var userInfo = localStorage.getItem('userInfo');
-        var obj = JSON.parse(userInfo);
-            console.log(obj);
+    $(document).ready(function(){
+            var usercred = []; // user input storage
+            const form = $('#input');
+            const errorName = $('#errorName');
+            const errorAddress = $('#errorAdd');
+            const errorUname = $('#errorUname');
+            const errorEmail = $('#errorEmail');
+            const errorPass = $('#password')
+            const errorBday = $('#errorBday');
+            const errorContact = $('#errorContact');
+            var userInfo = localStorage.getItem('userInfo');
+            var obj = JSON.parse(userInfo);
+                console.log(obj);
     
-    //-------Event Handler for Form submission-------//
+        //-------Event Handler for Form submission-------//
         $('#flogin').submit(function(e){ 
                 e.preventDefault();                                   
                 var uname = $('#uname').val();
@@ -257,54 +266,55 @@ $(document).ready(function(){
                 var err = 0;
                 let messages = [];
                 
-    //-----------User Input Validation----------//        
-        if (uname == "" || uname == null)
-        {
-            messages.push("Username is required ");
-            err = 1;
-        }
-        if(email == "" || email == null)
-        {
-            messages.push("email is required ");
-            err = 1;
-        }
-        if(password == "" || password == null)
-        {
-            messages.push("Password is required ");
-            err = 1;
-        }
-        if ( err == 1)
-        {
-            alert(messages);
-        }
-        
-        else
-        {
-            //-----------Check user cred inputs------------//
-            var found = 0;
-                for(var a = 0; a < obj.length; a++)
-                {
-                    if((obj[a][0].Username == uname)&&(obj[a][0].Email == email)&&(obj[a][0].Password == password))
+            //-----------User Input Validation----------//        
+            if (uname == "" || uname == null)
+            {
+                messages.push("Username is required ");
+                err = 1;
+            }
+            if(email == "" || email == null)
+            {
+                messages.push("email is required ");
+                err = 1;
+            }
+            if(password == "" || password == null)
+            {
+                messages.push("Password is required ");
+                err = 1;
+            }
+            if ( err == 1)
+            {
+                alert(messages);
+            }
+            
+            else
+            {
+                //-----------Check user cred inputs------------//
+                var found = 0;
+                    for(var a = 0; a < obj.length; a++)
                     {
-                        alert('Hello')
-                        window.location.replace("http://localhost/gallardo/Day%203/#/home");
-                        found = 1;
-                        console.log(found);
-                        break;
+                        if((obj[a][0].Username == uname)&&(obj[a][0].Email == email)&&(obj[a][0].Password == password))
+                        {
+                            alert('Hello')
+                            window.location.replace("#/home");
+                            window.location.reload();
+                            found = 1;
+                            console.log(found);
+                            break;
+                        }
                     }
-                }
-                if(found==0)
-                {
-                    alert("The username, email, or password is invalid");
-                }
+                    if(found==0)
+                    {
+                        alert("The username, email, or password is invalid");
+                    }
+            
+                timeSubmit();
+                saveArr();
         
-            timeSubmit();
-            saveArr();
-    
-        //-----Save to Local Storage-----//
-        localStorage.setItem("loginCred", JSON.stringify(usercred));
-        } 
-    });
+            //-----Save to Local Storage-----//
+            localStorage.setItem("loginCred", JSON.stringify(usercred));
+            } 
+        });
         
         //-------------Function for Form Submission------------//
         function timeSubmit(){
@@ -323,4 +333,18 @@ $(document).ready(function(){
             usercred.push(inputs);
             $('#flogin').trigger("reset");
         }
-});
+        $('#tosignup').click (function (){
+            window.location.replace("#/signup");
+            window.location.reload();
+        });
+    });
+    $('#home').ready(function(){
+        $('#logout').click(function(){
+            alert("Logging out......")
+            window.location.replace("#/login");
+            window.location.reload();
+            
+        })
+    })
+
+  
