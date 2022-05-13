@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-floating mb-2 w-100">
                 <input type="password" class="form-control" id="password" placeholder="password" name="password" onkeypress="noSpace(event)">
-                <label for="floatingInput">Password</label>
+                <label for="floatingInput" maxlength="10">Password</label>
                 </div>
 
                 <div class="form-floating mb-2 w-100">
@@ -43,7 +43,7 @@
                 <div>
                 <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="submit" onclick="">Sign Up</button>
                 <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-secondary" onclick="" id="show">Show user inputs</button>
-                <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-info" onclick="callLogin()" id="tologin">Back to Login</button>
+                <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-info"  id="tologin">Back to Login</button>
                 </form>
             </div>
             <pre id="array"></pre>
@@ -71,10 +71,10 @@
         </div>
         <div class="form-floating mb-2 w-100">
           <input type="password" class="form-control" id="logpassword" placeholder="password" name="password" onkeypress="noSpace(event)">
-          <label for="floatingInput">Password</label>
+          <label for="floatingInput" maxlength="10">Password</label>
         </div>
         <div>
-          <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="submit" >Login</button>
+          <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="lsubmit" >Login</button>
           <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-info" id="tosignup">Sign Up</button>
         </div>
       </div>

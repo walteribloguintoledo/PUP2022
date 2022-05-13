@@ -40,7 +40,7 @@ $(document).ready(function(){
         const errorContact = $('#errorContact');
     
     //-------Event Handler for Form submission-------// // jQuery conversions:
-    $('#signUp').submit(function(e){ 
+    $('#submit').click(function(e){ 
             e.preventDefault();                                   
             var name = $('#fullname').val();
             var address = $('#address').val();
@@ -202,8 +202,13 @@ $(document).ready(function(){
     $("#inArr").click(function(){
         $("#inArr").hide();
       });
+    
+    $('#tologin').click(function(){
+        window.location.replace("http://localhost/gallardo/Day%203/#/login");
+        window.location.reload();
+    });
 });
-
+    
     //---------Input Restrictions-------//
     function numOnly(ev){
         var ch = String.fromCharCode(ev.which)
@@ -228,19 +233,16 @@ $(document).ready(function(){
           ev.preventDefault();
         }
       }
-      function callLogin(){
-        window.location.replace("#/login");
-        window.location.reload();
-      }
-    //   $("#tologin").click(function(){
-    //     window.location.replace("http://localhost/gallardo/Day%203/#/login");
+    //   function callLogin(){
+    //     window.location.replace("#/login");
     //     window.location.reload();
-    //   })
+    //   }
+      
 
     // //---- Prevents user to go back to the previous page -----//
-      function disableBack() { window.history.forward();}
-      setTimeout("disableBack()", 0);
-      window.onunload = function () { null };
+    //   function disableBack() { window.history.forward();}
+    //   setTimeout("disableBack()", 0);
+    //   window.onunload = function () { null };
 
     //------ Login Javascripts --------//
     $(document).ready(function(){
@@ -258,7 +260,7 @@ $(document).ready(function(){
                 console.log(obj);
     
         //-------Event Handler for Form submission-------//
-        $('#flogin').submit(function(e){ 
+        $('#lsubmit').click(function(e){ 
                 e.preventDefault();                                   
                 var uname = $('#uname').val();
                 var email = $('#logemail').val();
@@ -334,17 +336,17 @@ $(document).ready(function(){
             $('#flogin').trigger("reset");
         }
         $('#tosignup').click (function (){
-            window.location.replace("#/signup");
+            window.location.replace("http://localhost/gallardo/Day%203/#/signup");
             window.location.reload();
         });
     });
-    $('#home').ready(function(){
-        $('#logout').click(function(){
-            alert("Logging out......")
-            window.location.replace("#/login");
-            window.location.reload();
-            
-        })
-    })
+
+$(document).ready(function(){
+    $("#logout").click(function(){
+        alert("Logging out......");
+        window.location.replace("#/login");
+        window.location.reload();
+    });
+});
 
   
