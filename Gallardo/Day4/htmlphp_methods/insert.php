@@ -10,7 +10,8 @@ $bday = $_POST["bday"];
 $contact = $_POST["contact"];
 $sql = "INSERT INTO users (fullname,address,username,email,password,birthday, contact) VALUES ('$name','$address','$uname','$email','$password','$bday', '$contact')";
 mysqli_query($conn, $sql);
-echo "New record created successfully";
+echo "<script>alert('New record created successfully')</script>"
+;
 
 ?>
 <!DOCTYPE html>
@@ -32,5 +33,6 @@ echo "New record created successfully";
         Your were born in <?php echo $_POST["bday"]; ?><br>
         Your contact number is <?php echo $_POST["contact"];?>
     </p>
+    <script>$('#input').trigger("reset");</script>
 </body>
 </html>

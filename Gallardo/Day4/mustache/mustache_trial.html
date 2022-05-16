@@ -20,13 +20,15 @@
 <script>
 $("#btn").on('click', function() {
 
-    var data = { name: "Jonathan" };
-    var template = "Hello {{ name }}";
+    var data = { name: "Jonathan", address: "Pasay City", };
+    var template = "Hello {{ name }} <br> You are living at {{address}}";
 
     var text = Mustache.render(template, data);
 
     $("#mypanel").html(text);
+    
 });
+
 </script>
 
 </body>
