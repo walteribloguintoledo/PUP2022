@@ -4,7 +4,7 @@
 
 <!--Sign Up Form-->
 <script type="text/template" id="signup">
-    <form id ="signUp" method="POST" action="index.php">
+    <form id ="signUp" method="POST">
         <div class="container">
             <div class="row">
             <div class="col align-self-center p-5 pt-0">
@@ -12,7 +12,7 @@
                 <h2 class="fw-bold mb-0">Sign Up</h2>
                 <br>
                 <div class="form-floating mb-2 w-100">
-                    <input type="text" class="form-control" id="fullname" placeholder="name" name="fullname" id="name" onkeypress="lettersOnly(event)">
+                    <input type="text" class="form-control" id="fullname" placeholder="fullname" name="fullname" onkeypress="lettersOnly(event)">
                     <label for="floatingInput">Name</label>
                 </div>
                 <div class="form-floating mb-2 w-100">
@@ -20,7 +20,7 @@
                     <label for="floatingInput">Address</label>
                 </div>
                 <div class="form-floating mb-2 w-100">
-                <input type="text" class="form-control" id="username" placeholder="username" name="username" onkeypress="noSpace(event)">
+                <input type="text" class="form-control" id="username" placeholder="username" name="uname" onkeypress="noSpace(event)">
                 <label for="floatingInput">Username</label>
                 </div>
                 <div class="form-floating mb-2 w-100">

@@ -31,7 +31,7 @@ function clearPanel(){
                         const errorContact = $('#errorContact');
 
                     //-------Event Handler for Form submission-------// // jQuery conversions:
-                        $('#submit').click(function(e){ 
+                        $('#signUp').submit(function(e){ 
                             e.preventDefault();                                   
                             var name = $('#fullname').val();
                             var address = $('#address').val();
@@ -98,9 +98,22 @@ function clearPanel(){
                                     storeUser.push(users);
                                     existing.push(users);
                                     localStorage.setItem("userInfo", JSON.stringify(existing));
-                                    // var sql = $sql = "INSERT INTO users (fullname,address,username,email,password,birthday, contact) VALUES ('$name','$address','$uname','$email','$password','$bday', '$contact')";
-                                    // mysqli_query($conn, $sql);
-
+                                    $.ajax({
+                                        method: "POST",
+                                        url: "insert.php",
+                                        data: {
+                                                name : name,
+                                                address : address,
+                                                uname : uname,
+                                                email : email,
+                                                password : password,
+                                                bday : bday,
+                                                contact : contact
+                                            }
+                                    }).done(function(){
+                                            alert('New record inserted');
+                                            
+                                        });
                                 }
                                 else
                                 {
@@ -108,6 +121,21 @@ function clearPanel(){
                                     storeUser.push(users);
                                     console.log(storeUser);
                                     localStorage.setItem("userInfo", JSON.stringify(storeUser));
+                                    $.ajax({
+                                        method: "POST",
+                                        url: "insert.php",
+                                        data: {
+                                                name : name,
+                                                address : address,
+                                                uname : uname,
+                                                email : email,
+                                                password : password,
+                                                bday : bday,
+                                                contact : contact
+                                            }
+                                    }).done(function(){
+                                            alert('New record inserted');
+                                        });
                                 }
                                 
                             } 
@@ -205,10 +233,9 @@ function clearPanel(){
     });
         
 
-    
+    // add validation that checks if there is a stored user info
     Path.map("#/login").to(function(){
             App.canvas.mustache('login');
-            console.log(logcred);
             prevAccess(logcred);
             //------ Login Javascripts --------//
                 $(document).ready(function(){
@@ -224,7 +251,12 @@ function clearPanel(){
                     var userInfo = localStorage.getItem('userInfo');
                     var obj = JSON.parse(userInfo);
                     console.log(obj);
-            
+                    if(userInfo===null)
+                    {
+                        alert("Create an account first");
+                        window.location.replace("#/signup");
+                        window.location.reload();
+                    }
                 //-------Event Handler for Form submission-------//
                 $('#flogin').submit(function(e){ 
                         e.preventDefault();                                   
@@ -393,3 +425,4 @@ function noSpace(ev){
             return login;
         }
     }
+    
