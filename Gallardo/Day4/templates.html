@@ -102,6 +102,7 @@
                 </li>
             </div>
             <div>
+              <button type="button" class="btn btn-outline-info" id="update">Update</button>
               <button type="button" class="btn btn-outline-warning" id="logout">Logout</button>
             </div>
         </div>
@@ -192,6 +193,52 @@
               </div>
             </div>
             </div>
+</script>
+<!--Update Form-->
+<script type="text/template" id="update">
+  <form   id ="fupdate">
+      <div class="container">
+          <div class="row">
+          <div class="col align-self-center p-5 pt-0">
+              <br>
+              <h2 class="fw-bold mb-0">Update Info</h2>
+              <br>
+              <div class="form-floating mb-2 w-100">
+                  <input type="text" class="form-control" id="fullname" placeholder="name" name="fullname" id="name" onkeypress="lettersOnly(event)">
+                  <label for="floatingInput">Name</label>
+              </div>
+              <div class="form-floating mb-2 w-100">
+                  <input type="text" class="form-control" id="address" placeholder="address" name="address" >
+                  <label for="floatingInput">Address</label>
+              </div>
+              <div class="form-floating mb-2 w-100">
+              <input type="text" class="form-control" id="username" placeholder="username" name="username" onkeypress="noSpace(event)">
+              <label for="floatingInput">Username</label>
+              </div>
+              <div class="form-floating mb-2 w-100">
+              <input type="email" class="form-control" id="email" placeholder="email" name="email" onkeypress="noSpace(event)">
+              <label for="floatingInput">Email</label>
+              </div>
+              <div class="form-floating mb-2 w-100">
+              <input type="password" class="form-control" id="password" placeholder="password" name="password" onkeypress="noSpace(event)">
+              <label for="floatingInput" maxlength="10">Password</label>
+              </div>
+
+              <div class="form-floating mb-2 w-100">
+                  <input type="date" class="form-control" id="bday" placeholder="birthday" name="bday" >
+                  <label for="floatingInput">Birthday</label>
+              </div>
+              <div class="form-floating mb-2 w-100">
+                  <input type="text" class="form-control" id="contact" placeholder="number" maxlength="11" name="contact" onkeypress="numOnly(event)">
+                  <label for="floatingInput">Contact no.</label>
+              </div>
+              <div>
+              <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="usubmit" onclick="">Update</button>
+              </form>
+          </div>
+          </div>
+          </div>
+      </div>
 </script>
 <script>
     

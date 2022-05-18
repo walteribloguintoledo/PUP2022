@@ -9,15 +9,29 @@ $password =$_POST['password'];
 $bday = $_POST['bday'];
 $contact = $_POST['contact'];
 
-
 $sql = "INSERT INTO users (fullname, address, username, email, password, birthday, contact) VALUES ('$fname','$address','$uname','$email','$password','$bday','$contact')";
-if(mysqli_query($conn, $sql))
-{
-    echo 'New record created successfully';
+
+$mysql = "SELECT * FROM users WHERE username = '$uname' AND email = '$email' AND password = '$password'";
+
+$result = mysqli_query($conn, $mysql);
+
+if(mysqli_num_rows($result) == 1) {
+    echo "User exist";
 }
-else
+else 
 {
-    echo "Error: " . $sql . " " . mysqli_error($conn);
+    echo "User does not exist";
+    if(mysqli_query($conn, $sql))
+    {
+        // echo 'New record created successfully';
+    }
+    else
+    {
+        echo "Error: " . $sql . " " . mysqli_error($conn);
+    }
 }
+
+
+
 
 ?>
