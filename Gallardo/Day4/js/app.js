@@ -7,6 +7,7 @@ var loginCred = localStorage.getItem('loginCred');
 var logcred = JSON.parse(loginCred);
 var logout = 0;
 var login = 0;
+var usercred = []; // user input storage
 $.Mustache.load('templates.html').done(function () {
 
 console.log(App.url);
@@ -21,14 +22,6 @@ function clearPanel(){
                     //------ Sign Up Javascript-------//
                 $(document).ready(function(){
                         var storeUser = []; // user input storage
-                        const form = $('#input');
-                        const errorName = $('#errorName');
-                        const errorAddress = $('#errorAdd');
-                        const errorUname = $('#errorUname');
-                        const errorEmail = $('#errorEmail');
-                        const errorPass = $('#password')
-                        const errorBday = $('#errorBday');
-                        const errorContact = $('#errorContact');
 
                     //-------Event Handler for Form submission-------// // jQuery conversions:
                         $('#signUp').submit(function(e){ 
@@ -231,21 +224,12 @@ function clearPanel(){
     });
         
 
-    // add validation that checks if there is a stored user info-----[done]
     Path.map("#/login").to(function(){
             App.canvas.mustache('login');
             prevAccess(logcred);
             //------ Login Javascripts --------//
                 $(document).ready(function(){
-                    var usercred = []; // user input storage
-                    const form = $('#input');
-                    const errorName = $('#errorName');
-                    const errorAddress = $('#errorAdd');
-                    const errorUname = $('#errorUname');
-                    const errorEmail = $('#errorEmail');
-                    const errorPass = $('#password')
-                    const errorBday = $('#errorBday');
-                    const errorContact = $('#errorContact');
+                    
                     var userInfo = localStorage.getItem('userInfo');
                     var obj = JSON.parse(userInfo);
                     console.log(obj);
@@ -318,11 +302,6 @@ function clearPanel(){
                                 $('#flogin').trigger("reset");
                             }
 
-
-                            // if(found==0)
-                            // {
-                                
-                            // }
                         });
                         // for(var a = 0; a < obj.length; a++)
                         // {
@@ -389,16 +368,151 @@ function clearPanel(){
                 window.location.replace("#/update");
                 window.location.reload();
             })
+            $("#view").click(function(){
+                window.location.replace("#/view");
+                window.location.reload();
+            })
         });
     }).enter(clearPanel);
 
     Path.map("#/update").to(function(){
         App.canvas.mustache('update');
+        prevHome(login);
         //notes:
-        // put validations here likewise with the sign up
         // get the data from the database of the current logged in user and put it in the input fields
         // you could still done the task get users data in this part.
         // you could also ommit the dispArr() function
+        
+        //------Update Scripts--------//
+        $(document).ready(function(){
+            $.getJSON("getinfo.php?username=" + logcred[0][0].Username, function(){
+            }).done(function(response){
+                var edit = response;
+            
+            $("#fupdate").submit(function(e){
+                e.preventDefault();
+                var newname = $('#newname').val();
+                var newaddress = $('#newaddress').val();
+                var newuname = $('#newusername').val();
+                var newemail = $('#newemail').val();
+                var newpassword = $('#newpassword').val();
+                var newbday = $('#newbday').val();
+                var newcontact = $('#newcontact').val();
+                var uerr = 0;
+                let umessages = [];
+
+                //-----------User Input Validation----------//        
+                if (newname == "" || newname == null)
+                {
+                    umessages.push("Name is Required ");
+                    uerr = 1;
+                }
+
+                if (newaddress == "" || newaddress == null)
+                {
+                    umessages.push("Address is required ");
+                    uerr = 1;
+                }
+                if (newuname == "" || newuname == null)
+                {
+                    umessages.push("Username is required ");
+                    uerr = 1;
+                }
+                if(newemail == "" || newemail == null)
+                {
+                    umessages.push("Email is required ");
+                    uerr = 1;
+                }
+                if(newpassword == "" || newpassword == null)
+                {
+                    umessages.push("Password is required ");
+                    uerr = 1;
+                }
+                if(newbday == "" || newbday == null)
+                {
+                    umessages.push("Birthday is required ");
+                    uerr = 1;
+                }
+                if(newcontact == "" || newcontact == null)
+                {
+                    umessages.push("Contact is required ");
+                    uerr = 1; 
+                }
+                if ( uerr == 1)
+                {
+                    alert(umessages);
+                }
+                else
+                {
+                    $.ajax({
+                        method: "POST",
+                        url: "update.php",
+                        datatype: "json",
+                        data: {
+                                edit : edit,
+                                name : newname,
+                                address : newaddress,
+                                uname : newuname,
+                                email : newemail,
+                                password : newpassword,
+                                bday : newbday,
+                                contact : newcontact
+                            }
+                    }).done(function(response){
+                        if(response == 1)
+                        {
+                            alert("Username has been taken think of another");
+                            $('#fupdate').trigger("reset");
+                        }
+                        if(response == 2)
+                        {
+                            alert("Provide another email");
+                            $('#fupdate').trigger("reset");
+                        }
+                        else
+                        {   
+                            const newinputs = new Array( { 
+                                "Time Submited" : Date.now(),
+                                "Username" : newuname,
+                                "Email" : newemail,
+                                "Password":newpassword
+                            });
+                            usercred.push(newinputs);
+                            localStorage.setItem("loginCred", JSON.stringify(usercred));
+                            alert("Changes have been saved!");
+                            $('#fupdate').trigger("reset");
+                        }
+                        
+                    });
+                }
+            });
+        });
+
+            $("#tohome").click(function(){
+                prevHome()
+                window.location.replace("#/home");
+                window.location.reload();
+            });
+        });
+    });
+    Path.map("#/view").to(function(){
+        App.canvas.mustache('view');
+        $.ajax({
+            method: "GET",
+            url: "view.php",
+            success: function (data){
+                $("#canvas").html(data);
+                $("#backhome").click(function(){
+                    prevHome()
+                    window.location.replace("#/home");
+                    window.location.reload();
+                });
+                $("#delete").click(function(){
+                    alert("Delete this data?");
+                })
+            }
+        });
+        
     });
     Path.root("#/login");
     Path.listen();
@@ -433,7 +547,7 @@ function noSpace(ev){
         // function disableBack() { window.history.forward();}
         // setTimeout("disableBack()", 0);
         // window.onunload = function () { null };
-    function prevAccess(loginCred){
+    function prevAccess(loginCred){//prevents logged in user to go back to login page
         if(loginCred === null && login==0)
         {
            return;
@@ -451,7 +565,7 @@ function noSpace(ev){
             window.location.reload();
         }
     }
-    function prevHome(login)
+    function prevHome(login)//prevents logged out user to access update and home pages
     {
         if(login == 0 && logcred === null)
         {

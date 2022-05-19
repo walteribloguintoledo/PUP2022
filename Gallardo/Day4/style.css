@@ -16,7 +16,7 @@ body{
 .container{
     background-color: aliceblue;
     margin-top: 50px;
-    height: 750px;
+    height: 680px;
 }
 .fw-bold{
     text-align: center;
@@ -74,4 +74,9 @@ span{
 }
 #content{
     margin-right: 20px;
+}
+.ucontainer{
+    background-color: aliceblue;
+    margin-top: 50px;
+    height: 680px;
 }

@@ -11,38 +11,37 @@
                 <br>
                 <h2 class="fw-bold mb-0">Sign Up</h2>
                 <br>
-                <div class="form-floating mb-2 w-100">
+                <div class="form-floating mb-2 w-200">
                     <input type="text" class="form-control" id="fullname" placeholder="name" name="fullname" id="name" onkeypress="lettersOnly(event)">
                     <label for="floatingInput">Name</label>
                 </div>
-                <div class="form-floating mb-2 w-100">
+                <div class="form-floating mb-2 w-200">
                     <input type="text" class="form-control" id="address" placeholder="address" name="address" >
                     <label for="floatingInput">Address</label>
                 </div>
-                <div class="form-floating mb-2 w-100">
+                <div class="form-floating mb-2 w-200">
                 <input type="text" class="form-control" id="username" placeholder="username" name="username" onkeypress="noSpace(event)">
                 <label for="floatingInput">Username</label>
                 </div>
-                <div class="form-floating mb-2 w-100">
+                <div class="form-floating mb-2 w-200">
                 <input type="email" class="form-control" id="email" placeholder="email" name="email" onkeypress="noSpace(event)">
                 <label for="floatingInput">Email</label>
                 </div>
-                <div class="form-floating mb-2 w-100">
+                <div class="form-floating mb-2 w-200">
                 <input type="password" class="form-control" id="password" placeholder="password" name="password" onkeypress="noSpace(event)">
                 <label for="floatingInput" maxlength="10">Password</label>
                 </div>
 
-                <div class="form-floating mb-2 w-100">
+                <div class="form-floating mb-2 w-200">
                     <input type="date" class="form-control" id="bday" placeholder="birthday" name="bday" >
                     <label for="floatingInput">Birthday</label>
                 </div>
-                <div class="form-floating mb-2 w-100">
+                <div class="form-floating mb-2 w-200">
                     <input type="text" class="form-control" id="contact" placeholder="number" maxlength="11" name="contact" onkeypress="numOnly(event)">
                     <label for="floatingInput">Contact no.</label>
                 </div>
                 <div>
                 <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="submit" onclick="">Sign Up</button>
-                <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-secondary" onclick="" id="show">Show user inputs</button>
                 <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-info"  id="tologin">Back to Login</button>
                 <!-- <a href="#/login" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-info">Back to Login</a> -->
                 </form>
@@ -102,6 +101,7 @@
                 </li>
             </div>
             <div>
+              <button type="button" class="btn btn-outline-success" id="view">Users</button>
               <button type="button" class="btn btn-outline-info" id="update">Update</button>
               <button type="button" class="btn btn-outline-warning" id="logout">Logout</button>
             </div>
@@ -197,51 +197,64 @@
 <!--Update Form-->
 <script type="text/template" id="update">
   <form   id ="fupdate">
-      <div class="container">
+      <div class="ucontainer">
           <div class="row">
           <div class="col align-self-center p-5 pt-0">
               <br>
               <h2 class="fw-bold mb-0">Update Info</h2>
               <br>
-              <div class="form-floating mb-2 w-100">
-                  <input type="text" class="form-control" id="fullname" placeholder="name" name="fullname" id="name" onkeypress="lettersOnly(event)">
+              <div class="form-floating mb-2 w-200">
+                  <input type="text" class="form-control" id="newname" placeholder="name" name="newname"  onkeypress="lettersOnly(event)">
                   <label for="floatingInput">Name</label>
               </div>
-              <div class="form-floating mb-2 w-100">
-                  <input type="text" class="form-control" id="address" placeholder="address" name="address" >
+              <div class="form-floating mb-2 w-200">
+                  <input type="text" class="form-control" id="newaddress" placeholder="address" name="newaddress" >
                   <label for="floatingInput">Address</label>
               </div>
-              <div class="form-floating mb-2 w-100">
-              <input type="text" class="form-control" id="username" placeholder="username" name="username" onkeypress="noSpace(event)">
+              <div class="form-floating mb-2 w-200">
+              <input type="text" class="form-control" id="newusername" placeholder="username" name="newusername" onkeypress="noSpace(event)">
               <label for="floatingInput">Username</label>
               </div>
-              <div class="form-floating mb-2 w-100">
-              <input type="email" class="form-control" id="email" placeholder="email" name="email" onkeypress="noSpace(event)">
+              <div class="form-floating mb-2 w-200">
+              <input type="email" class="form-control" id="newemail" placeholder="email" name="newemail" onkeypress="noSpace(event)">
               <label for="floatingInput">Email</label>
               </div>
-              <div class="form-floating mb-2 w-100">
-              <input type="password" class="form-control" id="password" placeholder="password" name="password" onkeypress="noSpace(event)">
+              <div class="form-floating mb-2 w-200">
+              <input type="password" class="form-control" id="newpassword" placeholder="password" name="newpassword" onkeypress="noSpace(event)">
               <label for="floatingInput" maxlength="10">Password</label>
               </div>
-
-              <div class="form-floating mb-2 w-100">
-                  <input type="date" class="form-control" id="bday" placeholder="birthday" name="bday" >
+              <div class="form-floating mb-2 w-200">
+                  <input type="date" class="form-control" id="newbday" placeholder="birthday" name="newbday" >
                   <label for="floatingInput">Birthday</label>
               </div>
-              <div class="form-floating mb-2 w-100">
-                  <input type="text" class="form-control" id="contact" placeholder="number" maxlength="11" name="contact" onkeypress="numOnly(event)">
+              <div class="form-floating mb-2 w-200">
+                  <input type="text" class="form-control" id="newcontact" placeholder="number" maxlength="11" name="newcontact" onkeypress="numOnly(event)">
                   <label for="floatingInput">Contact no.</label>
               </div>
               <div>
-              <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="usubmit" onclick="">Update</button>
+              <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-success" id="usubmit" onclick="">Save</button>
+              <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-info" id="tohome" onclick="">Home</button>
+              </div>
               </form>
           </div>
           </div>
           </div>
       </div>
 </script>
-<script>
-    
+<!-- view users -->
+<script type="text/template" id="view">
+  <table class="table table-bordered table-hover table-striped table-light">
+    <tr>
+        <th>ID</th>
+        <th>Fullname</th>
+        <th>Address</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Birthday</th>
+        <th>Contact</th>
+        <th>Delete</th>
+    </tr>
     
 </script>
 

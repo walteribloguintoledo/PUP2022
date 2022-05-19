@@ -11,7 +11,7 @@ $contact = $_POST['contact'];
 
 $sql = "INSERT INTO users (fullname, address, username, email, password, birthday, contact) VALUES ('$fname','$address','$uname','$email','$password','$bday','$contact')";
 
-$mysql = "SELECT * FROM users WHERE username = '$uname' AND email = '$email' AND password = '$password'";
+$mysql = "SELECT * FROM users WHERE username = '$uname' AND email = '$email'";
 
 $result = mysqli_query($conn, $mysql);
 
