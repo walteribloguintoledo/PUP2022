@@ -1,7 +1,8 @@
 <?php
 include "connect.php";
 $uname = $_GET['username'];
-$sql = "SELECT * FROM users WHERE username = '$uname'"; 
+$email = $_GET['email'];
+$sql = "SELECT * FROM users WHERE username = '$uname' OR email = '$email'"; 
 
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) 

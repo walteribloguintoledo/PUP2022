@@ -1,6 +1,8 @@
 <?php
 include "connect.php";
-$sql = "SELECT * FROM users";
+$uname = $_GET['username'];
+$email = $_GET['email'];
+$sql = "SELECT * FROM users WHERE NOT username = '$uname' OR NOT email = '$email' ";
 $result = mysqli_query($conn, $sql);
 if (mysqli_num_rows($result) > 0) {
     echo'<table class="table table-sm table-bordered table-hover table-striped table-light">
@@ -26,12 +28,15 @@ if (mysqli_num_rows($result) > 0) {
     <td>'.$row['password'].'</td>
     <td>'.$row['birthday'].'</td>
     <td>'.$row['contact'].'</td>
-    <td><button type="button" class="btn btn-danger" id = "delete">Delete</button></td>
+    <td><button type="button" class="btn btn-danger" id = "delete" userid='.$row['userid'].'>Delete</button></td>
 </tr>';
     }
     echo '</table>';
     echo '<button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-info" id="backhome" onclick="">Home</button>';
   } else {
-    echo "0 results";
+    echo "<script>
+          alert('There is no registered user');
+          location.replace('#/home');
+          </script>";
   }
 ?>

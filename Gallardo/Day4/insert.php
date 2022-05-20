@@ -9,6 +9,7 @@ $password =$_POST['password'];
 $bday = $_POST['bday'];
 $contact = $_POST['contact'];
 
+
 $sql = "INSERT INTO users (fullname, address, username, email, password, birthday, contact) VALUES ('$fname','$address','$uname','$email','$password','$bday','$contact')";
 
 $mysql = "SELECT * FROM users WHERE username = '$uname' AND email = '$email'";
@@ -30,8 +31,4 @@ else
         echo "Error: " . $sql . " " . mysqli_error($conn);
     }
 }
-
-
-
-
 ?>
