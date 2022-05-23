@@ -1,7 +1,7 @@
 
     var App = {
         canvas:$("#canvas"),
-        url: "http://gallardo/Day5",
+        url: "http://gallardo/Day5/#",
         api: "/api"
     }
     var loginCred = localStorage.getItem('loginCred');
@@ -57,7 +57,7 @@ $(document).ready(function(){
                         var found = 0;
                         $.ajax({
                             type: "post",
-                            url: App.url + App.api + "/check", 
+                            url: "api/try", 
                             dataType: "json",
                             data: {
                                 uname : uname,

@@ -1,6 +1,4 @@
 <?php
-require 'Slim/Slim.php';
-require 'idiorm.php';
 include 'functions.loader.php';
 //include 'connect.php';
 
