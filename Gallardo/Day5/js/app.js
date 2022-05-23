@@ -1,6 +1,6 @@
 var App = {
     canvas:$("#canvas"),
-    url: "http://localhost/gallardo/Day5",
+    url: "http://gallardo/Day5",
     api: "/api"
 }
 var loginCred = localStorage.getItem('loginCred');
@@ -192,7 +192,7 @@ Path.map("#/login").to(function(){
         var userInfo = localStorage.getItem('userInfo');
         var obj = JSON.parse(userInfo);
         console.log(obj);
-
+        console.log(App.url+App.api + "/login");
         //-------Event Handler for Form submission-------//
             $('#flogin').submit(function(e){ 
                     e.preventDefault();                                   
@@ -229,14 +229,14 @@ Path.map("#/login").to(function(){
                     //-----------Check user cred inputs------------//
                     var found = 0;
                     $.ajax({
-                        method: "POST",
-                        url: "check.php", //App.api + /update/user/ + 
-                        datatype: "json",
+                        type: "POST",
+                        url: App.url + App.api + "/login", 
+                        dataType: "json",
                         data: {
-                                uname : uname,
-                                email : email,
-                                pswd : password
-                            }
+                            uname : uname,
+                            email : email,
+                            pswd : password
+                        }
                     }).done(function(data){
                         if(data == 'User Found')
                         {
