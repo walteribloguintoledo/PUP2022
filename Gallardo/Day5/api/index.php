@@ -1,33 +1,38 @@
 <?php
-include 'functions.loader.php';
-//include 'connect.php';
+
+// include 'functions.loader.php';
+require 'vendors/Slim/Slim.php';
+include 'functions/check.php';
+include 'functions/insert.php';
+
 
 $app = new Slim();
 
-$app->post('/try',function(){
-    echo 'hello';
-});
+// $app->post('/try',function(){
+//     echo 'hello';
+// });
 
 $app->post('/check',function(){
     $uname = $_POST['uname'];
     $email = $_POST['email'];
-    $password = $_POST['pswd'];
-    echo "SAMPLE";
-    // $sql = "SELECT * FROM users WHERE username = '$uname' AND email = '$email' AND password = '$password'";
-    // $result = mysqli_query($conn, $sql);
-    
-    // if(mysqli_num_rows($result) == 1) {
-    //     echo "User Found";
-       
-    //}
-    // else {
-    //     echo "User does not exist";
-    //}
+    $pswd = $_POST['pswd'];
+    $check = checkUser($uname,$email,$pswd);
+    echo $check;
 });
-
-$app->get("/sample", function() {
-    echo "gggsg";
+$app->post('/register',function(){
+    $fname = $_POST['name'];
+    $address = $_POST['address'];
+    $uname = $_POST['uname'];
+    $email = $_POST['email'];
+    $pswd =$_POST['password'];
+    $bday = $_POST['bday'];
+    $contact = $_POST['contact'];
+    $insert = insertUser($fname,$address,$uname,$email,$pswd,$bday,$contact);
+    echo $insert;
 });
+// $app->get("/sample", function() {
+//     echo "gggsg";
+// });
 
 $app->run();
 

@@ -1,34 +1,30 @@
 <?php
-include "connect.php";
-
-$fname = $_POST['name'];
-$address = $_POST['address'];
-$uname = $_POST['uname'];
-$email = $_POST['email'];
-$password =$_POST['password'];
-$bday = $_POST['bday'];
-$contact = $_POST['contact'];
-
-
-$sql = "INSERT INTO users (fullname, address, username, email, password, birthday, contact) VALUES ('$fname','$address','$uname','$email','$password','$bday','$contact')";
-
-$mysql = "SELECT * FROM users WHERE username = '$uname' AND email = '$email'";
-
-$result = mysqli_query($conn, $mysql);
-
-if(mysqli_num_rows($result) == 1) {
-    echo "User exist";
-}
-else 
-{
-    echo "User does not exist";
-    if(mysqli_query($conn, $sql))
+    function insertUser($fname,$address,$uname,$email,$pswd,$bday,$contact)
     {
-        // echo 'New record created successfully';
+        include "connect.php";
+        $sql = "INSERT INTO users (fullname, address, username, email, password, birthday, contact) VALUES ('$fname','$address','$uname','$email','$pswd','$bday','$contact')";
+
+        $mysql = "SELECT * FROM users WHERE username = '$uname' AND email = '$email'";
+
+        $result = mysqli_query($conn, $mysql);
+
+        if(mysqli_num_rows($result) == 1) 
+        {
+            $data = array("valid" => false);
+            // echo "User exist";
+        }
+        else 
+        {
+            if(mysqli_query($conn, $sql))
+            {
+                $data = array("valid" => true, "fullname" => $fname, "address" => $address, "username" => $uname, "email" => $email, "password" => $pswd, "bday" => $bday, "contact" => $contact  );
+            }
+            else
+            {
+                $data = array("valid" => false);
+            }
+        }
+        echo json_encode($data);
     }
-    else
-    {
-        echo "Error: " . $sql . " " . mysqli_error($conn);
-    }
-}
+
 ?>
