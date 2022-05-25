@@ -4,11 +4,12 @@
 require 'vendors/Slim/Slim.php';
 include 'functions/check.php';
 include 'functions/insert.php';
+include 'functions/update.php';
 
 
 $app = new Slim();
 
-// $app->post('/try',function(){
+// $app->get('/try',function(){
 //     echo 'hello';
 // });
 
@@ -28,11 +29,20 @@ $app->post('/register',function(){
     $bday = $_POST['bday'];
     $contact = $_POST['contact'];
     $insert = insertUser($fname,$address,$uname,$email,$pswd,$bday,$contact);
-    echo $insert;
+    echo json_encode($insert);
 });
-// $app->get("/sample", function() {
-//     echo "gggsg";
-// });
+$app->post('/update', function(){
+    $update = $_POST['edit'];
+    $newfname = $_POST['name'];
+    $newaddress = $_POST['address'];
+    $newuname = $_POST['uname'];
+    $newemail = $_POST['email'];
+    $newpswd = $_POST['password'];
+    $newbday = $_POST['bday'];
+    $newcontact = $_POST['contact'];
+    $update = updateUser($update,$newfname,$newaddress,$newuname,$newemail,$newpswd,$newbday,$newcontact);
+    echo json_encode($update);
+});
 
 $app->run();
 

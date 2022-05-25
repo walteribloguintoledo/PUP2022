@@ -1,31 +1,25 @@
 <?php
-include "connect.php";
+function updateUser($update,$newfname,$newaddress,$newuname,$newemail,$newpswd,$newbday,$newcontact){
 
-$update = $_POST['edit'];
-$newname = $_POST['name'];
-$newaddress = $_POST['address'];
-$newuname = $_POST['uname'];
-$newemail = $_POST['email'];
-$newpassword =$_POST['password'];
-$newbday = $_POST['bday'];
-$newcontact = $_POST['contact'];
+  include "connect.php";
 
-$sql = "UPDATE users SET fullname = '$newname',address= '$newaddress',username = '$newuname',email = '$newemail',password = '$newpassword',birthday = '$newbday', contact= '$newcontact' WHERE userid = '$update'";
-$emailsql = "SELECT * FROM users WHERE email = '$newemail'";
-$ures = mysqli_query($conn, $unamesql);
-$resemail = mysqli_query($conn, $emailsql);
+  $sql = "UPDATE users SET fullname = '$newfname',address= '$newaddress',username = '$newuname',email = '$newemail',password = '$newpswd',birthday = '$newbday', contact= '$newcontact' WHERE userid = '$update'";
+  $existsql = "SELECT * FROM users WHERE username = '$newuname' OR email = '$newemail'";
+  $resExist = mysqli_query($conn, $existsql);
 
-if(mysqli_num_rows($resemail) == 1 )
-{
-    $emailtaken = 2;
-    echo $emailtaken;
-}
-else{
-    if (mysqli_query($conn, $sql)) {
-        echo "Record updated successfully";
-      } else {
-        echo "Error updating record: " . mysqli_error($conn);
-      }
+  if(mysqli_num_rows($resExist) == 0 )
+  {
+    if (mysqli_query($conn, $sql)) 
+    {
+      $data = array("valid" => true,"userid" => $update, "fullname" => $newfname, "address" => $newaddress, "username" => $newuname, "email" => $newemail, "password" => $newpswd, "bday" => $newbday, "contact" => $newcontact);
+    } 
+    
+  }
+  else
+  {
+    $data = array("valid" => false);
+  }
+  return $data;
 }
 
 ?>

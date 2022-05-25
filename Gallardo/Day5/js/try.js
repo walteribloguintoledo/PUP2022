@@ -143,7 +143,6 @@ $(document).ready(function(){
         Path.map("#/signup").to(function(){
             App.canvas.mustache('signup');
             prevAccess(logcred);
-            
             $('#signUp').submit(function(e){ 
                 e.preventDefault();                                   
                 var name = $('#fullname').val();
@@ -199,10 +198,11 @@ $(document).ready(function(){
                 }
                 else
                 {
+                   
                     $.ajax({
                         type: "POST",
                         url: "api/register",
-                        datatype: "json",
+                        dataType: "json",
                         data: {
                                 name : name,
                                 address : address,
@@ -214,50 +214,49 @@ $(document).ready(function(){
                             },
                         success: function (response)
                         {
-                           
-                            if(response.valid == true)
+                            console.log(response.valid);
+                            if(response.valid)
                             {
                                 alert("Your information is registered");
                                 //-----Save to Local Storage-----//
-                                saveArr(response.fullname,response.address,response.username,response.email,response.password,response.bday,response.contact);
-                                localStorage.setItem("users", JSON.stringify(storeuser));
-                                
+                                var users = saveArr(response.fullname,response.address,response.username,response.email,response.password,response.bday,response.contact);
+                                var existing = JSON.parse(localStorage.getItem("users"));
+                                console.log(existing);
+                                if(existing!==null)
+                                {
+                                    storeUser.push(users);
+                                    existing.push(users);
+                                    localStorage.setItem("users", JSON.stringify(existing));
+                            
+                                }
+                                else
+                                {
+                                    storeUser.push(users);
+                                    console.log(storeUser);
+                                    localStorage.setItem("users", JSON.stringify(storeUser));
+                                }
+                                calcAge(response.bday);
+                                timeSubmit();
                             }
                             else
                             {
-                               
-                                alert("The information is already registered");
-                                console.log(response.valid);
+                                console.log(response.valid); 
+                                alert("The username or email is already registered provide another");
+                                
                             }
                         }
-                        // }).done(function(data){
-                        //     if(data == "User exist")
-                        //     {
-                        //         alert('The user have been registered');
-                        //         $('#signUp').trigger("reset");
-                        //     }
-                        //     if(data == "User does not exist")
-                        //     {
-                        //         calcAge();
-                        //         timeSubmit();
-                        //         alert(name +" "+ address + " " + bday + " " + contact + " " + uname + " " +email);
-                        //         alert('New user registered');
-                        //         $('#signUp').trigger("reset");
-                                
-                        //     }
                         });
                 }
                                 
             });//end of event handler
-            //-------------Event handler for "show user input" button------------//
-            $('#show').click(function(){ 
-                dispArr(storeUser);
-            });//end of event handler
+            // //-------------Event handler for "show user input" button------------//
+            // $('#show').click(function(){ 
+            //     dispArr(storeUser);
+            // });//end of event handler
 
             //-------------Function for Age Calculation------------//
-            function calcAge(){
-                var bday = $('#bday').val();
-                var birthDate = new Date($('#bday').val());
+            function calcAge(bday){
+                var birthDate = new Date(bday);
                 var birthDay = birthDate.getDate();
                 var birthMonth = birthDate.getMonth();
                 var birthYear = birthDate.getFullYear();
@@ -320,6 +319,136 @@ $(document).ready(function(){
                     window.location.reload();
                 });
         });
+        Path.map("#/view").to(function(){
+            prevHome(login);
+            App.canvas.mustache('view');
+            $("#backhome").click(function(){
+                prevHome()
+                window.location.replace("#/home");
+                window.location.reload();
+            });
+        });
+
+        Path.map("#/update").to(function(){
+            App.canvas.mustache('update');
+            prevHome(login);
+            var uid = logcred[0][0].userid;
+            console.log(uid);
+            $("#fupdate").submit(function(e){
+                e.preventDefault();
+               
+                var newname = $('#newname').val();
+                var newaddress = $('#newaddress').val();
+                var newuname = $('#newusername').val();
+                var newemail = $('#newemail').val();
+                var newpassword = $('#newpassword').val();
+                var newbday = $('#newbday').val();
+                var newcontact = $('#newcontact').val();
+                var uerr = 0;
+                let umessages = [];
+
+                //-----------User Input Validation----------//        
+                if (newname == "" || newname == null)
+                {
+                    umessages.push("Name is Required ");
+                    uerr = 1;
+                }
+
+                if (newaddress == "" || newaddress == null)
+                {
+                    umessages.push("Address is required ");
+                    uerr = 1;
+                }
+                if (newuname == "" || newuname == null)
+                {
+                    umessages.push("Username is required ");
+                    uerr = 1;
+                }
+                if(newemail == "" || newemail == null)
+                {
+                    umessages.push("Email is required ");
+                    uerr = 1;
+                }
+                if(newpassword == "" || newpassword == null)
+                {
+                    umessages.push("Password is required ");
+                    uerr = 1;
+                }
+                if(newbday == "" || newbday == null)
+                {
+                    umessages.push("Birthday is required ");
+                    uerr = 1;
+                }
+                if(newcontact == "" || newcontact == null)
+                {
+                    umessages.push("Contact is required ");
+                    uerr = 1; 
+                }
+                if ( uerr == 1)
+                {
+                    alert(umessages);
+                }
+                else
+                {
+                    $.ajax({
+                        method: "POST",
+                        url: "api/update",
+                        dataType: "json",
+                        data: {
+                                edit : uid,
+                                name : newname,
+                                address : newaddress,
+                                uname : newuname,
+                                email : newemail,
+                                password : newpassword,
+                                bday : newbday,
+                                contact : newcontact
+                            },
+                        success: function(response)
+                        {
+                            console.log(response);
+                            if(response.valid)
+                            {
+                                const newCreds = new Array( { 
+                                    "Time Submited" : Date.now(),
+                                    "userid" : response.userid,
+                                    "Username" : response.username,
+                                    "Email" :response.email,
+                                    "Password":response.password
+                                });
+                                usercred.push(newCreds);
+                                localStorage.setItem("loginCred", JSON.stringify(usercred));
+                                alert("New information has been saved");
+                                $('#fupdate').trigger("reset");
+                            }
+                            else
+                            {
+                                alert("The email or username is already taken");
+                            }
+                        }
+                    // }).done(function(){
+                        
+                    //         const newinputs = new Array( { 
+                    //             "Time Submited" : Date.now(),
+                    //             "Username" : newuname,
+                    //             "Email" : newemail,
+                    //             "Password":newpassword
+                    //         });
+                    //         usercred.push(newinputs);
+                    //         localStorage.setItem("loginCred", JSON.stringify(usercred));
+                    //         alert("Changes have been saved!");
+                    //         
+                        
+                    });
+                }
+                
+            });
+                $("#cancel").click(function(){
+                    window.location.replace("#/home");
+                    window.location.reload();
+                });
+        });
+               
         Path.root("#/login");
         Path.listen();
     });

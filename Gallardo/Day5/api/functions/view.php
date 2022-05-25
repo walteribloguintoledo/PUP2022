@@ -39,4 +39,9 @@ if (mysqli_num_rows($result) > 0) {
           location.replace('#/home');
           </script>";
   }
+  function viewUsers()
+  {
+    
+
+  }
 ?>
