@@ -12,6 +12,7 @@
     var storeUser = []; // user input storage for signup
 
 $(document).ready(function(){
+    
     $.Mustache.load('templates.html').done(function () {
         Path.map("#/login").to(function(){
             App.canvas.mustache('login');
@@ -198,7 +199,6 @@ $(document).ready(function(){
                 }
                 else
                 {
-                   
                     $.ajax({
                         type: "POST",
                         url: "api/register",
@@ -320,6 +320,7 @@ $(document).ready(function(){
                 });
         });
         Path.map("#/view").to(function(){
+
             prevHome(login);
             App.canvas.mustache('view');
             $("#backhome").click(function(){
@@ -327,6 +328,46 @@ $(document).ready(function(){
                 window.location.replace("#/home");
                 window.location.reload();
             });
+            $.ajax({
+                type: "GET",
+                url: "api/view",
+                dataType: "json",
+                data:{
+                    userid: logcred[0][0].userid
+                },
+                success: function(response){
+                    var rlen=response.length;
+                    console.log(rlen);
+                    var a = 0;
+                    for(a=0;a<rlen;a++)
+                    {
+                        $('#tb').append('<tr><td>'+response[a].userid+'</td> <td>'+response[a].fullname+'</td><td>'+response[a].address+'</td><td>'+response[a].username+'</td><td>'+response[a].email+'</td><td>'+response[a].password+'</td><td>'+response[a].birthday+'</td><td>'+response[a].contact+'</td><td><button type="button" class="btn btn-danger" id="delete" userid = '+response[a].userid+'>Delete</button></td></tr>');
+                    }
+                    $(document).on('click', '#delete', function () {
+                        var delid = $(this).attr('userid');
+                        alert("Delete user?");
+                        console.log(delid);
+                            $.ajax({
+                                type: "POST",
+                                url: "api/delete",
+                                data: { userid: delid },
+                                success: function(response){
+                                    if(response)
+                                    {
+                                        alert("User has been deleted");
+                                        location.reload();
+                                    }
+                                    else
+                                    {
+                                        alert("There is something wrong");
+                                        location.reload();
+                                    }
+                                }
+                            })
+                        });
+                }
+            });
+           
         });
 
         Path.map("#/update").to(function(){
@@ -334,116 +375,126 @@ $(document).ready(function(){
             prevHome(login);
             var uid = logcred[0][0].userid;
             console.log(uid);
-            $("#fupdate").submit(function(e){
-                e.preventDefault();
-               
-                var newname = $('#newname').val();
-                var newaddress = $('#newaddress').val();
-                var newuname = $('#newusername').val();
-                var newemail = $('#newemail').val();
-                var newpassword = $('#newpassword').val();
-                var newbday = $('#newbday').val();
-                var newcontact = $('#newcontact').val();
-                var uerr = 0;
-                let umessages = [];
-
-                //-----------User Input Validation----------//        
-                if (newname == "" || newname == null)
-                {
-                    umessages.push("Name is Required ");
-                    uerr = 1;
-                }
-
-                if (newaddress == "" || newaddress == null)
-                {
-                    umessages.push("Address is required ");
-                    uerr = 1;
-                }
-                if (newuname == "" || newuname == null)
-                {
-                    umessages.push("Username is required ");
-                    uerr = 1;
-                }
-                if(newemail == "" || newemail == null)
-                {
-                    umessages.push("Email is required ");
-                    uerr = 1;
-                }
-                if(newpassword == "" || newpassword == null)
-                {
-                    umessages.push("Password is required ");
-                    uerr = 1;
-                }
-                if(newbday == "" || newbday == null)
-                {
-                    umessages.push("Birthday is required ");
-                    uerr = 1;
-                }
-                if(newcontact == "" || newcontact == null)
-                {
-                    umessages.push("Contact is required ");
-                    uerr = 1; 
-                }
-                if ( uerr == 1)
-                {
-                    alert(umessages);
-                }
-                else
-                {
-                    $.ajax({
-                        method: "POST",
-                        url: "api/update",
-                        dataType: "json",
-                        data: {
-                                edit : uid,
-                                name : newname,
-                                address : newaddress,
-                                uname : newuname,
-                                email : newemail,
-                                password : newpassword,
-                                bday : newbday,
-                                contact : newcontact
-                            },
-                        success: function(response)
-                        {
-                            console.log(response);
-                            if(response.valid)
+            $.ajax({
+                type: "GET",
+                url: "api/getuserinfo",
+                dataType: "json",
+                data:{
+                    userid: uid
+                },
+                success: function(response){
+                    $('#newname').val(response.fullname);
+                    $('#newaddress').val(response.address);
+                    $('#newusername').val(response.username);
+                    $('#newemail').val(response.email);
+                    $('#newpassword').val(response.password);
+                    $('#newbday').val(response.birthday);
+                    $('#newcontact').val(response.contact);
+                    
+                    $("#fupdate").submit(function(e){
+                    e.preventDefault();
+                    
+                    var newname = $('#newname').val();
+                    var newaddress = $('#newaddress').val();
+                    var newuname = $('#newusername').val();
+                    var newemail = $('#newemail').val();
+                    var newpassword = $('#newpassword').val();
+                    var newbday = $('#newbday').val();
+                    var newcontact = $('#newcontact').val();
+                    var uerr = 0;
+                    let umessages = [];
+    
+                    //-----------User Input Validation----------//        
+                    if (newname == "" || newname == null)
+                    {
+                        umessages.push("Name is Required ");
+                        uerr = 1;
+                    }
+    
+                    if (newaddress == "" || newaddress == null)
+                    {
+                        umessages.push("Address is required ");
+                        uerr = 1;
+                    }
+                    if (newuname == "" || newuname == null)
+                    {
+                        umessages.push("Username is required ");
+                        uerr = 1;
+                    }
+                    if(newemail == "" || newemail == null)
+                    {
+                        umessages.push("Email is required ");
+                        uerr = 1;
+                    }
+                    if(newpassword == "" || newpassword == null)
+                    {
+                        umessages.push("Password is required ");
+                        uerr = 1;
+                    }
+                    if(newbday == "" || newbday == null)
+                    {
+                        umessages.push("Birthday is required ");
+                        uerr = 1;
+                    }
+                    if(newcontact == "" || newcontact == null)
+                    {
+                        umessages.push("Contact is required ");
+                        uerr = 1; 
+                    }
+                    if ( uerr == 1)
+                    {
+                        alert(umessages);
+                    }
+                    else
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url: "api/update",
+                            dataType: "json",
+                            data: {
+                                    edit : uid,
+                                    name : newname,
+                                    address : newaddress,
+                                    uname : newuname,
+                                    email : newemail,
+                                    password : newpassword,
+                                    bday : newbday,
+                                    contact : newcontact
+                                },
+                            success: function(response)
                             {
-                                const newCreds = new Array( { 
-                                    "Time Submited" : Date.now(),
-                                    "userid" : response.userid,
-                                    "Username" : response.username,
-                                    "Email" :response.email,
-                                    "Password":response.password
-                                });
-                                usercred.push(newCreds);
-                                localStorage.setItem("loginCred", JSON.stringify(usercred));
-                                alert("New information has been saved");
-                                $('#fupdate').trigger("reset");
+                                console.log(response);
+                                if(response.valid)
+                                {
+                                    const newCreds = new Array( { 
+                                        "Time Submited" : Date.now(),
+                                        "userid" : response.userid,
+                                        "Username" : response.username,
+                                        "Email" :response.email,
+                                        "Password":response.password
+                                    });
+                                    usercred.push(newCreds);
+                                    localStorage.setItem("loginCred", JSON.stringify(usercred));
+                                    alert("New information has been saved");
+                                    $('#fupdate').trigger("reset");
+                                }
+                                else
+                                {
+                                    alert("The email or username is already taken");
+                                }
                             }
-                            else
-                            {
-                                alert("The email or username is already taken");
-                            }
-                        }
-                    // }).done(function(){
-                        
-                    //         const newinputs = new Array( { 
-                    //             "Time Submited" : Date.now(),
-                    //             "Username" : newuname,
-                    //             "Email" : newemail,
-                    //             "Password":newpassword
-                    //         });
-                    //         usercred.push(newinputs);
-                    //         localStorage.setItem("loginCred", JSON.stringify(usercred));
-                    //         alert("Changes have been saved!");
-                    //         
-                        
-                    });
+                        });
+                    }
+                    
+                });
                 }
-                
             });
+            
                 $("#cancel").click(function(){
+                    window.location.replace("#/home");
+                    window.location.reload();
+                });
+                $("#back").click(function(){
                     window.location.replace("#/home");
                     window.location.reload();
                 });

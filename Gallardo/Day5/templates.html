@@ -253,7 +253,8 @@
               </div>
               <div>
               <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-success" id="usubmit" onclick="">Save</button>
-              <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-info" id="cancel" onclick="">Cancel</button>
+              <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-danger" id="cancel" onclick="">Cancel</button>
+              <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-info" id="back" onclick="">Home</button>
               </div>
               </form>
           </div>
@@ -263,7 +264,9 @@
 </script>
 <!-- view users -->
 <script type="text/template" id="view">
-  <table class="table table-sm table-bordered table-hover table-striped table-light">
+  
+  <table id ="usertable" class="table table-sm table-bordered table-hover table-striped table-light">
+    <h1 class="display-1 fst-italic">List of Users</h1>
     <tr>
         <th>ID</th>
         <th>Fullname</th>
@@ -275,17 +278,10 @@
         <th>Contact</th>
         <th>Delete</th>
     </tr>
-    <tr>
-      <td>.$row['userid'].</td>
-      <td>.$row['fullname'].</td>
-      <td>.$row['address'].</td>
-      <td>.$row['username'].</td>
-      <td>.$row['email'].</td>
-      <td>.$row['password'].</td>
-      <td>.$row['birthday'].</td>
-      <td>.$row['contact'].</td>
-      <td><button type="button" class="btn btn-danger" id = "delete">Delete</button></td>
-  </tr>
+    <tbody id="tb">
+     
+    </tbody>
+
   </table>
   <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-info" id="backhome" onclick="">Home</button>
 </script>

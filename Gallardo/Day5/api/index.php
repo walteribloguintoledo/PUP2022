@@ -5,6 +5,9 @@ require 'vendors/Slim/Slim.php';
 include 'functions/check.php';
 include 'functions/insert.php';
 include 'functions/update.php';
+include 'functions/getinfo.php';
+include 'functions/view.php';
+include 'functions/delete.php';
 
 
 $app = new Slim();
@@ -31,6 +34,16 @@ $app->post('/register',function(){
     $insert = insertUser($fname,$address,$uname,$email,$pswd,$bday,$contact);
     echo json_encode($insert);
 });
+$app->get('/getuserinfo', function(){
+    $uid = $_GET['userid'];
+    $getUser = getInfo($uid);
+    echo json_encode($getUser);
+});
+$app->get('/view', function(){
+    $uid = $_GET['userid'];
+    $viewUsers = viewUsers($uid);
+    echo json_encode($viewUsers);
+});
 $app->post('/update', function(){
     $update = $_POST['edit'];
     $newfname = $_POST['name'];
@@ -42,6 +55,11 @@ $app->post('/update', function(){
     $newcontact = $_POST['contact'];
     $update = updateUser($update,$newfname,$newaddress,$newuname,$newemail,$newpswd,$newbday,$newcontact);
     echo json_encode($update);
+});
+$app->post('/delete', function(){
+    $delid = $_POST['userid'];
+    $delete = deleteUser($delid);
+    echo json_encode($delete);
 });
 
 $app->run();
