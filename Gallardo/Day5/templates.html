@@ -28,7 +28,7 @@
             <label for="floatingInput">Password</label>
             </div>
             <div class="form-floating mb-2 w-200"> <!--input field for Birthday -->
-                <input type="date" class="form-control" id="bday" placeholder="birthday" name="bday" >
+                <input type="date" class="form-control" id="bday" placeholder="mm-dd-yyyy" name="bday" >
                 <label for="floatingInput">Birthday</label>
             </div>
             <div class="form-floating mb-2 w-200"> <!--input field for Contact no. -->
@@ -244,7 +244,7 @@
               <label for="floatingInput" maxlength="10">Password</label>
               </div>
               <div class="form-floating mb-2 w-200">
-                  <input type="date" class="form-control" id="newbday" placeholder="birthday" name="newbday" >
+                  <input type="date" class="form-control" id="newbday" placeholder="MM-DD-YYYY" name="newbday" >
                   <label for="floatingInput">Birthday</label>
               </div>
               <div class="form-floating mb-2 w-200">
@@ -264,9 +264,11 @@
 </script>
 <!-- view users -->
 <script type="text/template" id="view">
-  
+
   <table id ="usertable" class="table table-sm table-bordered table-hover table-striped table-light">
+
     <h1 class="display-1 fst-italic">List of Users</h1>
+    <span></span>
     <tr>
         <th>ID</th>
         <th>Fullname</th>
@@ -281,8 +283,10 @@
     <tbody id="tb">
      
     </tbody>
-
+    
   </table>
-  <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-info" id="backhome" onclick="">Home</button>
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button type="button" class="w-200 mb-2 btn btn-lg rounded-4btn btn-info" id="backhome" onclick="">Home</button>
+  </div>
 </script>
 

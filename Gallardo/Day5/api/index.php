@@ -1,20 +1,16 @@
 <?php
-
-// include 'functions.loader.php';
 require 'vendors/Slim/Slim.php';
+require 'vendors/idiorm.php';
 include 'functions/check.php';
 include 'functions/insert.php';
 include 'functions/update.php';
 include 'functions/getinfo.php';
 include 'functions/view.php';
 include 'functions/delete.php';
+include 'functions/connect.php';
 
 
 $app = new Slim();
-
-// $app->get('/try',function(){
-//     echo 'hello';
-// });
 
 $app->post('/check',function(){
     $uname = $_POST['uname'];
@@ -39,13 +35,13 @@ $app->get('/getuserinfo', function(){
     $getUser = getInfo($uid);
     echo json_encode($getUser);
 });
-$app->get('/view', function(){
-    $uid = $_GET['userid'];
+$app->get('/view/:id', function($uid){
+    //$uid = $_GET['userid'];
     $viewUsers = viewUsers($uid);
     echo json_encode($viewUsers);
 });
 $app->post('/update', function(){
-    $update = $_POST['edit'];
+    $uid = $_POST['edit'];
     $newfname = $_POST['name'];
     $newaddress = $_POST['address'];
     $newuname = $_POST['uname'];
@@ -53,7 +49,7 @@ $app->post('/update', function(){
     $newpswd = $_POST['password'];
     $newbday = $_POST['bday'];
     $newcontact = $_POST['contact'];
-    $update = updateUser($update,$newfname,$newaddress,$newuname,$newemail,$newpswd,$newbday,$newcontact);
+    $update = updateUser($uid,$newfname,$newaddress,$newuname,$newemail,$newpswd,$newbday,$newcontact);
     echo json_encode($update);
 });
 $app->post('/delete', function(){

@@ -6,6 +6,7 @@
     }
     var loginCred = localStorage.getItem('loginCred');
     var logcred = JSON.parse(loginCred);
+    console.log(logcred[0][0].userid);
     var logout = 0;
     var login = 0;
     var usercred = []; // user input storage for login
@@ -23,7 +24,7 @@ $(document).ready(function(){
             console.log(obj);
             console.log(App.url+App.api + "/login");
             //-------Event Handler for Form submission-------//
-                $('#flogin').submit(function(e){ 
+                $('#flogin').on('submit',function(e){ 
                         e.preventDefault();                                   
                         var uname = $('#uname').val();
                         var email = $('#logemail').val();
@@ -111,7 +112,7 @@ $(document).ready(function(){
                     usercred.push(inputs);
                     $('#flogin').trigger("reset");
                 }
-                $('#tosignup').click (function (){
+                $('#tosignup').on('click', function (){
                     window.location.replace("#/signup");
                     window.location.reload();
                     });
@@ -122,19 +123,19 @@ $(document).ready(function(){
             App.canvas.mustache('home');
             prevHome(login);
             $(document).ready(function(){
-                $("#logout").click(function(){
+                $("#logout").on('click',function(){
                     logout = 1;
                     alert("Logging out......");
                     localStorage.removeItem('loginCred');
                     window.location.replace("#/login");
                     window.location.reload();
                 });
-                $("#update").click(function(){
+                $("#update").on('click',function(){
                     alert("Want to update your info?");
                     window.location.replace("#/update");
                     window.location.reload();
                 })
-                $("#view").click(function(){
+                $("#view").on('click',function(){
                     window.location.replace("#/view");
                     window.location.reload();
                 })
@@ -144,7 +145,7 @@ $(document).ready(function(){
         Path.map("#/signup").to(function(){
             App.canvas.mustache('signup');
             prevAccess(logcred);
-            $('#signUp').submit(function(e){ 
+            $('#signUp').on('submit',function(e){ 
                 e.preventDefault();                                   
                 var name = $('#fullname').val();
                 var address = $('#address').val();
@@ -238,22 +239,27 @@ $(document).ready(function(){
                                 calcAge(response.bday);
                                 timeSubmit();
                             }
+                            else if(response.emailexist)
+                            {
+                                console.log(response.emailexist); 
+                                alert("The email is already registered provide another");
+                                
+                            }
+                            else if(response.userexist)
+                            {
+                                console.log(response.userexist); 
+                                alert("The username is already taken provide another");
+                            }
                             else
                             {
-                                console.log(response.valid); 
-                                alert("The username or email is already registered provide another");
-                                
+                                alert('Something went wrong');
                             }
                         }
                         });
                 }
                                 
             });//end of event handler
-            // //-------------Event handler for "show user input" button------------//
-            // $('#show').click(function(){ 
-            //     dispArr(storeUser);
-            // });//end of event handler
-
+            
             //-------------Function for Age Calculation------------//
             function calcAge(bday){
                 var birthDate = new Date(bday);
@@ -314,23 +320,22 @@ $(document).ready(function(){
                 return inputs;
             }
                 
-                $('#tologin').click(function(){
+                $('#tologin').on('click',function(){
                     window.location.replace("#/login");
                     window.location.reload();
                 });
         });
         Path.map("#/view").to(function(){
-
             prevHome(login);
             App.canvas.mustache('view');
-            $("#backhome").click(function(){
+            $("#backhome").on('click',function(){
                 prevHome()
                 window.location.replace("#/home");
                 window.location.reload();
             });
             $.ajax({
                 type: "GET",
-                url: "api/view",
+                url: "api/view/" + logcred[0][0].userid,
                 dataType: "json",
                 data:{
                     userid: logcred[0][0].userid
@@ -391,7 +396,7 @@ $(document).ready(function(){
                     $('#newbday').val(response.birthday);
                     $('#newcontact').val(response.contact);
                     
-                    $("#fupdate").submit(function(e){
+                    $("#fupdate").on('submit',function(e){
                     e.preventDefault();
                     
                     var newname = $('#newname').val();
@@ -476,7 +481,7 @@ $(document).ready(function(){
                                     usercred.push(newCreds);
                                     localStorage.setItem("loginCred", JSON.stringify(usercred));
                                     alert("New information has been saved");
-                                    $('#fupdate').trigger("reset");
+                                    window.location.reload();
                                 }
                                 else
                                 {
@@ -490,11 +495,11 @@ $(document).ready(function(){
                 }
             });
             
-                $("#cancel").click(function(){
+                $("#cancel").on('click',function(){
                     window.location.replace("#/home");
                     window.location.reload();
                 });
-                $("#back").click(function(){
+                $("#back").on('click',function(){
                     window.location.replace("#/home");
                     window.location.reload();
                 });
@@ -515,7 +520,7 @@ function numOnly(ev){
 function lettersOnly(ev){
     var ch = String.fromCharCode(ev.which)
     var name = $('#fullname');
-    var allow = /[a-zA-z " "]/;
+    var allow = /[a-zA-z " ".]/;
     if(!(allow.test(ch))){
     ev.preventDefault();
     }

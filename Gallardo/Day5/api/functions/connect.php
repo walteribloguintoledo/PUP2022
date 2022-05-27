@@ -1,17 +1,7 @@
 <?php
-$server = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gallardo";
-// Create connection
-$conn = new mysqli($server, $username, $password, $dbname);
-
-// Check connection
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-  }
-// else
-// {
-//   echo "connected";
-// }
+ORM::configure('mysql:host=localhost;dbname=gallardo');
+ORM::configure('username','root');
+ORM:: configure('password','');
+ORM::configure('return_result_sets', true);
+ORM::configure('id_column', 'userid');
 ?>
