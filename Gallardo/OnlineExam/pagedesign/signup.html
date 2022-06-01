@@ -39,22 +39,27 @@
     <section class="register-photo" style="background: #5EBEC4;">
         <div class="form-container">
             <div class="image-holder"></div>
-            <form method="post">
+            <form method="post" id="signupForm">
                 <h2 class="text-center"><strong>Create</strong> an account.</h2>
-                <div style="margin-bottom: 16px;"><input class="form-control" type="text" placeholder="First name" style="background: #FDF5DF;"></div>
-                <div style="margin-bottom: 16px;"><input class="form-control" type="text" placeholder="Last name" style="background: #FDF5DF;"></div>
-                <div style="margin-bottom: 16px;"><textarea class="form-control" placeholder="Address" style="background: #FDF5DF;"></textarea></div>
-                <div style="margin-bottom: 16px;"><input class="form-control" type="date" placeholder="Birthday" style="background: #FDF5DF;"></div>
-                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" style="background: #FDF5DF;"></div>
-                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password" style="background: #FDF5DF;"></div>
-                <div class="mb-3"><input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)" style="background: #FDF5DF;"></div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: #F92C85;">Sign Up</button></div><a class="already" href="#">You already have an account? Login here.</a>
+                <div style="margin-bottom: 16px;"><input class="form-control" type="text" placeholder="First name" style="background: #FDF5DF;" id="firstname"></div>
+                <div style="margin-bottom: 16px;"><input class="form-control" type="text" placeholder="Last name" style="background: #FDF5DF;" id="lastname"></div>
+                <div style="margin-bottom: 16px;"><textarea class="form-control" placeholder="Address" style="background: #FDF5DF;" id="address"></textarea></div>
+                <div style="margin-bottom: 16px;"><input class="form-control" type="date" placeholder="Birthday" style="background: #FDF5DF;" id="birthday"></div>
+                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" style="background: #FDF5DF;" id="email"></div>
+                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password" style="background: #FDF5DF;" id="pswd"></div>
+                <div class="mb-3"><input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)" style="background: #FDF5DF;" id="confirmPswd"></div>
+                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="background: #F92C85;" id="signup">Sign Up</button></div><a class="already" href="login.html">You already have an account? Login here.</a>
             </form>
         </div>
     </section>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.8/swiper-bundle.min.js"></script>
     <script src="assets/js/Simple-Slider.js"></script>
+    
 </body>
-
+<script src="js/jquery-1.9.0.js"></script>
+<script src="js/jquery.mustache.js"></script>
+<script src="js/mustache-0.7.2.js"></script>
+<script src="js/path.min.js"></script>
+<script src="js/olex.js"></script>
 </html>

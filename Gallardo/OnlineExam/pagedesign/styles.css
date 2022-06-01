@@ -1,0 +1,11 @@
+body{
+    font-weight: bold;
+    height: 1280px;
+}
+nav{
+    background: #5EBEC4;
+    color: var(--bs-white);
+    max-height: 80px;
+    min-height: 80px;
+    height: 80px;
+}
