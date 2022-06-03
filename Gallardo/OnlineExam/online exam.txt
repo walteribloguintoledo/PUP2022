@@ -1,0 +1,44 @@
+exam_entry
+id, uid, key, value, status
+
+1, 2345, question, one plus one, 1
+2, 2345, choices1, 3, 1
+3, 2345, choices2, 5, 1
+4, 2345, choices3, 6, 1
+5, 2345, choices4, 2, 1
+6, 2345, answer, 2, 1
+
+uid Ymd category subject level
+
+uid 20220601ramdom-0001-0001-1
+uid Ymdramdom
+
+exams
+id, uid, category, subject, level, status
+
+1, 2345, BSIT, Programming 101, 1, 1
+2, 2346, BSIT, Programming 101, 1, 1
+3, 2347, BSIT, Javascript 1, 1, 1
+4, 2348, BSIT, Javascript 2, 2, 1
+
+
+category
+id, uid, category
+
+1, 0001, BSIT 
+2, 0002, ComSci
+3 0003, ComEng
+
+id, code subject
+1, 0001, Programming 101
+2, 0002, Programmming 102
+3, 0003, Javascript 1
+4, 0004, Javascript 2
+5, 0005, Pascal
+
+users
+id, uid, type, username, password b 
+1, 0001, admin, 
+2, 0002, user1
+
+
