@@ -6,7 +6,7 @@
     }
     var loginCred = localStorage.getItem('loginCred');
     var logcred = JSON.parse(loginCred);
-    console.log(logcred[0][0].userid);
+    // console.log(logcred[0][0].userid);
     var logout = 0;
     var login = 0;
     var usercred = []; // user input storage for login
