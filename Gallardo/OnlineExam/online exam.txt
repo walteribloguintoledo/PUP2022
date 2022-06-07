@@ -1,3 +1,11 @@
+exams
+id, uid, category, subject, level, status
+
+1, 2345, BSIT, Programming 101, 1, 1
+2, 2346, BSIT, Programming 101, 1, 1
+3, 2347, BSIT, Javascript 1, 1, 1
+4, 2348, BSIT, Javascript 2, 2, 1
+
 exam_entry
 id, uid, key, value, status
 
@@ -13,13 +21,7 @@ uid Ymd category subject level
 uid 20220601ramdom-0001-0001-1
 uid Ymdramdom
 
-exams
-id, uid, category, subject, level, status
 
-1, 2345, BSIT, Programming 101, 1, 1
-2, 2346, BSIT, Programming 101, 1, 1
-3, 2347, BSIT, Javascript 1, 1, 1
-4, 2348, BSIT, Javascript 2, 2, 1
 
 
 category
@@ -42,3 +44,7 @@ id, uid, type, username, password b
 2, 0002, user1
 
 
+uid, examinee, item, answer
+
+setting
+id, uid, key, value, setting
