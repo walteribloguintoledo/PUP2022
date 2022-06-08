@@ -21,9 +21,6 @@ uid Ymd category subject level
 uid 20220601ramdom-0001-0001-1
 uid Ymdramdom
 
-
-
-
 category
 id, uid, category
 

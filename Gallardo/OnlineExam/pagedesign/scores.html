@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Table - Brand</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
 </head>
 
 <body id="page-top">
@@ -19,7 +21,14 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="far fa-list-alt" style="font-size: 16px;"></i><span>Create Exam</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-list-ol" style="font-size: 16px;"></i><span>View Created Exam</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-folder" style="font-size: 16px;"></i><span>View Categories</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-folder" style="font-size: 16px;"></i><span>Add Category</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-folder-open" style="font-size: 16px;"></i><span>View Subjects</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-folder-open" style="font-size: 16px;"></i><span>Add Subject</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-user" style="font-size: 16px;"></i><span>Update Profile</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Exam Takers Info</span></a><a class="nav-link active" href="examTakersInfo.html"><i class="fas fa-medal" style="font-size: 16px;"></i><span>Summary of Scores</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="scores.html"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a><a class="nav-link active" href="scores.html"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a><a class="nav-link active" href="scores.html"><i class="fas fa-question" style="font-size: 16px;"></i><span>Add Exam Question</span></a><a class="nav-link active" href="scores.html"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exam</span></a>
+                        <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                            <div class="dropdown-menu"><a class="dropdown-item" href="#">View Categories</a><a class="dropdown-item" href="#">Add Category</a></div>
+                        </div>
+                        <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                            <div class="dropdown-menu"><a class="dropdown-item" href="#">View Subject</a><a class="dropdown-item" href="#">Add Subject</a></div>
+                        </div><a class="nav-link active" href="scores.html"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a><a class="nav-link active" href="scores.html"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                    </li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
             </div>
@@ -38,6 +47,10 @@
                                     </form>
                                 </div>
                             </li>
+                            <li class="nav-item dropdown no-arrow mx-1"></li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                            </li>
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
@@ -50,10 +63,10 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Exam Takers</h3>
+                    <h3 class="text-dark mb-4">Summary of Scores</h3>
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <p class="text-primary m-0 fw-bold">Exam Takers Info</p>
+                            <p class="text-primary m-0 fw-bold">Examinee Scores</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -61,71 +74,59 @@
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Address</th>
-                                            <th>Birthday</th>
-                                            <th>Contact</th>
+                                            <th>Exam Name</th>
+                                            <th>Score</th>
+                                            <th>Remarks</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <td>Airi Satou</td>
-                                            <td>Tokyo</td>
-                                            <td>2008/11/28</td>
-                                            <td>09221592631</td>
+                                            <td>JavaScript 1</td>
+                                            <td>95</td>
+                                            <td>Passed</td>
                                         </tr>
                                         <tr>
                                             <td>Angelica Ramos</td>
-                                            <td>London</td>
-                                            <td>2009/10/09<br></td>
-                                            <td>09256482111</td>
+                                            <td>MySQL 1</td>
+                                            <td>79</td>
+                                            <td>Failed</td>
                                         </tr>
                                         <tr>
                                             <td>Ashton Cox</td>
-                                            <td>San Francisco</td>
-                                            <td>2009/01/12<br></td>
-                                            <td>09541236542</td>
+                                            <td>PHP 2</td>
+                                            <td>70</td>
+                                            <td>Failed</td>
                                         </tr>
                                         <tr>
                                             <td>Bradley Greer</td>
-                                            <td>London</td>
-                                            <td>2012/10/13<br></td>
-                                            <td>09542178232</td>
+                                            <td>HTML 1</td>
+                                            <td>79</td>
+                                            <td>Failed</td>
                                         </tr>
                                         <tr>
                                             <td>Brenden Wagner</td>
-                                            <td>San Francisco</td>
-                                            <td>2011/06/07<br></td>
-                                            <td>09521452321</td>
+                                            <td>JavaScript 1</td>
+                                            <td>89</td>
+                                            <td>Passed</td>
                                         </tr>
                                         <tr>
                                             <td>Brielle Williamson</td>
-                                            <td>New York</td>
-                                            <td>2012/12/02<br></td>
-                                            <td>09586231547</td>
+                                            <td>JavaScript 1</td>
+                                            <td>90</td>
+                                            <td>Passed</td>
                                         </tr>
                                         <tr>
                                             <td>Bruno Nash<br></td>
-                                            <td>London</td>
-                                            <td>2011/05/03<br></td>
-                                            <td>09992582568</td>
+                                            <td>HTML 1</td>
+                                            <td>80</td>
+                                            <td>Passed</td>
                                         </tr>
                                         <tr>
                                             <td>Caesar Vance</td>
-                                            <td>New York</td>
-                                            <td>2011/12/12<br></td>
-                                            <td>09142478562</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cara Stevens</td>
-                                            <td>New York</td>
-                                            <td>2011/12/06<br></td>
-                                            <td>09123456789</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cedric Kelly</td>
-                                            <td>Edinburgh</td>
-                                            <td>2012/03/29<br></td>
-                                            <td>09451294563</td>
+                                            <td>HTML 1</td>
+                                            <td>80</td>
+                                            <td>Passed</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -139,7 +140,7 @@
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="text-center my-auto copyright"><span>Copyright © OLEX 2022</span></div>
+                    <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
                 </div>
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
