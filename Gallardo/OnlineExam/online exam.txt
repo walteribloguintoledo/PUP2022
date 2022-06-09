@@ -7,7 +7,7 @@ id, uid, category, subject, level, status
 4, 2348, BSIT, Javascript 2, 2, 1
 
 exam_entry
-id, uid, key, value, status
+id, uid, key, value, status, level
 
 1, 2345, question, one plus one, 1
 2, 2345, choices1, 3, 1
@@ -45,3 +45,14 @@ uid, examinee, item, answer
 
 setting
 id, uid, key, value, setting
+
+================================================================================================================
+IDEAS:
+
+Case: The Exam Creator creates the exam with its generated UID(exam code) before adding questions in the question bank(exam_entry)
+
+Possible options to attend in the case:
+    1 - In the create exam add a button that enable the user to redirect to the add question page.
+    2 - After the user created the exam set the input field of exam code in the add question page and just select the UID(exam code) which will generate all the information before putting in questions.
+
+================================================================================================================

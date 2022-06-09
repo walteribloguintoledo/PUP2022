@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Profile - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link active" href="addQuestion.html"><i class="fa fa-tachometer" style="font-size: 16px;"></i><span>Dashboard</span></a><a class="nav-link active" href="addQuestion.html"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a><a class="nav-link active" href="addQuestion.html"><i class="fa fa-question" style="font-size: 16px;"></i><span>Add Exam Questions</span></a><a class="nav-link active" href="addQuestion.html"><i class="fa fa-book" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                        <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span>&nbsp;</a>
+                            <div class="dropdown-menu"><a class="dropdown-item" href="#" style="font-weight: bold;">View Category</a><a class="dropdown-item" href="#" style="font-weight: bold;">Add Category</a></div>
+                        </div>
+                        <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span>&nbsp;</a>
+                            <div class="dropdown-menu"><a class="dropdown-item" href="#" style="font-weight: bold;">View Subject</a><a class="dropdown-item" href="#" style="font-weight: bold;">Add Subject</a></div>
+                        </div><a class="nav-link active" href="addQuestion.html"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a><a class="nav-link active" href="addQuestion.html"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                    </li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown no-arrow mx-1"></li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-4">Add Exam Question</h3>
+                    <div class="row mb-3">
+                        <div class="col-lg-8">
+                            <div class="row mb-3 d-none">
+                                <div class="col">
+                                    <div class="card textwhite bg-primary text-white shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card textwhite bg-success text-white shadow">
+                                        <div class="card-body">
+                                            <div class="row mb-2">
+                                                <div class="col">
+                                                    <p class="m-0">Peformance</p>
+                                                    <p class="m-0"><strong>65.2%</strong></p>
+                                                </div>
+                                                <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                            </div>
+                                            <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-xl-12 offset-lg-3 offset-xl-3" style="width: 636px;">
+                                    <div class="card shadow mb-3" style="width: 735px;">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Add Question</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Category</strong></label><select class="form-select">
+    <optgroup label="Question Categories">
+        <option value="12" selected>Select Question Category</option>
+        <option value="13">BS Information Technology</option>
+        <option value="14">BS Computer Science</option>
+        <option value="15">BS Computer Engineering</option>
+        <option value="16">BS Accountancy</option>
+        <option value="17">BS Digital Marketing</option>
+    </optgroup>
+</select></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Subject</strong></label><select class="form-select">
+    <optgroup label="Question Subject">
+        <option value="12" selected>Select Question Subject</option>
+        <option value="13">JavaScript 1</option>
+        <option value="14">HTML 1</option>
+        <option value="15">MySQL 1</option>
+        <option value="16">PHP 2</option>
+        <option value="17">HTML 2</option>
+    </optgroup>
+</select></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Exam Code</strong><br></label><input class="form-control" type="text" id="examCode" placeholder="YMDSubCodeCategoryCodeLevel" name="lastName"></div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Question Level</strong><br></label><select class="form-select">
+    <optgroup label="Question Level">
+        <option value="12" selected>Select Question Level</option>
+        <option value="13">Level 1 - Easy</option>
+        <option value="14">Level 2 - Average</option>
+        <option value="15">Level 3 - Difficult</option>
+    </optgroup>
+</select></div>
+                                                    </div>
+                                                    <div class="col-xl-3">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Status</strong><br></label><select class="form-select">
+    <optgroup label="Exam Level">
+        <option value="12" selected>Select Status</option>
+        <option value="13">1 - Enable</option>
+        <option value="14">2 - Disable</option>
+    </optgroup>
+</select></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Question</strong><br></label><input class="form-control" type="text" id="question-1" placeholder="question" name="question"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Choice 1</strong><br></label><input class="form-control" type="text" id="choice1" placeholder="Choice 1" name="choice1"></div>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Choice 2</strong><br></label><input class="form-control" type="text" id="choice2" placeholder="Choice 2" name="choice2"></div>
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Choice 3</strong><br></label><input class="form-control" type="text" id="choice3" placeholder="Choice 3" name="choice3"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Choice 4</strong><br></label><input class="form-control" type="text" id="choice4" placeholder="Choice 4" name="choice4"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-xxl-6">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>Answer</strong><br></label><input class="form-control" type="text" id="answer" placeholder="Answer" name="answer"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3" style="height: 36px;margin-top: 34px;"><button class="btn btn-primary btn-sm" type="submit" style="font-weight: bold;"><i class="fas fa-question" style="width: 27px;"></i>ADD QUESTION</button></div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>
