@@ -21,7 +21,7 @@
                 </a>
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
-                    <li class="nav-item"><a class="nav-link active" href="editExam.html"><i class="fa fa-tachometer" style="font-size: 16px;"></i><span>Dashboard</span></a><a class="nav-link active" href="editExam.html"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a><a class="nav-link active" href="editExam.html"><i class="fa fa-question" style="font-size: 16px;"></i><span>Add Exam Questions</span></a><a class="nav-link active" href="editExam.html"><i class="fa fa-book" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                    <li class="nav-item"><a class="nav-link active" href="editExam.html"><i class="fa fa-tachometer" style="font-size: 16px;"></i><span>Dashboard</span></a><a class="nav-link active" href="editExam.html"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a><a class="nav-link active" href="editExam.html"><i class="fa fa-book" style="font-size: 16px;"></i><span>View Created Exams</span></a>
                         <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span>&nbsp;</a>
                             <div class="dropdown-menu"><a class="dropdown-item" href="#" style="font-weight: bold;">View Category</a><a class="dropdown-item" href="#" style="font-weight: bold;">Add Category</a></div>
                         </div>
@@ -54,7 +54,7 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Edit Created Exam</h3>
+                    <h3 class="text-dark mb-4">Edit Exam</h3>
                     <div class="row mb-3">
                         <div class="col-lg-8">
                             <div class="row mb-3 d-none">
@@ -91,22 +91,12 @@
                                 <div class="col-lg-12 offset-lg-3">
                                     <div class="card shadow mb-3">
                                         <div class="card-header py-3">
-                                            <p class="text-primary m-0 fw-bold">Edit Exam Details</p>
+                                            <p class="text-primary m-0 fw-bold">New Exam Details</p>
                                         </div>
                                         <div class="card-body">
                                             <form>
                                                 <div class="row">
-                                                    <div class="col-xl-9">
-                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>New Exam Code</strong><br></label><input class="form-control" type="text" id="examCode" placeholder="YMDSubCodeCategoryCodeLevel" name="lastName"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>&nbsp;New Exam Title</strong></label><input class="form-control" type="text" id="examTitle" placeholder="Exam Title" name="firstname"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-xl-6">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong>New Category</strong></label><select class="form-select">
     <optgroup label="Exam Categories">
         <option value="12" selected>Select Exam Category</option>
@@ -118,9 +108,7 @@
     </optgroup>
 </select></div>
                                                     </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-xl-6">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong>New Subject</strong></label><select class="form-select">
     <optgroup label="Exam Subject">
         <option value="12" selected>Select Exam Subject</option>
@@ -134,7 +122,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col">
+                                                    <div class="col-xl-6 offset-xl-3">
                                                         <div class="mb-3"><label class="form-label" for="username"><strong>New Exam Level</strong><br></label><select class="form-select">
     <optgroup label="Exam Level">
         <option value="12" selected>Select Exam Level</option>
@@ -145,19 +133,48 @@
 </select></div>
                                                     </div>
                                                 </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 offset-lg-3">
+                                    <div class="card shadow mb-3">
+                                        <div class="card-header py-3">
+                                            <p class="text-primary m-0 fw-bold">Exam Question</p>
+                                        </div>
+                                        <div class="card-body">
+                                            <form>
                                                 <div class="row">
-                                                    <div class="col">
-                                                        <div class="mb-3"><label class="form-label" for="username"><strong>New Status</strong><br></label><select class="form-select">
-    <optgroup label="Exam Level">
-        <option value="12" selected>Select Status</option>
-        <option value="13">1 - Enable</option>
-        <option value="14">2 - Disable</option>
-    </optgroup>
-</select></div>
+                                                    <div class="col-xl-12">
+                                                        <div class="mb-3"><label class="form-label" for="first_name"><strong>New Question</strong><br></label><input class="form-control" type="text" id="examQuestion" placeholder="Question" name="question"></div>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3"><button class="btn btn-primary btn-sm btn-success" type="submit" style="font-weight: bold;"><i class="fas fa-edit" style="width: 27px;"></i>EDIT EXAM</button></div>
-                                            </form>
+                                                <div class="row">
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>New Choice 1</strong><br></label><input class="form-control" type="text" id="choice1" placeholder="Choice 1" name="choice1"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>New Choice 2</strong><br></label><input class="form-control" type="text" id="choice2" placeholder="Choice 2" name="choice2"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>New Choice 3</strong><br></label><input class="form-control" type="text" id="choice3" placeholder="Choice 3" name="choice1"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="mb-3"><label class="form-label" for="username"><strong>New Choice 4</strong><br></label><input class="form-control" type="text" id="choice4" placeholder="Choice 4" name="choice4"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-xl-6">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>New Answer</strong><br></label><input class="form-control" type="text" id="answer" placeholder="Answer" name="answer"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form><button class="btn btn-primary btn-sm bg-success" type="button" style="font-weight: bold;margin-left: 15px;"><i class="fas fa-pen-alt" style="width: 27px;"></i>EDIT EXAM</button>
                                         </div>
                                     </div>
                                 </div>

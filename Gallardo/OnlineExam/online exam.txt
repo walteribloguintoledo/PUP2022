@@ -56,3 +56,43 @@ Possible options to attend in the case:
     2 - After the user created the exam set the input field of exam code in the add question page and just select the UID(exam code) which will generate all the information before putting in questions.
 
 ================================================================================================================
+OLEX User Functions
+
+Admin [Exam Creator]
+1. Login (if does not exist go to Sign Up)
+2. Exam creator dashboard
+3. Create Exam
+4. View Created Exams
+5. Edit Exam
+6. Delete Exam
+7. Add Category
+8. View Category
+9. Edit Category
+10. Delete Category
+11. Add Subject
+12. View Subject
+13. Edit subject
+14. Delete Subject
+15. View Examinees
+16. View Summary of Scores
+17. Set Exam Settings
+18. Update Profile
+
+User Client [Examinee]
+1. Login (if does not exist go to Sign Up)
+2. Examinee Dashboard
+3. View Exams to take
+4. Take Exam
+5. view Exam Scores
+
+User [Guest]
+1. Login Page for Guest
+2. Take Exam
+
+Queries:
+1. Should I create a dashboard for guest?
+
+REVISIONS:
+1. Make the add, edit, delete as modals.
+2. Put add buttons on the listing pages.
+3. Exam Settings as JSON
