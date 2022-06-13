@@ -1,3 +1,5 @@
+Database Tables:
+============================================
 exams
 id, uid, category, subject, level, status
 
@@ -5,7 +7,7 @@ id, uid, category, subject, level, status
 2, 2346, BSIT, Programming 101, 1, 1
 3, 2347, BSIT, Javascript 1, 1, 1
 4, 2348, BSIT, Javascript 2, 2, 1
-
+===========================================
 exam_entry
 id, uid, key, value, status, level
 
@@ -15,46 +17,73 @@ id, uid, key, value, status, level
 4, 2345, choices3, 6, 1
 5, 2345, choices4, 2, 1
 6, 2345, answer, 2, 1
-
-uid Ymd category subject level
-
-uid 20220601ramdom-0001-0001-1
-uid Ymdramdom
-
+===========================================
 category
 id, uid, category
 
 1, 0001, BSIT 
 2, 0002, ComSci
 3 0003, ComEng
-
-id, code subject
-1, 0001, Programming 101
-2, 0002, Programmming 102
+===========================================
+subject
+id, code, subjectName, subject for
+1, 0001, Programming 101, BSIT
+2, 0002, Programmming 102, BSCS
 3, 0003, Javascript 1
 4, 0004, Javascript 2
 5, 0005, Pascal
-
+note: **The Subject name is also the exam name**
+==========================================
 users
-id, uid, type, username, password b 
+id, uid, usertype, firstname, middlename, lastname, address, Birthday, email, password, contact, category
 1, 0001, admin, 
 2, 0002, user1
-
-
-uid, examinee, item, answer
-
+note: **the examinee will only have the category field filled**
+==========================================
+guest
+id, uid, firsname, middlename, lastname, Category
+==========================================
+Scores
+id, uid, examineeFirstName, examineeMiddleName, examineeLastName, ExamTitle, Category, Score 
+==========================================
 setting
 id, uid, key, value, setting
+==========================================
+examTaken
+id, uid, exam subject, exam category, score 
+
+================================================================
+================================================================
+
+MISC:
+Generation of exam code:
+uid Ymd category subject level
+uid 20220601ramdom-0001-0001-1
+uid Ymdramdom
+
+**Each exam have 3 levels of difficulty namely to be Easy, Average , Difficult**
+**Each exam level has its predefined number of items -> 100 points, which is modified in the exam settings**
+**Default Exam Settings:
+    Level 1 = 20 items
+    Level 2 = 30 items
+    Level 3 = 50 items
+    Passing Score = 80 above
+Score computation:
+    Passing Score = (Easy Score + Average Score + Difficult Score)
+
+**Automate the checking of answers**
+Possible options:
+1. Everytime the examinee clicks "next" it calls a function that will check their answer if it matches the answer declared upon creation of the exam.
+2. uid, examinee, item, answer
+
+**The user can't moveon to the next question until the displayed question is not answered**
+**The user can;t move on to the next level until the current level is taken and answer.**
+**Consider having different exam type but for now focus on multiple choice type of questions**
+**Category can have many one or more subjects**
+**Once the user seleted a category the subject under that category should be displayed in the list of options**
+**Integrate Slim PHP framework, use PathJS and Mustache JS** 
 
 ================================================================================================================
-IDEAS:
-
-Case: The Exam Creator creates the exam with its generated UID(exam code) before adding questions in the question bank(exam_entry)
-
-Possible options to attend in the case:
-    1 - In the create exam add a button that enable the user to redirect to the add question page.
-    2 - After the user created the exam set the input field of exam code in the add question page and just select the UID(exam code) which will generate all the information before putting in questions.
-
 ================================================================================================================
 OLEX User Functions
 
@@ -88,11 +117,26 @@ User Client [Examinee]
 User [Guest]
 1. Login Page for Guest
 2. Take Exam
+========================================================================================================
+========================================================================================================
 
 Queries:
 1. Should I create a dashboard for guest?
 
 REVISIONS:
-1. Make the add, edit, delete as modals.
-2. Put add buttons on the listing pages.
 3. Exam Settings as JSON
+
+========================================================================================================
+========================================================================================================
+RESOLVED:
+REVISIONS:
+1. Make the add, and edit as modals.
+2. Put add buttons on the listing pages.
+
+IDEAS:    RESOLVED
+
+Case: The Exam Creator creates the exam with its generated UID(exam code) before adding questions in the question bank(exam_entry)
+
+Possible options to attend in the case:
+    1 - In the create exam add a button that enable the user to redirect to the add question page.
+    2 - After the user created the exam set the input field of exam code in the add question page and just select the UID(exam code) which will generate all the information before putting in questions.

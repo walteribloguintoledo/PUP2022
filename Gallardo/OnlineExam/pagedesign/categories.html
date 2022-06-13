@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/untitled.css">
 </head>
 
 <body id="page-top">
@@ -63,7 +64,9 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Exam Categories</h3>
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark text-dark mb-0">Exam Categories</h3><button class="btn btn-primary btn-sm d-none d-sm-inline-block" id="addCategory" type="button" data-bs-toggle="modal" data-bs-target="#addCategoryModal"><i class="fas fa-plus-circle" style="margin-right: 10px;"></i>Add Category</button>
+                    </div>
                     <div class="card shadow">
                         <div class="card-header py-3">
                             <p class="text-primary m-0 fw-bold">List of Categories</p>
@@ -83,31 +86,31 @@
                                         <tr>
                                             <td>123</td>
                                             <td>BS Information Technology</td>
-                                            <td><button class="btn btn-primary btn-success" type="button"><i class="fas fa-edit"></i></button></td>
+                                            <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
                                             <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>234</td>
                                             <td>BS Computer Science</td>
-                                            <td><button class="btn btn-primary btn-success" type="button"><i class="fas fa-edit"></i></button></td>
+                                            <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
                                             <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>456</td>
                                             <td>BS Computer Engineering</td>
-                                            <td><button class="btn btn-primary btn-success" type="button"><i class="fas fa-edit"></i></button></td>
+                                            <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
                                             <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>789</td>
                                             <td>BS Accountancy</td>
-                                            <td><button class="btn btn-primary btn-success" type="button"><i class="fas fa-edit"></i></button></td>
+                                            <td><button class="btn btn-primary btn-success" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
                                             <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
                                         </tr>
                                         <tr>
                                             <td>101</td>
                                             <td>BS Digital Marketing</td>
-                                            <td><button class="btn btn-primary btn-success" type="button"><i class="fas fa-edit"></i></button></td>
+                                            <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
                                             <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
                                         </tr>
                                     </tbody>
@@ -117,6 +120,46 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" role="dialog" tabindex="-1" id="addCategoryModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="color: var(--bs-primary);">Add Exam Category</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div>
+                                        <div class="col-lg-11 offset-xl-0"><label class="col-form-label" style="color: var(--bs-dark);font-weight: bold;">Category Name</label></div>
+                                        <div class="col-lg-11 offset-lg-0 offset-xl-0"><input type="text" id="category" class="form-control" placeholder="Category Name"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Add</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" role="dialog" tabindex="-1" id="editCategoryModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="color: var(--bs-primary);">Edit Exam Category</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col">
+                                    <div>
+                                        <div class="col-lg-11 offset-xl-0"><label class="col-form-label" style="color: var(--bs-dark);font-weight: bold;">New Category Name</label></div>
+                                        <div class="col-lg-11 offset-lg-0 offset-xl-0"><input type="text" id="newCategory" class="form-control" placeholder="New Category Name"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Save</button></div>
                     </div>
                 </div>
             </div>
