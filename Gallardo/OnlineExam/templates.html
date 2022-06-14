@@ -1,0 +1,231 @@
+<script type="text/template" id="login">
+    <div id="login-parent">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-9 col-lg-12 col-xl-10">
+                    <div class="card shadow-lg o-hidden border-0 my-5">
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-flex">
+                                    <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;assets/img/dogs/olex.jpg&quot;);"></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h4 class="text-dark mb-4">Welcome Back!</h4>
+                                        </div>
+                                        <form class="user" id="form-login">
+                                            <div class="mb-3"><input class="form-control form-control-user" type="email" id="email" aria-describedby="emailHelp" placeholder="Enter Email Address..." name="email" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
+                                            <div class="mb-3"><input class="form-control form-control-user" type="password" id="pswrd" placeholder="Password" name="password" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
+                                            <div class="mb-3"><button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button></div>
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-xl-5 col-xxl-4 offset-lg-4 offset-xl-4 offset-xxl-4 align-items-center"><a href="#/loginAsGuest">Login as Guest</a></div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col offset-lg-1 offset-xxl-2"><a href="#/prompt">Don't have an account? Register Here</a></div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="loginAsGuest">
+    <div id="guestlogin-parent">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-9 col-lg-12 col-xl-10">
+                    <div class="card shadow-lg o-hidden border-0 my-5">
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-flex">
+                                    <div class="flex-grow-1 bg-login-image" style="background-image: url(&quot;assets/img/dogs/olex.jpg&quot;);"></div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="p-5">
+                                        <div class="text-center">
+                                            <h4 class="text-dark mb-4">Welcome!</h4>
+                                        </div>
+                                        <form class="user" id="guestLogin-form">
+                                            <div class="mb-3"><input class="form-control form-control-user" type="text" id="guestFirstName" placeholder="Enter First Name" name="guestFirstName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                            <div class="mb-3"><input class="form-control form-control-user" type="text" id="guestMiddleName" placeholder="Enter Middle Name" name="guestMiddleName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                            <div class="mb-3"><input class="form-control form-control-user" type="text" id="guestLastName" placeholder="Enter Last Name" name="guestLastName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                            <div class="row mb-3">
+                                                <div class="col-sm-12 col-lg-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><select class="form-select" style="border-radius: 75px; font-family: Nunito;" id="category" name="category">
+                                                <optgroup label="Category">
+                                                    <option value="" selected>Select Category</option>
+                                                    <option value="BS Information Technology">BS Information Technology</option>
+                                                    <option value="BS Computer Science">BS Computer Science</option>
+                                                    <option value="BS Computer Engineering">BS Computer Engineering</option>
+                                                    <option value="BS Accountancy">BS Accountancy</option>
+                                                </optgroup>
+                                                </select></div>
+                                            </div>
+                                            <div class="mb-3"></div>
+                                            <div class="mb-3"></div>
+                                            <div class="mb-3"><button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button></div>
+                                            <div class="mb-3"></div>
+                                            <hr>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="prompt">
+    <div id="prompt-parent">
+        <div class="container" style="height: 500px;margin-top: 80px;">
+            <div class="row justify-content-center">
+                <div class="col-md-9 col-lg-12 col-xl-10">
+                    <div class="card shadow-lg o-hidden border-0 my-5">
+                        <div class="card-body p-0">
+                            <div class="row">
+                                <div class="col-lg-6 d-none d-lg-flex" style="height: 400px;">
+                                    <div class="flex-grow-1 bg-password-image" style="background-image: url(&quot;assets/img/dogs/promptOLEX.jpg&quot;);"></div>
+                                </div>
+                                <div class="col-lg-6" style="height: 400px;">
+                                    <div class="p-5" style="margin-top: 50px;">
+                                        <div class="text-center">
+                                            <h4 class="text-dark mb-2">Register as</h4>
+                                        </div>
+                                        <form class="user">
+                                            <div class="mb-3"><a class="btn btn-primary d-block btn-user w-100" type="button" style="font-size: 20px;" href="#/creatorRegister">Exam Creator</a></div>
+                                            <div class="mb-3"><a class="btn btn-primary d-block btn-user w-100" type="button" style="font-size: 20px;" href="#/examineeRegister">Exam Taker</a></div>
+                                        </form>
+                                        <div class="text-center"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="creatorSignup">
+    <div id="creatorSignup-parent">
+        <div class="container">
+            <div class="card shadow-lg o-hidden border-0 my-5">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-lg-5 col-xl-5 d-none d-lg-flex">
+                            <div class="flex-grow-1 bg-register-image" style="background-image: url(&quot;assets/img/dogs/english-exam.jpg&quot;);"></div>
+                        </div>
+                        <div class="col-lg-7 col-xl-7">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h4 class="text-dark mb-4">Create an Account Exam Creator</h4>
+                                </div>
+                                <hr style="height: 8px;color: var(--bs-dark);">
+                                <form class="user" id="creatorSignup-form">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="userType" name="userType" style="font-weight: bold;" value="Exam Creator" readonly></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorFirstname" placeholder="First Name" name="creatorFirstname" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorMiddleName" placeholder="Middle Name" name="creatorMiddleName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorLastName" placeholder="Last Name" name="creatorLastName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorAddress" placeholder="Address" name="creatorAddress" style="font-weight: bold;" ></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" id="creatorBirthday" name="creatorBirthday" style="font-weight: bold;" type="date"></div>
+                                    </div>
+                                    <div class="mb-3"><input class="form-control form-control-user" type="email" id="creatorEmail" aria-describedby="emailHelp" placeholder="Email Address" name="creatorEmail" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="creatorPswrd" placeholder="Password" name="creatorPswrd" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
+                                        <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="creatorContact" placeholder="creatorContact" name="contact" style="font-weight: bold;" onkeypress="numOnly(event)"></div>
+                                    </div>
+                                    <hr style="height: 8px;color: var(--bs-dark);"><button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="examineeSignup">
+    <div id="examineeSignup-parent">
+        <div class="container">
+            <div class="card shadow-lg o-hidden border-0 my-5">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-lg-5 col-xl-5 d-none d-lg-flex">
+                            <div class="flex-grow-1 bg-register-image" style="background-image: url(&quot;assets/img/dogs/english-exam.jpg&quot;);"></div>
+                        </div>
+                        <div class="col-lg-7 col-xl-7">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h4 class="text-dark mb-4">Create an Account Examinee</h4>
+                                </div>
+                                <hr style="height: 8px;color: var(--bs-dark);">
+                                <form class="user" id="examineeSignup-form">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="userType" value="Examinee" name="userType" style="font-weight: bold;" readonly></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="examineeFirstName" placeholder="First Name" name="examineeFirstName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="examineeMiddleName" placeholder="Middle Name" name="examineeMiddleName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="examineeLastName" placeholder="Last Name" name="examineeLastName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="examineeAddress" placeholder="Address" name="examineeAddress" style="font-weight: bold;"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" id="examineeBirthday" name="examineeBirthday" style="font-weight: bold;" type="date"></div>
+                                    </div>
+                                    <div class="mb-3"><input class="form-control form-control-user" type="email" id="examineeEmail" aria-describedby="emailHelp" placeholder="Email Address" name="examineeEmail" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="examineePswrd" placeholder="Password" name="examineePswrd" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
+                                        <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="examineeContact" placeholder="Contact" name="examineeContact" style="font-weight: bold;"></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-12 col-lg-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><select class="form-select" style="border-radius: 75px; font-family: Nunito;" id="category" name="category">
+                                        <optgroup label="Categories">
+                                            <option value="" selected>Select Category</option>
+                                            <option value="BS Information Technology">BS Information Technology</option>
+                                            <option value="BS Computer Engineering">BS Computer Engineering</option>
+                                            <option value="BS Computer Science">BS Computer Science</option>
+                                            <option value="BS Accountancy">BS Accountancy</option>
+                                        </optgroup>
+                                    </select></div>
+                                    </div>
+                                    <hr style="height: 8px;color: var(--bs-dark);"><button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

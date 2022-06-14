@@ -26,13 +26,14 @@ id, uid, category
 3 0003, ComEng
 ===========================================
 subject
-id, code, subjectName, subject for
-1, 0001, Programming 101, BSIT
-2, 0002, Programmming 102, BSCS
+id, code, subjectName
+1, 0001, Programming 101, 
+2, 0002, Programmming 102, 
 3, 0003, Javascript 1
 4, 0004, Javascript 2
 5, 0005, Pascal
 note: **The Subject name is also the exam name**
+**The code must be equal to the uid category**
 ==========================================
 users
 id, uid, usertype, firstname, middlename, lastname, address, Birthday, email, password, contact, category
