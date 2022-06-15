@@ -75,7 +75,28 @@ $(document).ready(function(){
                 }
                 else
                 {
-                    console.log(guestFirstName,guestMiddlename,guestLastName,category);
+                    $.ajax({
+                        type: "post",
+                        url: "api/guestLogin",
+                        dataType: "json",
+                        data: {
+                            guestFirstName : guestFirstName,
+                            guestMiddlename : guestMiddlename,
+                            guestLastName : guestLastName,
+                            category : category
+                        },
+                        success: function (response) {
+                        if(response.valid)
+                        {
+                            alert("Welcome");
+                            
+                        }
+                        else
+                        {
+                            alert("Something went wrong");
+                        }
+                        }
+                    });
                 }
             })
         });
@@ -146,15 +167,34 @@ $(document).ready(function(){
                 }
                 else
                 {
-                        console.log(userType);
-                        console.log(creatorFirstname);
-                        console.log(creatorMiddleName);
-                        console.log(creatorLastName);
-                        console.log(creatorAddress);
-                        console.log(creatorBirthday);
-                        console.log(creatorEmail);
-                        console.log(creatorPswrd);
-                        console.log(creatorContact);
+                        $.ajax({
+                            type: "post",
+                            url: "api/creatorRegister",
+                            dataType: "json",
+                            data: {
+                                userType : userType,
+                                creatorFirstname : creatorFirstname,
+                                creatorMiddleName : creatorMiddleName,
+                                creatorLastName : creatorLastName,
+                                creatorAddress : creatorAddress,
+                                creatorBirthday : creatorBirthday,
+                                creatorEmail : creatorEmail,
+                                creatorPswrd : creatorPswrd,
+                                creatorContact : creatorContact
+                            },
+                            success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Your account has been created");
+                                window.location.replace("#/login");
+                                window.location.reload();
+                            }
+                            if(response.emailexist)
+                            {
+                                alert("The email has been registered please provide another");
+                            }
+                            }
+                        });
                 }
             })
         });
@@ -221,16 +261,35 @@ $(document).ready(function(){
                 }
                 else
                 {
-                        console.log(userType);
-                        console.log(examineeFirstName);
-                        console.log(examineeMiddleName);
-                        console.log(examineeLastName);
-                        console.log(examineeAddress);
-                        console.log(examineeBirthday);
-                        console.log(examineeEmail);
-                        console.log(examineePswrd);
-                        console.log(examineeContact);
-                        console.log(category);
+                    $.ajax({
+                        type: "post",
+                        url: "api/examineeRegister",
+                        dataType: "json",
+                        data: {
+                            userType : userType,
+                            examineeFirstName : examineeFirstName,
+                            examineeMiddleName : examineeMiddleName,
+                            examineeLastName : examineeLastName,
+                            examineeAddress : examineeAddress,
+                            examineeBirthday : examineeBirthday,
+                            examineeEmail : examineeEmail,
+                            examineePswrd : examineePswrd,
+                            examineeContact : examineeContact,
+                            category : category
+                        },
+                        success: function (response) {
+                        if(response.valid)
+                        {
+                            alert("Your account has been created");
+                            window.location.replace("#/login");
+                            window.location.reload();
+                        }
+                        if(response.emailexist)
+                        {
+                            alert("The email has been registered please provide another");
+                        }
+                        }
+                    });
                 }
             });
         });
