@@ -3,8 +3,9 @@ var App = {
     url: "http://localhost/PUP2022-1/Gallardo/OnlineExam/#",
     api: "/api"
 }
-
-
+var currentUser = [];
+var login = 0;
+var logout = 0;
 $(document).ready(function(){
     $.Mustache.load('templates.html').done(function(){
         Path.map("#/login").to(function(){
@@ -34,8 +35,388 @@ $(document).ready(function(){
                 {
                     console.log(email);
                     console.log(pswrd);
+                    $.ajax({
+                        type: "post",
+                        url: "api/check",
+                        data: {
+                            email : email,
+                            pswrd : pswrd
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                if(response.userType == "Exam Creator")
+                                {
+                                    alert("You are now logged in Exam Creator");
+                                    currentUser.push(response);
+                                    console.log(currentUser);
+                                    login++;
+                                    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                                    window.location.replace("#/creatorDashboard");
+                                    window.location.reload();
+                                }
+                                if(response.userType == "Examinee")
+                                {
+                                    alert("You are now logged in Examinee");
+                                    currentUser.push(response);
+                                    console.log(currentUser);
+                                    login++;
+                                    localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                                    window.location.replace("#/examineeDashboard");
+                                    window.location.reload();
+                                }
+                            }
+                            else
+                            {
+                                alert("Invalid credentials");
+                            }
+                        }
+                    });
                 }
                     
+            });
+        });
+
+        Path.map("#/creatorDashboard").to(function(){
+            App.canvas.mustache('creatorDashboard');
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createExam-btn").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+
+        });
+
+        Path.map("#/createExam").to(function(){
+            App.canvas.mustache('createExam');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+        });
+        Path.map("#/createdExams").to(function(){
+            App.canvas.mustache('createdExams');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createExam-btn").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+        });
+        Path.map("#/categories").to(function(){
+            App.canvas.mustache('viewCategories');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+        });
+        Path.map("#/subjects").to(function(){
+            App.canvas.mustache('viewSubjects');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+        });
+        Path.map("#/examinees").to(function(){
+            App.canvas.mustache('viewExaminees');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+        });
+        Path.map("#/scores").to(function(){
+            App.canvas.mustache('viewSummaryScores');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+        });
+        
+        Path.map("#/examineeDashboard").to(function(){
+            App.canvas.mustache('examineeDashboard');
+            $("#examineeDashboard-logo").on('click', function(){
+                window.location.replace("#/examineeDashboard");
+                window.location.reload();
+            });
+            $("#examineeDashboard").on('click', function(){
+                window.location.replace("#/examineeDashboard");
+                window.location.reload();
+            });
+            $("#examsToTake").on('click', function(){
+                window.location.replace("#/examsToTake");
+                window.location.reload();
+            });
+            $("#examsScores").on('click', function(){
+                window.location.replace("#/examScores");
+                window.location.reload();
+            });
+        });
+        Path.map("#/examsToTake").to(function(){
+            App.canvas.mustache('examsToTake');
+            $("#examineeDashboard-logo").on('click', function(){
+                window.location.replace("#/examineeDashboard");
+                window.location.reload();
+            });
+            $("#examineeDashboard").on('click', function(){
+                window.location.replace("#/examineeDashboard");
+                window.location.reload();
+            });
+            $("#examsToTake").on('click', function(){
+                window.location.replace("#/examsToTake");
+                window.location.reload();
+            });
+            $("#examsScores").on('click', function(){
+                window.location.replace("#/examScores");
+                window.location.reload();
+            });
+        });
+        Path.map("#/examScores").to(function(){
+            App.canvas.mustache('examScores');
+            $("#examineeDashboard-logo").on('click', function(){
+                window.location.replace("#/examineeDashboard");
+                window.location.reload();
+            });
+            $("#examineeDashboard").on('click', function(){
+                window.location.replace("#/examineeDashboard");
+                window.location.reload();
+            });
+            $("#examsToTake").on('click', function(){
+                window.location.replace("#/examsToTake");
+                window.location.reload();
+            });
+            $("#examsScores").on('click', function(){
+                window.location.replace("#/examScores");
+                window.location.reload();
             });
         });
         Path.map("#/loginAsGuest").to(function(){

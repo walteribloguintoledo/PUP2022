@@ -43,6 +43,13 @@ $app->post('/guestLogin',function(){
     $guest = guestLogin($guestFirstname,$guestMiddleName,$guestLastName,$category);
     echo json_encode ($guest);
 });
+
+$app->post('/check',function(){
+    $email = $_POST['email'];
+    $pswrd = $_POST['pswrd'];
+    $check = checkUser($email,$pswrd);
+    echo json_encode ($check);
+});
 $app->run();
 
 ?>
