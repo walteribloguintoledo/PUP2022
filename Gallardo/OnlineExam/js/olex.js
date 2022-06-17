@@ -6,6 +6,7 @@ var App = {
 var currentUser = [];
 var login = 0;
 var logout = 0;
+var questioncount=0;
 $(document).ready(function(){
     $.Mustache.load('templates.html').done(function(){
         Path.map("#/login").to(function(){
@@ -122,9 +123,138 @@ $(document).ready(function(){
             });
 
         });
-
+        
         Path.map("#/createExam").to(function(){
             App.canvas.mustache('createExam');
+            
+            $.ajax({
+                type: "get",
+                url: "api/getCategory",//on this part add the JOIN on category and subject
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var rlen = response.length;
+                    console.log(rlen);
+                    for(i=0;rlen>0;i++)
+                    {
+                        $("#examcategories").append('<option>'+response[i].category+'</option>');
+                    }
+                }
+            });
+            $.ajax({
+                type: "get",
+                url: "api/getSubjects",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var rlen = response.length;
+                    console.log(rlen);
+                    for(i=0;rlen>0;i++)
+                    {
+                        $("#examsubjects").append('<option>'+response[i].subject+'</option>');
+                    }
+                }
+            });
+            
+            $("#level").on('click',function(){
+                var level = $("#level").val();
+                
+                if(level==1)
+                {
+                    questioncount=20;
+                    console.log(level);
+                    console.log(questioncount);
+                }
+                if(level==2)
+                {
+                    questioncount=30;
+                    console.log(level);
+                    console.log(questioncount);
+                }
+                if(level==3)
+                {
+                    questioncount=50;
+                    console.log(level);
+                    console.log(questioncount);
+                }
+            });
+            $("#createExam-form").on('submit',function(e){
+                e.preventDefault();
+                var category = $("#category").val();
+                var subject = $("#subject").val();
+                var level = $("#level").val();
+                var examQuestion = $("#examQuestion").val();
+                var choice1 = $("#choice1").val();
+                var choice2 = $("#choice2").val();
+                var choice3 = $("#choice3").val();
+                var choice4 = $("#choice4").val();
+                var answer = $("#answer").val();
+                errorMessage = [];
+                error = 0;
+                if(category==""||category==null)
+                {
+                    errorMessage.push(" Category");
+                    error++;
+                }
+                if(subject==""||subject==null)
+                {
+                    errorMessage.push(" Subject");
+                    error++;
+                }
+                if(level==""||level==null)
+                {
+                    errorMessage.push(" Level");
+                    error++;
+                }
+                if(examQuestion==""||examQuestion==null)
+                {
+                    errorMessage.push(" Exam question");
+                    error++;
+                }
+                if(choice1==""||choice1==null)
+                {
+                    errorMessage.push(" Choice 1");
+                    error++;
+                }
+                if(choice2==""||choice2==null)
+                {
+                    errorMessage.push(" Choice 2");
+                    error++;
+                }
+                if(choice3==""||choice3==null)
+                {
+                    errorMessage.push(" Choice 3");
+                    error++;
+                }
+                if(choice4==""||choice4==null)
+                {
+                    errorMessage.push(" Choice 4");
+                    error++;
+                }
+                if(answer==""||answer==null)
+                {
+                    errorMessage.push(" Answer 4");
+                    error++;
+                }
+                if(error!=0)
+                {
+                    alert(errorMessage + " CANNOT BE BLANK");
+                }
+                else
+                {
+                        console.log(category);
+                        console.log(subject);
+                        console.log(level);
+                        console.log(examQuestion);
+                        console.log(choice1);
+                        console.log(choice2);
+                        console.log(choice3);
+                        console.log(choice4);
+                        console.log(answer);
+                        console.log(questioncount);
+                }
+            });
+            
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -421,6 +551,20 @@ $(document).ready(function(){
         });
         Path.map("#/loginAsGuest").to(function(){
             App.canvas.mustache('loginAsGuest');
+            $.ajax({
+                type: "get",
+                url: "api/getCategory",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var rlen = response.length;
+                    console.log(rlen);
+                    for(i=0;rlen>0;i++)
+                    {
+                        $("#categories").append('<option>'+response[i].category+'</option>');
+                    }
+                }
+            });
             $("#login-parent").hide();
             $("#guestLogin-form").on('submit', function(e){
                 e.preventDefault();
@@ -581,7 +725,22 @@ $(document).ready(function(){
         });
         Path.map("#/examineeRegister").to(function(){
             App.canvas.mustache('examineeSignup');
+            $.ajax({
+                type: "get",
+                url: "api/getCategory",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var rlen = response.length;
+                    console.log(rlen);
+                    for(i=0;rlen>0;i++)
+                    {
+                        $("#categories").append('<option>'+response[i].category+'</option>');
+                    }
+                }
+            });
             $("#prompt-parent").hide();
+            
             $("#examineeSignup-form").on('submit', function(e){
                 e.preventDefault();
                 var userType = $('#userType').val();
@@ -596,6 +755,7 @@ $(document).ready(function(){
                 var category = $('#category').val();
                 var error = 0;
                 var errorMessage = [];
+                
                 if(examineeFirstName == null || examineeFirstName == "")
                 {
                     errorMessage.push("First Name ");

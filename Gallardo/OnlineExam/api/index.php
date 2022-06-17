@@ -35,6 +35,16 @@ $app->post('/examineeRegister',function(){
     echo json_encode ($examineeRegister);
 });
 
+$app->get('/getCategory',function(){
+    $fetchCategory = getCategory();
+    echo json_encode ($fetchCategory);
+});
+
+$app->get('/getSubjects',function(){
+    $fetchSubject = getSubject();
+    echo json_encode ($fetchSubject);
+});
+
 $app->post('/guestLogin',function(){
     $guestFirstname = $_POST['guestFirstName'];
     $guestMiddleName = $_POST['guestMiddlename'];

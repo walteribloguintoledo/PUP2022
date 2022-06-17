@@ -87,4 +87,28 @@ function checkUser($email,$pswd)
     }
     return $data;
 }
+
+function getCategory()
+{
+    $data = array();
+    $sql = ORM::for_table('category')->find_many();
+    foreach ($sql as $row)
+    {
+       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "category"=>$row->category);
+    }
+
+    return $data;
+}
+
+function getSubject()
+{
+    $data = array();
+    $sql = ORM::for_table('subject')->find_many();
+    foreach ($sql as $row)
+    {
+       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectName);
+    }
+
+    return $data;
+}
 ?>

@@ -77,6 +77,23 @@ Possible options:
 1. Everytime the examinee clicks "next" it calls a function that will check their answer if it matches the answer declared upon creation of the exam.
 2. uid, examinee, item, answer
 
+CREATE EXAM:
+**The exam creator selects the category, subject, and level question,choices, and answer**
+PROBLEM: How will the exam be created???
+CASE:
+**The Create Exam form have two buttons create exam button and add question**
+CONSTRAINTS:
+**The number of question depends on the level of exam Level 1 = 20 items, Level 2 = 30 items, Level 3 = 50 items
+**Once a category is selected the subject field must display the subject under the selected category
+POSSIBLE SOLUTIONS:
+1. Make two separate forms one for the exam details and one for the exam questions. When the create exam button is clicked it will submit the exam details into the database upon submitting exam code will be auto generated and set the status to 1 or enabled.
+2. Since the form have two buttons I can disable the create exam button until the number of question reached a cretain limit.
+3. Let the user input a single entry but on the viewing of created exams put a "DISTINCT" on the SQL
+4. Batch entry-the add question button will display a new add question card, once the desired number of question is reached the user will click the create exam button.
+5. The user will first submit the exam details form, once its submitted the system will show a add question form and will let the user to input the desired number of exam questions that corresponds to the exam details given.
+
+
+
 **The user can't moveon to the next question until the displayed question is not answered**
 **The user can;t move on to the next level until the current level is taken and answer.**
 **Consider having different exam type but for now focus on multiple choice type of questions**
