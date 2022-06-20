@@ -515,7 +515,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                <button id="addQuestion"class="btn btn-primary btn-sm btn-danger" type="button" style="font-weight: bold;"><i class="fas fa-plus-circle" style="width: 27px;"></i>ADD QUESTION</button><button class="btn btn-primary btn-sm" type="submit" id="addExam" style="font-weight: bold;margin-left: 15px;" disable><i class="fas fa-pen-alt" style="width: 27px;"></i>CREATE EXAM</button>
+                                                <button id="addQuestion"class="btn btn-primary btn-sm btn-danger" type="button" style="font-weight: bold;"><i class="fas fa-plus-circle" style="width: 27px;"></i>ADD QUESTION</button><button class="btn btn-primary btn-sm" type="submit" id="addExam" style="font-weight: bold;margin-left: 15px;"><i class="fas fa-pen-alt" style="width: 27px;"></i>CREATE EXAM</button>
                                             </form>
                                             </div>
                                         </div>
@@ -754,47 +754,16 @@
                                     <table class="table my-0" id="dataTable">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>#</th>
+                                                <th>Category Code</th>
                                                 <th>Category Name</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>123</td>
-                                                <td>BS Information Technology</td>
-                                                <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>234</td>
-                                                <td>BS Computer Science</td>
-                                                <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>456</td>
-                                                <td>BS Computer Engineering</td>
-                                                <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>789</td>
-                                                <td>BS Accountancy</td>
-                                                <td><button class="btn btn-primary btn-success" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>101</td>
-                                                <td>BS Digital Marketing</td>
-                                                <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
+                                        <tbody id="tb">
+                                           
                                         </tbody>
-                                        <tfoot>
-                                            <tr></tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -803,6 +772,7 @@
                 </div>
                 <div class="modal fade" role="dialog" tabindex="-1" id="addCategoryModal">
                     <div class="modal-dialog" role="document">
+                        <form id="addCategorymodal-form">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h4 class="modal-title" style="color: var(--bs-primary);">Add Exam Category</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -817,8 +787,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="button">Add</button></div>
+                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit" id="addCategorybtn">Add</button></div>
                         </div>
+                        </form>
                     </div>
                 </div>
                 <div class="modal fade" role="dialog" tabindex="-1" id="editCategoryModal">
@@ -977,12 +948,10 @@
                                     <div class="col-lg-12">
                                         <div><label class="form-label" style="border-color: var(--bs-dark);color: var(--bs-dark);font-weight: bold;">Subject for</label></div>
                                     </div>
-                                    <div class="col"><select class="form-select">
-        <optgroup label="Exam Category">
-            <option value="12" selected>Select Category
-            </option>
-            <option value="13">BS Information Technology</option>
-            <option value="14">BS Computer Engineering</option>
+                                    <div class="col"><select class="form-select" >
+        <optgroup label="Exam Category" id="examcategories">
+            <option value="12" selected>Select Category</option>
+            
         </optgroup>
     </select></div>
                                 </div>

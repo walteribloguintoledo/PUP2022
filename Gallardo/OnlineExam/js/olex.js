@@ -6,7 +6,9 @@ var App = {
 var currentUser = [];
 var login = 0;
 var logout = 0;
-var questioncount=0;
+var questioncount=0;//counter for the number of exam questions per exam
+var questioncountinit=0;//variable which states that the number of question is reached
+var categoryCode = 0; // variable for the category code generation
 $(document).ready(function(){
     $.Mustache.load('templates.html').done(function(){
         Path.map("#/login").to(function(){
@@ -126,7 +128,6 @@ $(document).ready(function(){
         
         Path.map("#/createExam").to(function(){
             App.canvas.mustache('createExam');
-            
             $.ajax({
                 type: "get",
                 url: "api/getCategory",//on this part add the JOIN on category and subject
@@ -138,6 +139,7 @@ $(document).ready(function(){
                     for(i=0;rlen>0;i++)
                     {
                         $("#examcategories").append('<option>'+response[i].category+'</option>');
+                        rlen--;
                     }
                 }
             });
@@ -152,6 +154,7 @@ $(document).ready(function(){
                     for(i=0;rlen>0;i++)
                     {
                         $("#examsubjects").append('<option>'+response[i].subject+'</option>');
+                        rlen--;
                     }
                 }
             });
@@ -161,24 +164,28 @@ $(document).ready(function(){
                 
                 if(level==1)
                 {
-                    questioncount=20;
+                    questioncount=2;
                     console.log(level);
                     console.log(questioncount);
                 }
                 if(level==2)
                 {
-                    questioncount=30;
+                    questioncount=3;
                     console.log(level);
                     console.log(questioncount);
                 }
                 if(level==3)
                 {
-                    questioncount=50;
+                    questioncount=5;
                     console.log(level);
                     console.log(questioncount);
                 }
+                if(questioncount!=0)
+                {
+                    $("#addExam").attr("disabled",true);
+                }
             });
-            $("#createExam-form").on('submit',function(e){
+            $("#addQuestion").on('click',function(e){
                 e.preventDefault();
                 var category = $("#category").val();
                 var subject = $("#subject").val();
@@ -233,27 +240,199 @@ $(document).ready(function(){
                 }
                 if(answer==""||answer==null)
                 {
-                    errorMessage.push(" Answer 4");
+                    errorMessage.push(" Answer");
                     error++;
                 }
                 if(error!=0)
                 {
                     alert(errorMessage + " CANNOT BE BLANK");
                 }
+                
                 else
                 {
-                        console.log(category);
-                        console.log(subject);
-                        console.log(level);
-                        console.log(examQuestion);
-                        console.log(choice1);
-                        console.log(choice2);
-                        console.log(choice3);
-                        console.log(choice4);
-                        console.log(answer);
-                        console.log(questioncount);
+                    console.log(examQuestion);
+                    console.log(choice1);
+                    console.log(choice2);
+                    console.log(choice3);
+                    console.log(choice4);
+                    console.log(answer);
+                    $.ajax({
+                        type: "post",
+                        url: "api/addQuestion",
+                        data: {
+                            level:level,
+                            examQuestion : examQuestion,
+                            choice1: choice1,
+                            choice2 : choice2,
+                            choice3 : choice3,
+                            choice4 : choice4,
+                            answer : answer
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Exam Question Added");
+                            }
+                            else
+                            {
+                                alert("The question already exist");
+                            }
+                        }
+                    });
+                    $("#examQuestion").val('');
+                    $("#choice1").val('');
+                    $("#choice2").val('');
+                    $("#choice3").val('');
+                    $("#choice4").val('');
+                    $("#answer").val('');
+                    $("#category").attr('disabled',true);
+                    $("#subject").attr('disabled',true);
+                    $("#level").attr('disabled',true);
+                    questioncount--;
+                    console.log(questioncount);
+                    if(questioncount==0)
+                    {
+                        $("#addExam").attr("disabled",false);
+                        $("#addQuestion").attr("disabled",true);
+                        $("#examQuestion").attr("disabled",true);
+                        $("#choice1").attr("disabled",true);
+                        $("#choice2").attr("disabled",true);
+                        $("#choice3").attr("disabled",true);
+                        $("#choice4").attr("disabled",true);
+                        $("#answer").attr("disabled",true);
+                        questioncountinit = 1;
+                        console.log(questioncountinit);
+                    }
                 }
             });
+            $("#createExam-form").on('submit',function(e){
+                    e.preventDefault();
+                    var category = $("#category").val();
+                    var subject = $("#subject").val();
+                    var level = $("#level").val();
+                    var examQuestion = $("#examQuestion").val();
+                    var choice1 = $("#choice1").val();
+                    var choice2 = $("#choice2").val();
+                    var choice3 = $("#choice3").val();
+                    var choice4 = $("#choice4").val();
+                    var answer = $("#answer").val();
+                    errorMessage = [];
+                    error = 0;
+                    if(questioncountinit==0)
+                    {
+                        if(category==""||category==null)
+                        {
+                            errorMessage.push(" Category");
+                            error++;
+                        }
+                        if(subject==""||subject==null)
+                        {
+                            errorMessage.push(" Subject");
+                            error++;
+                        }
+                        if(level==""||level==null)
+                        {
+                            errorMessage.push(" Level");
+                            error++;
+                        }
+                        if(examQuestion==""||examQuestion==null)
+                        {
+                            errorMessage.push(" Exam question");
+                            error++;
+                        }
+                        if(choice1==""||choice1==null)
+                        {
+                            errorMessage.push(" Choice 1");
+                            error++;
+                        }
+                        if(choice2==""||choice2==null)
+                        {
+                            errorMessage.push(" Choice 2");
+                            error++;
+                        }
+                        if(choice3==""||choice3==null)
+                        {
+                            errorMessage.push(" Choice 3");
+                            error++;
+                        }
+                        if(choice4==""||choice4==null)
+                        {
+                            errorMessage.push(" Choice 4");
+                            error++;
+                        }
+                        if(answer==""||answer==null)
+                        {
+                            errorMessage.push(" Answer 4");
+                            error++;
+                        }
+                        if(error!=0)
+                        {
+                            alert(errorMessage + " CANNOT BE BLANK");
+                        }
+                        else
+                        {
+                                console.log(category);
+                                console.log(subject);
+                                console.log(level);
+                                console.log(examQuestion);
+                                console.log(choice1);
+                                console.log(choice2);
+                                console.log(choice3);
+                                console.log(choice4);
+                                console.log(answer);
+                                console.log(questioncount);
+                        }
+                    }
+                    else
+                    {
+                        if(category==""||category==null)
+                        {
+                            errorMessage.push(" Category");
+                            error++;
+                        }
+                        if(subject==""||subject==null)
+                        {
+                            errorMessage.push(" Subject");
+                            error++;
+                        }
+                        if(level==""||level==null)
+                        {
+                            errorMessage.push(" Level");
+                            error++;
+                        }
+                        else
+                        {
+                                console.log(category);
+                                console.log(subject);
+                                console.log(level);
+                                console.log(questioncount);
+                                $.ajax({
+                                    type: "post",
+                                    url: "api/createExam",
+                                    data: {
+                                        category:category,
+                                        subject:subject,
+                                        level:level
+                                    },
+                                    dataType: "json",
+                                    success: function (response) {
+                                        if(response.valid)
+                                        {
+                                            alert("Exam Successfully Created");
+                                        }
+                                        else
+                                        {
+                                            alert("The exam is already created")
+                                        }
+                                    }
+                                });
+                        }
+                    }
+                   
+                });
+            
+            
             
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
@@ -337,6 +516,23 @@ $(document).ready(function(){
         });
         Path.map("#/categories").to(function(){
             App.canvas.mustache('viewCategories');
+            $.ajax({
+                type: "get",
+                url: "api/getCategory",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var rlen = response.length;
+                    console.log(rlen);
+                    for(i=0;rlen>0;i++)
+                    {
+                        $("#tb").append(
+                        '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td></tr>)');
+                        rlen--;
+                    }
+                    
+                }
+            });
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -372,6 +568,41 @@ $(document).ready(function(){
             $("#scores").on('click', function(){
                 window.location.replace("#/scores");
                 window.location.reload();
+            });
+            $("#addCategorymodal-form").on('submit',function(e){
+                e.preventDefault();
+                var categoryName = $("#category").val();
+                if(categoryName==''|| categoryName==null)
+                {
+                    alert("Category Name CANNOT BE BLANK")
+                }
+                else
+                {
+                    $.ajax({
+                        type: "post",
+                        url: "api/addCategory",
+                        data: {
+                            categoryName : categoryName
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Category Successfully Added");
+                                $("#category").val('');
+                                console.log(response.uid)
+                                console.log(response.category)
+                                // window.location.reload();
+                            }
+                            else
+                            {
+                                alert("Category already exist");
+                            }
+                        }
+                    });
+                    
+                }
+                
             });
         });
         Path.map("#/subjects").to(function(){
@@ -411,6 +642,24 @@ $(document).ready(function(){
             $("#scores").on('click', function(){
                 window.location.replace("#/scores");
                 window.location.reload();
+            });
+            $("#addSubject").on('click',function(){
+                $.ajax({
+                    type: "get",
+                    url: "api/getCategory",
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        var rlen = response.length;
+                        console.log(rlen);
+                        for(i=0;rlen>0;i++)
+                        {
+                            $("#examcategories").append('<option id = "categoryOpt" value='+response[i].uid+'>'+response[i].category+'</option>');
+                            console.log(response[i].uid) // THIS NEEDS SOME FIXING AND THINKING
+                            rlen--;
+                        }
+                    }
+                });
             });
         });
         Path.map("#/examinees").to(function(){
@@ -862,3 +1111,21 @@ function noSpace(ev){
     ev.preventDefault();
     }
 }
+// function generateCategoryCode()
+// {
+    
+//   $.ajax({
+//         type: "post",
+//         url: "api/categoryCode",
+//         dataType: "json",
+//         success: function (response) {
+//             if(response.valid)
+//             {
+//                 categoryCode = response.code;
+//                 console.log(categoryCode);
+//                 return categoryCode;
+                
+//             }
+//         }
+//     });
+// }

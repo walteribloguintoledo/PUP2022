@@ -60,6 +60,36 @@ $app->post('/check',function(){
     $check = checkUser($email,$pswrd);
     echo json_encode ($check);
 });
+
+$app->post('/addQuestion',function(){
+    $level = $_POST['level'];
+    $examQuestion = $_POST['examQuestion'];
+    $choice1 = $_POST['choice1'];
+    $choice2 = $_POST['choice2'];
+    $choice3 = $_POST['choice3'];
+    $choice4 = $_POST['choice4'];
+    $answer = $_POST['answer'];
+    $inserQuestion = addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer);
+    echo json_encode($inserQuestion);
+});
+
+$app->post('/createExam',function(){
+    $category = $_POST['category'];
+    $subject = $_POST['subject'];
+    $level = $_POST['level'];
+    $createExam = addExam($category,$subject,$level);
+    echo json_encode($createExam);
+});
+
+$app->post('/addCategory',function(){
+    $categoryCode = mt_rand(1000,9999);
+    $categoryName = $_POST['categoryName'];
+    $insertCategory = addCategory( $categoryCode,$categoryName);
+    echo json_encode($insertCategory);
+});
+
+
+
 $app->run();
 
 ?>

@@ -111,4 +111,97 @@ function getSubject()
 
     return $data;
 }
+
+function addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer)
+{
+    $existquestion = ORM::for_table('exam_entry')->where('value',$examQuestion)->count();
+    if($existquestion==0)
+    {
+        $sqlquestion = ORM::for_table('exam_entry')->create();
+            $sqlquestion->set('keyIndex','question');
+            $sqlquestion->set('value',$examQuestion);
+            $sqlquestion->set('level',$level);
+            $sqlquestion->save();
+
+        $sqlchoice1 = ORM::for_table('exam_entry')->create();
+            $sqlchoice1->set('keyIndex','choice1');
+            $sqlchoice1->set('value',$choice1);
+            $sqlchoice1->set('level',$level);
+            $sqlchoice1->save();
+
+        $sqlchoice2 = ORM::for_table('exam_entry')->create();
+            $sqlchoice2->set('keyIndex','choice2');
+            $sqlchoice2->set('value',$choice2);
+            $sqlchoice2->set('level',$level);
+            $sqlchoice2->save();
+
+        $sqlchoice3 = ORM::for_table('exam_entry')->create();
+            $sqlchoice3->set('keyIndex','choice3');
+            $sqlchoice3->set('value',$choice3);
+            $sqlchoice3->set('level',$level);
+            $sqlchoice3->save();
+
+        $sqlchoice4 = ORM::for_table('exam_entry')->create();
+            $sqlchoice4->set('keyIndex','choice4');
+            $sqlchoice4->set('value',$choice4);
+            $sqlchoice4->set('level',$level);
+            $sqlchoice4->save();
+
+        $sqlanswer = ORM::for_table('exam_entry')->create();
+            $sqlanswer->set('keyIndex','answer');
+            $sqlanswer->set('value',$answer);
+            $sqlanswer->set('level',$level);
+        $sqlanswer->save();
+
+        $data = array("valid"=>true);
+    }
+    else
+    {
+        $data = array("valid"=>false);
+    }
+    return $data;
+}
+
+function addExam($category,$subject,$level)
+{
+    $existExam = ORM::for_table('exams')->where('category',$category)->where('subject',$subject)->where('level',$level)->count();
+    if($existExam==0)
+    {
+        $sql = ORM::for_table('exams')->create();
+            $sql->set('category',$category);
+            $sql->set('subject',$subject);
+            $sql->set('level',$level);
+            $sql->save();
+        $data = array("valid"=>true);
+    }
+    else
+    {
+        $data = array("valid"=>false);
+    }
+    return $data;
+}
+
+function addCategory($categoryCode,$categoryName)
+{
+    $existCategory = ORM::for_table('category')->where('category',$categoryName)->count();
+    if($existCategory ==0)
+    {
+        $sql = ORM::for_table('category')->create();
+        $sql->set('uid',$categoryCode);
+            $sql->set('category',$categoryName);
+            $sql->save();
+        $data = array("valid"=>true, "uid"=>$categoryCode, "category"=>$categoryName);
+    }
+    else
+    {
+        $data = array("valid"=>false);
+    }
+    return $data;
+}
+
+// function generateCategoryCode()
+// {
+//     $categoryCode = mt_rand(1000,9999);
+//     return $categoryCode;
+// }
 ?>
