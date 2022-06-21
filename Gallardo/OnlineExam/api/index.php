@@ -88,7 +88,25 @@ $app->post('/addCategory',function(){
     echo json_encode($insertCategory);
 });
 
+$app->post('/addSubject',function(){
+    $subjectCategory = $_POST['subjectCategory'];
+    $subjectName = $_POST['subjectName'];
+    $insertSubject = addSubject($subjectCategory,$subjectName);
+    echo json_encode($insertSubject);
+});
 
+$app->get('/fetchdataEdit',function(){
+    $editID = $_GET['editID'];
+    $fetch = getCategoryData($editID);
+    echo json_encode($fetch);
+});
+
+$app->post('/editCategory',function(){
+    $editID = $_POST['editID'];
+    $newCategory = $_POST['newCategory'];
+    $edit = editCategory($editID  ,$newCategory);
+    echo json_encode($edit);
+});
 
 $app->run();
 

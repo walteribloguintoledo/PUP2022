@@ -199,9 +199,51 @@ function addCategory($categoryCode,$categoryName)
     return $data;
 }
 
-// function generateCategoryCode()
-// {
-//     $categoryCode = mt_rand(1000,9999);
-//     return $categoryCode;
-// }
+function addSubject($subjectCategory,$subjectName)
+{
+    $existSubject = ORM::for_table('subject')->where('subjectName',$subjectName)->where('uid',$subjectCategory)->count();
+    if($existSubject==0)
+    {
+        $sqlsubject = ORM::for_table('subject')->create();
+            $sqlsubject->set('uid',$subjectCategory);
+            $sqlsubject->set('subjectName',$subjectName);
+            $sqlsubject->save();
+        $data = array("valid"=>true,"uid"=>$subjectCategory, "subject"=>$subjectName);
+    }
+    else
+    {
+        $data = array("valid"=>false);
+    }
+    return $data;
+}
+
+function getCategoryData($editID)
+{
+    $sql = ORM::for_table('category')->where('uid',$editID)->find_many();
+    foreach ($sql as $row)
+    {
+       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "category"=>$row->category);
+    }
+
+    return $data;
+}
+
+function editCategory($editID,$newCategory)
+{
+    ORM::configure('uid', 'primary_key');
+    // $existCategory = ORM::for_table('category')->where('category',$newCategory)->count();
+    // if($existCategory==0)
+    // {
+        $sql = ORM::for_table('category')->where('uid',$editID)->find_many();
+            $sql->set('category',$newCategory);
+        $sql->save();
+        $data=array("valid"=>true, "uid"=>$editID, "category"=>$newCategory);
+    // }
+    // else
+    // {
+    //     $data=array("valid"=>false);
+    // }
+    return $data;
+    
+}
 ?>

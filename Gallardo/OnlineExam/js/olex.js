@@ -527,10 +527,55 @@ $(document).ready(function(){
                     for(i=0;rlen>0;i++)
                     {
                         $("#tb").append(
-                        '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td></tr>)');
+                        '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID='+response[i].uid+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" ctgryID='+response[i].uid+'><i class="fas fa-trash-alt"></i></button></td></tr>)');
                         rlen--;
                     }
-                    
+                    $(document).on('click','#editCategory',function(){
+                        var editID = $(this).attr('editID');
+                        console.log(editID);
+                        $.ajax({
+                            type: "get",
+                            url: "api/fetchdataEdit",
+                            data: {
+                                editID : editID
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                console.log(response[0].category);
+                                $("#newCategory").val(response[0].category);
+                                $("#editCategoryModal-form").on('submit',function(e){
+                                    e.preventDefault();
+                                    var newCategory = $("#newCategory").val();
+                                    if(newCategory==''||newCategory==null)
+                                    {
+                                        alert("Category CANNOT BE BLANK");
+                                    }
+                                    else
+                                    {
+                                        $.ajax({
+                                            type: "post",
+                                            url: "api/editCategory",
+                                            data: {
+                                                editID : editID,
+                                                newCategory : newCategory
+                                            },
+                                            dataType: "json",
+                                            success: function (response) {
+                                                if(response.valid)
+                                                {
+                                                    alert("New Category saved");
+                                                }
+                                                else
+                                                {
+                                                    alert("The category already exist");
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                            }
+                        });
+                    });
                 }
             });
             $("#creatorDashboard-logo").on('click', function(){
@@ -607,6 +652,22 @@ $(document).ready(function(){
         });
         Path.map("#/subjects").to(function(){
             App.canvas.mustache('viewSubjects');
+            $.ajax({
+                type: "get",
+                url: "api/getSubjects",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    var rlen = response.length;
+                    console.log(rlen);
+                    for(i=0;rlen>0;i++)
+                    {
+                        $("#tb").append(
+                            '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal"><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject"><i class="fas fa-trash-alt"></i></button></td></tr>');
+                        rlen--;
+                    }
+                }
+            });
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -660,6 +721,53 @@ $(document).ready(function(){
                         }
                     }
                 });
+            });
+            $("#addSubjectModal-form").on('submit',function(e){
+                e.preventDefault();
+                var subjectCategory = $("#subjectCategory").val();
+                var subjectName =$("#subjectName").val();
+                var error = 0;
+                var errorMessage=[];
+                if(subjectCategory==''|| subjectCategory==null)
+                {
+                    errorMessage.push(" Category");
+                    error++;
+                }
+                if(subjectName==''|| subjectName==null)
+                {
+                    errorMessage.push(" Subject");
+                    error++;
+                }
+                if(error!=0)
+                {
+                    alert(errorMessage + "CANNOT BE BLANK");
+                }
+                else
+                {
+                    $.ajax({
+                        type: "post",
+                        url: "api/addSubject",
+                        data: {
+                            subjectCategory : subjectCategory,
+                            subjectName : subjectName
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                console.log(response);
+                                alert("Exam subject added");
+                                window.location.reload()
+                            }
+                            else
+                            {
+                                console.log(response);
+                                alert("Exam subject already exist");
+                            }
+                        }
+                    });
+                }
+                
             });
         });
         Path.map("#/examinees").to(function(){
