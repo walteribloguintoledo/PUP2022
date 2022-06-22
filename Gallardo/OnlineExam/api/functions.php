@@ -1,7 +1,7 @@
 <?php
 include 'functions/connect.php';
 
-function registerCreator($userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact)
+function registerCreator($userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact) // Registers a new Exam Creator
 {
         $existemail= ORM::for_table('users')->where('email',$email)->count();
         if($existemail == 0)
@@ -30,7 +30,7 @@ function registerCreator($userType, $firstname, $middlename, $lastname,$address,
         
         return $data;
 }
-function registerExaminee($userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact, $category)
+function registerExaminee($userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact, $category) //Registers a new Examinee
 {
         $existemail= ORM::for_table('users')->where('email',$email)->count();
         if($existemail == 0)
@@ -61,7 +61,7 @@ function registerExaminee($userType, $firstname, $middlename, $lastname,$address
         return $data;
 }
 
-function guestLogin($guestFirstname,$guestMiddleName,$guestLastName,$category)
+function guestLogin($guestFirstname,$guestMiddleName,$guestLastName,$category) // Registers and Logs on Guest user
 {
         $sql = ORM::for_table('guest')->create();
         
@@ -75,7 +75,7 @@ function guestLogin($guestFirstname,$guestMiddleName,$guestLastName,$category)
         return $data;
 }
 
-function checkUser($email,$pswd)
+function checkUser($email,$pswd) // Checks if the user exist
 {
     $data = array();
     
@@ -88,7 +88,7 @@ function checkUser($email,$pswd)
     return $data;
 }
 
-function getCategory()
+function getCategory() // Retrieves exam categories
 {
     $data = array();
     $sql = ORM::for_table('category')->find_many();
@@ -100,7 +100,7 @@ function getCategory()
     return $data;
 }
 
-function getSubject()
+function getSubject() // Retrieves Exam Subjects
 {
     $data = array();
     $sql = ORM::for_table('subject')->find_many();
@@ -112,7 +112,7 @@ function getSubject()
     return $data;
 }
 
-function addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer)
+function addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer) // Insert entries in the exam_entry table
 {
     $existquestion = ORM::for_table('exam_entry')->where('value',$examQuestion)->count();
     if($existquestion==0)
@@ -162,7 +162,7 @@ function addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$a
     return $data;
 }
 
-function addExam($category,$subject,$level)
+function addExam($category,$subject,$level) //Creates and inserts exam details
 {
     $existExam = ORM::for_table('exams')->where('category',$category)->where('subject',$subject)->where('level',$level)->count();
     if($existExam==0)
@@ -181,7 +181,8 @@ function addExam($category,$subject,$level)
     return $data;
 }
 
-function addCategory($categoryCode,$categoryName)
+
+function addCategory($categoryCode,$categoryName) //Creates and inserts exam category
 {
     $existCategory = ORM::for_table('category')->where('category',$categoryName)->count();
     if($existCategory ==0)
@@ -199,7 +200,7 @@ function addCategory($categoryCode,$categoryName)
     return $data;
 }
 
-function addSubject($subjectCategory,$subjectName)
+function addSubject($subjectCategory,$subjectName)//Creates and inserts exam subject
 {
     $existSubject = ORM::for_table('subject')->where('subjectName',$subjectName)->where('uid',$subjectCategory)->count();
     if($existSubject==0)
@@ -217,33 +218,68 @@ function addSubject($subjectCategory,$subjectName)
     return $data;
 }
 
-function getCategoryData($editID)
+function getCategoryData($editID)//Fetches the category data to edit
 {
     $sql = ORM::for_table('category')->where('uid',$editID)->find_many();
     foreach ($sql as $row)
     {
-       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "category"=>$row->category);
+       $data = array("id"=>$row->id, "uid"=>$row->uid, "category"=>$row->category);
     }
 
     return $data;
 }
 
-function editCategory($editID,$newCategory)
+function editCategory($editID,$newCategory)//Updates exam category
 {
-    ORM::configure('uid', 'primary_key');
-    // $existCategory = ORM::for_table('category')->where('category',$newCategory)->count();
-    // if($existCategory==0)
-    // {
-        $sql = ORM::for_table('category')->where('uid',$editID)->find_many();
-            $sql->set('category',$newCategory);
-        $sql->save();
-        $data=array("valid"=>true, "uid"=>$editID, "category"=>$newCategory);
-    // }
-    // else
-    // {
-    //     $data=array("valid"=>false);
-    // }
-    return $data;
     
+    $existCategory = ORM::for_table('category')->where('category',$newCategory)->count();
+    if($existCategory==0)
+    {
+        $sql = ORM ::for_table('category')->where('uid',$editID)->find_many();
+        $sql->set('category',$newCategory);
+        $sql->save();
+        $data = array("valid"=>true,"uid"=>$editID,"category"=>$newCategory);
+    }
+    else
+    {
+        $data = array("valid"=>false);
+    }
+    return $data;
+}
+
+function deleteCategory($delID) //Deletes exam category
+{
+    $sql = ORM::for_table('category')->find_one($delID);
+    $sql -> delete();
+    $data = array("valid" => true);
+    return $data;
+}
+
+function getSubjectData($editID) //Fetches exam subject to edit
+{
+    $sql = ORM::for_table('subject')->where('id',$editID)->find_many();
+    foreach ($sql as $row)
+    {
+       $data = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectName);
+    }
+
+    return $data;
+}
+
+function editSubject($editID,$uid,$newSubject) //Updates exam subject
+{
+    $existSubject = ORM::for_table('subject')->where('subjectName',$newSubject)->where('uid',$uid)->count();
+    if($existSubject==0)
+    {
+        $sql = ORM ::for_table('subject')->where('id',$editID)->find_many();
+        $sql->set('subjectName',$newSubject);
+        $sql->save();
+        $data = array("valid"=>true,"id"=>$editID,"subject"=>$newSubject);
+    }
+    else
+    {
+        $data = array("valid"=>false);
+    }
+    return $data;
 }
 ?>

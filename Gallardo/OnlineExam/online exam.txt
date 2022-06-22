@@ -158,3 +158,14 @@ Case: The Exam Creator creates the exam with its generated UID(exam code) before
 Possible options to attend in the case:
     1 - In the create exam add a button that enable the user to redirect to the add question page.
     2 - After the user created the exam set the input field of exam code in the add question page and just select the UID(exam code) which will generate all the information before putting in questions.
+
+
+<!-- {{#tableRecord}}
+                                            <tr>
+                                                <td>{{id}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{category}}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            {{/tableRecord}} -->

@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2022 at 12:02 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 5.6.40
+-- Generation Time: Jun 22, 2022 at 12:01 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -40,9 +38,11 @@ CREATE TABLE `category` (
 
 INSERT INTO `category` (`id`, `uid`, `category`) VALUES
 (1, '2476', 'BS Information Technology'),
-(2, '3799', 'BS Business Administration'),
-(3, '2185', 'BS Computer Science'),
-(4, '2683', 'BS Computer Engineering');
+(2, '3799', 'BS Computer Engineering'),
+(6, '6255', 'BS Electronics Engineering'),
+(7, '7226', 'BS Business Administration and Marketing'),
+(8, '1910', 'BS Computer Science'),
+(9, '4424', 'BS Accountancy');
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,8 @@ CREATE TABLE `exams` (
 
 INSERT INTO `exams` (`id`, `uid`, `category`, `subject`, `level`, `status`) VALUES
 (1, '', 'BS Computer Engineering', 'Fundamentals of Accounting', 1, 1),
-(2, '', 'BS Accountancy', 'JavaScript 1', 1, 1);
+(2, '', 'BS Accountancy', 'JavaScript 1', 1, 1),
+(3, '', 'BS Computer Science', 'Marketing 1', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -148,7 +149,19 @@ INSERT INTO `exam_entry` (`id`, `uid`, `keyIndex`, `value`, `level`, `status`) V
 (45, '', 'choice2', 'Ea est eveniet arc', 1, 1),
 (46, '', 'choice3', 'Aperiam eiusmod qui ', 1, 1),
 (47, '', 'choice4', 'Tempora neque aute m', 1, 1),
-(48, '', 'answer', 'Et ut et aliqua Con', 1, 1);
+(48, '', 'answer', 'Et ut et aliqua Con', 1, 1),
+(49, '', 'question', 'Reiciendis ut quos h', 1, 1),
+(50, '', 'choice1', 'In eaque excepteur v', 1, 1),
+(51, '', 'choice2', 'Voluptatum et enim c', 1, 1),
+(52, '', 'choice3', 'Velit consequatur ', 1, 1),
+(53, '', 'choice4', 'Voluptate libero vol', 1, 1),
+(54, '', 'answer', 'Culpa incidunt ass', 1, 1),
+(55, '', 'question', 'Dolorum omnis dolore', 1, 1),
+(56, '', 'choice1', 'Dolorem ad excepteur', 1, 1),
+(57, '', 'choice2', 'Ex qui facere deleni', 1, 1),
+(58, '', 'choice3', 'Voluptate in placeat', 1, 1),
+(59, '', 'choice4', 'Aute et laboris quos', 1, 1),
+(60, '', 'answer', 'Libero ab cupiditate', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -222,14 +235,17 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id`, `uid`, `subjectName`) VALUES
-(1, '', 'JavaScript 1'),
-(2, '', 'PHP 1'),
-(3, '', 'Computer Maintenance '),
-(4, '', 'Fundamentals of Accounting'),
-(5, '0', 'Multimedia'),
-(6, '2185', 'Artificial Inteligence'),
-(7, '3799', 'Brock Battle'),
-(8, '3799', 'Artificial Inteligence');
+(1, '2476', 'PHP Basics 1'),
+(2, '2476', 'JavaScript 1'),
+(3, '3799', 'Robotics of the Modern World 1'),
+(4, '1910', 'Data Analytics'),
+(5, '7226', 'Business Mathematics'),
+(6, '4424', 'Fundamentals of Accounting'),
+(7, '7226', 'Marketing 1'),
+(8, '3799', 'Modern Circuits 1'),
+(9, '1910', 'Multimedia'),
+(10, '2476', 'Multimedia'),
+(11, '2476', 'HTML and CSS 1');
 
 -- --------------------------------------------------------
 
@@ -330,51 +346,42 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `exam_entry`
 --
 ALTER TABLE `exam_entry`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 --
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `scores`
 --
 ALTER TABLE `scores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

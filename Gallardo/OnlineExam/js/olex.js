@@ -516,6 +516,27 @@ $(document).ready(function(){
         });
         Path.map("#/categories").to(function(){
             App.canvas.mustache('viewCategories');
+            
+            // var resultsList = [];
+            // $.getJSON( "api/getCategory", function( response ) {
+            //     var ctr = 0;
+            //     $.each( response, function( i, item ) {
+            //         ctr++;
+            //     var result = {
+            //         num: ctr,
+            //         id: item.id,
+            //         uid: item.uid,
+            //         category: item.category             
+            //     }
+            //     resultsList.push(result);
+            //     });
+            //     console.log(resultsList);
+            // });
+            // var templateData = {
+            //     tableRecord: resultsList
+            // }
+            // //console.log(templateData);
+            // App.canvas.mustache('viewCategories', templateData);
             $.ajax({
                 type: "get",
                 url: "api/getCategory",
@@ -527,7 +548,7 @@ $(document).ready(function(){
                     for(i=0;rlen>0;i++)
                     {
                         $("#tb").append(
-                        '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID='+response[i].uid+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" ctgryID='+response[i].uid+'><i class="fas fa-trash-alt"></i></button></td></tr>)');
+                        '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID='+response[i].uid+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" delID='+response[i].uid+' id="deleteCategory"><i class="fas fa-trash-alt"></i></button></td></tr>)');
                         rlen--;
                     }
                     $(document).on('click','#editCategory',function(){
@@ -541,8 +562,8 @@ $(document).ready(function(){
                             },
                             dataType: "json",
                             success: function (response) {
-                                console.log(response[0].category);
-                                $("#newCategory").val(response[0].category);
+                                console.log(response.category);
+                                $("#newCategory").val(response.category);
                                 $("#editCategoryModal-form").on('submit',function(e){
                                     e.preventDefault();
                                     var newCategory = $("#newCategory").val();
@@ -561,9 +582,11 @@ $(document).ready(function(){
                                             },
                                             dataType: "json",
                                             success: function (response) {
+                                                console.log(response);
                                                 if(response.valid)
                                                 {
                                                     alert("New Category saved");
+                                                    window.location.reload();
                                                 }
                                                 else
                                                 {
@@ -573,6 +596,30 @@ $(document).ready(function(){
                                         });
                                     }
                                 })
+                            }
+                        });
+                    });
+                    $(document).on('click','#deleteCategory',function(){
+                        var delID = $(this).attr('delID');
+                        console.log(delID);
+                        $.ajax({
+                            type: "post",
+                            url: "api/deleteCategory",
+                            data: {
+                                delID:delID
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                if(response.valid)
+                                {
+                                    alert("Category deleted successfully");
+                                    window.location.reload();
+                                }
+                                else
+                                {
+                                    alert("Something went wrong");
+                                    window.location.reload();
+                                }
                             }
                         });
                     });
@@ -637,7 +684,7 @@ $(document).ready(function(){
                                 $("#category").val('');
                                 console.log(response.uid)
                                 console.log(response.category)
-                                // window.location.reload();
+                                window.location.reload();
                             }
                             else
                             {
@@ -651,7 +698,30 @@ $(document).ready(function(){
             });
         });
         Path.map("#/subjects").to(function(){
+            // var resultsList = [];
+            // $.getJSON("api/getSubjects", function( response ) {
+                
+            //     var ctr = 0;
+            //     $.each( response, function( i, item ) {
+            //         ctr++;
+            //     var result = {
+            //         num: ctr,
+            //         id: item.id,
+            //         uid: item.uid,
+            //         subject: item.subject             
+            //     }
+            //     resultsList.push(result);
+            //     });
+            //     console.log(resultsList);
+            // });
+            // var templateData = {
+            //     tableRecord: resultsList
+            // }
+            // console.log(templateData);
+            // App.canvas.mustache('viewSubjects', templateData);
+
             App.canvas.mustache('viewSubjects');
+            
             $.ajax({
                 type: "get",
                 url: "api/getSubjects",
@@ -663,9 +733,59 @@ $(document).ready(function(){
                     for(i=0;rlen>0;i++)
                     {
                         $("#tb").append(
-                            '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal"><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject"><i class="fas fa-trash-alt"></i></button></td></tr>');
+                            '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ='+response[i].id+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject" delID = '+response[i].id+'><i class="fas fa-trash-alt"></i></button></td></tr>');
                         rlen--;
                     }
+                    $(document).on('click','#editSubeject',function(){
+                        var editID = $(this).attr('editID');
+                        console.log(editID);
+                        $.ajax({
+                            type: "get",
+                            url: "api/getSubjectEdit",
+                            data: {
+                                editID : editID
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                console.log(response.subject);
+                                $("#newSubject").val(response.subject);
+                                var uid = response.uid;
+                                $("#editSubjectModal-form").on('submit',function(e){
+                                    e.preventDefault();
+                                    var newSubject = $("#newSubject").val();
+                                    if(newSubject==''||newSubject==null)
+                                    {
+                                        alert("Category CANNOT BE BLANK");
+                                    }
+                                    else
+                                    {
+                                        $.ajax({
+                                            type: "post",
+                                            url: "api/editSubject",
+                                            data: {
+                                                editID : editID,
+                                                uid: uid,
+                                                newSubject : newSubject
+                                            },
+                                            dataType: "json",
+                                            success: function (response) {
+                                                console.log(response);
+                                                if(response.valid)
+                                                {
+                                                    alert("New Subject saved");
+                                                    window.location.reload();
+                                                }
+                                                else
+                                                {
+                                                    alert("The Subject already exist");
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                            }
+                        });
+                    });
                 }
             });
             $("#creatorDashboard-logo").on('click', function(){
@@ -721,6 +841,7 @@ $(document).ready(function(){
                         }
                     }
                 });
+                
             });
             $("#addSubjectModal-form").on('submit',function(e){
                 e.preventDefault();
