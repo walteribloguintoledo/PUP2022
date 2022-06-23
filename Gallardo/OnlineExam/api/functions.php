@@ -249,8 +249,10 @@ function editCategory($editID,$newCategory)//Updates exam category
 
 function deleteCategory($delID) //Deletes exam category
 {
-    $sql = ORM::for_table('category')->find_one($delID);
-    $sql -> delete();
+    $sql = ORM::for_table('category')->where('uid',$delID)->find_many();
+    $sql->delete();
+    $delsubjects = ORM::for_table('subject')->where('uid',$delID)->find_many();
+    $delsubjects->delete();
     $data = array("valid" => true);
     return $data;
 }
@@ -280,6 +282,14 @@ function editSubject($editID,$uid,$newSubject) //Updates exam subject
     {
         $data = array("valid"=>false);
     }
+    return $data;
+}
+
+function deleteSubject($delID)
+{
+    $delsubjects = ORM::for_table('subject')->where('id',$delID)->find_many();
+    $delsubjects->delete();
+    $data = array("valid" => true);
     return $data;
 }
 ?>

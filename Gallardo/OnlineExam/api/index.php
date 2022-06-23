@@ -114,14 +114,14 @@ $app->post('/addSubject',function(){
     echo json_encode($insertSubject);
 });
 //Fetches category to edit
-$app->get('/fetchdataEdit',function(){
-    $editID = $_GET['editID'];
+$app->post('/fetchCategoryEdit',function(){
+    $editID = $_POST['editID'];
     $fetch = getCategoryData($editID);
     echo json_encode($fetch);
 });
 //Fetches subject to edit
-$app->get('/getSubjectEdit',function(){
-    $editID = $_GET['editID'];
+$app->post('/getSubjectEdit',function(){
+    $editID = $_POST['editID'];
     $fetch = getSubjectData($editID);
     echo json_encode($fetch);
 });
@@ -144,6 +144,13 @@ $app->post('/editSubject',function(){
 $app->post('/deleteCategory',function(){
     $delID = $_POST['delID'];
     $delete = deleteCategory($delID);
+    echo json_encode($delete);
+});
+
+//Deleting subject
+$app->post('/deleteSubject',function(){
+    $delID = $_POST['delID'];
+    $delete = deleteSubject($delID);
     echo json_encode($delete);
 });
 $app->run();

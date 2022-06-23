@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2022 at 12:01 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Jun 23, 2022 at 12:00 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 5.6.40
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `uid` varchar(50) NOT NULL,
+  `uid` int(11) NOT NULL,
   `category` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -37,12 +39,12 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `uid`, `category`) VALUES
-(1, '2476', 'BS Information Technology'),
-(2, '3799', 'BS Computer Engineering'),
-(6, '6255', 'BS Electronics Engineering'),
-(7, '7226', 'BS Business Administration and Marketing'),
-(8, '1910', 'BS Computer Science'),
-(9, '4424', 'BS Accountancy');
+(1, 1717, 'BS Information Technology'),
+(2, 3952, 'BS Computer Science'),
+(4, 2693, 'BS Computer Engineering'),
+(5, 3061, 'BS Business Administration'),
+(6, 4108, 'BS Psychology'),
+(7, 2757, 'BS Accountancy');
 
 -- --------------------------------------------------------
 
@@ -58,15 +60,6 @@ CREATE TABLE `exams` (
   `level` int(2) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `exams`
---
-
-INSERT INTO `exams` (`id`, `uid`, `category`, `subject`, `level`, `status`) VALUES
-(1, '', 'BS Computer Engineering', 'Fundamentals of Accounting', 1, 1),
-(2, '', 'BS Accountancy', 'JavaScript 1', 1, 1),
-(3, '', 'BS Computer Science', 'Marketing 1', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -226,7 +219,7 @@ CREATE TABLE `settings` (
 
 CREATE TABLE `subject` (
   `id` int(11) NOT NULL,
-  `uid` varchar(50) NOT NULL,
+  `uid` int(11) NOT NULL,
   `subjectName` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -235,17 +228,11 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id`, `uid`, `subjectName`) VALUES
-(1, '2476', 'PHP Basics 1'),
-(2, '2476', 'JavaScript 1'),
-(3, '3799', 'Robotics of the Modern World 1'),
-(4, '1910', 'Data Analytics'),
-(5, '7226', 'Business Mathematics'),
-(6, '4424', 'Fundamentals of Accounting'),
-(7, '7226', 'Marketing 1'),
-(8, '3799', 'Modern Circuits 1'),
-(9, '1910', 'Multimedia'),
-(10, '2476', 'Multimedia'),
-(11, '2476', 'HTML and CSS 1');
+(1, 1717, 'PHP Basics'),
+(2, 1717, 'JavaScript 1'),
+(3, 3952, 'Data Analytics'),
+(4, 3952, 'Artificial Intelligence'),
+(6, 2693, 'Robotics of the Modern World');
 
 -- --------------------------------------------------------
 
@@ -284,7 +271,8 @@ INSERT INTO `users` (`id`, `uid`, `userType`, `firstname`, `middlename`, `lastna
 (9, '', 'Examinee', 'Cain', 'Wynter Merrill', 'Compton', 'Saepe sunt cupiditat', '2003-03-20', 'pixekaj@mailinator.c', 'Pa$$w0rd!', '09392608805', NULL),
 (10, '', 'Examinee', 'Quinlan', 'Joseph Kirkland', 'Wise', 'Itaque ducimus occa', '2014-11-01', 'teticaxyge@mailinato', 'Pa$$w0rd!', '09392608805', 'BS Information Technology'),
 (18, '', 'Examinee', 'Jason', 'Axel Gibbs', 'Allen', 'Eos est asperiores ', '1971-09-13', 'vixu@mailinator.com', 'Pa$$w0rd!', '09392608805', 'BS Computer Science'),
-(19, '', 'Examinee', 'Farrah', 'Patience Acosta', 'Flores', 'Eveniet nihil magna', '1980-06-05', 'juserohu@mailinator.com', 'Pa$$w0rd!', '09124563789', 'BS Accountancy');
+(19, '', 'Examinee', 'Farrah', 'Patience Acosta', 'Flores', 'Eveniet nihil magna', '1980-06-05', 'juserohu@mailinator.com', 'Pa$$w0rd!', '09124563789', 'BS Accountancy'),
+(20, '', 'Exam Creator', 'Ed John Paul ', 'Del Rosario', 'Gallardo', '64 South Sikap St Brgy. Plainview Mandaluyong City', '1999-06-28', 'edjohnpaulgallardo@gmail.com', 'gallardo28', '09392608855', NULL);
 
 --
 -- Indexes for dumped tables
@@ -294,7 +282,8 @@ INSERT INTO `users` (`id`, `uid`, `userType`, `firstname`, `middlename`, `lastna
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`uid`);
 
 --
 -- Indexes for table `exams`
@@ -330,7 +319,8 @@ ALTER TABLE `settings`
 -- Indexes for table `subject`
 --
 ALTER TABLE `subject`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `uid` (`uid`);
 
 --
 -- Indexes for table `users`
@@ -346,42 +336,61 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `exam_entry`
 --
 ALTER TABLE `exam_entry`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
 --
 -- AUTO_INCREMENT for table `guest`
 --
 ALTER TABLE `guest`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `scores`
 --
 ALTER TABLE `scores`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `subject`
+--
+ALTER TABLE `subject`
+  ADD CONSTRAINT `subject_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `category` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

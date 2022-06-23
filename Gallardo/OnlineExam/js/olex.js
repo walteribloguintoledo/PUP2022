@@ -518,9 +518,11 @@ $(document).ready(function(){
             App.canvas.mustache('viewCategories');
             
             // var resultsList = [];
-            // $.getJSON( "api/getCategory", function( response ) {
-            //     var ctr = 0;
-            //     $.each( response, function( i, item ) {
+            $.getJSON( "api/getCategory", function( response ) {
+                var ctr = 0;
+                $.each( response, function( i, item ) {
+                    $("#tb").append(
+                    '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID='+response[i].uid+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" delID='+response[i].uid+' id="deleteCategory"><i class="fas fa-trash-alt"></i></button></td></tr>)');
             //         ctr++;
             //     var result = {
             //         num: ctr,
@@ -529,34 +531,34 @@ $(document).ready(function(){
             //         category: item.category             
             //     }
             //     resultsList.push(result);
-            //     });
+                });
             //     console.log(resultsList);
-            // });
+            });
             // var templateData = {
             //     tableRecord: resultsList
             // }
-            // //console.log(templateData);
+            // console.log(templateData);
             // App.canvas.mustache('viewCategories', templateData);
-            $.ajax({
-                type: "get",
-                url: "api/getCategory",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    var rlen = response.length;
-                    console.log(rlen);
-                    for(i=0;rlen>0;i++)
-                    {
-                        $("#tb").append(
-                        '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID='+response[i].uid+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" delID='+response[i].uid+' id="deleteCategory"><i class="fas fa-trash-alt"></i></button></td></tr>)');
-                        rlen--;
-                    }
+            // $.ajax({
+            //     type: "get",
+            //     url: "api/getCategory",
+            //     dataType: "json",
+            //     success: function (response) {
+            //         console.log(response);
+            //         var rlen = response.length;
+            //         console.log(rlen);
+            //         for(i=0;rlen>0;i++)
+            //         {
+            //             $("#tb").append(
+            //             '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID='+response[i].uid+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" delID='+response[i].uid+' id="deleteCategory"><i class="fas fa-trash-alt"></i></button></td></tr>)');
+            //             rlen--;
+            //         }
                     $(document).on('click','#editCategory',function(){
                         var editID = $(this).attr('editID');
                         console.log(editID);
                         $.ajax({
-                            type: "get",
-                            url: "api/fetchdataEdit",
+                            type: "post",
+                            url: "api/fetchCategoryEdit",
                             data: {
                                 editID : editID
                             },
@@ -623,8 +625,8 @@ $(document).ready(function(){
                             }
                         });
                     });
-                }
-            });
+                // }
+            // });
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -699,10 +701,13 @@ $(document).ready(function(){
         });
         Path.map("#/subjects").to(function(){
             // var resultsList = [];
-            // $.getJSON("api/getSubjects", function( response ) {
+            App.canvas.mustache('viewSubjects');
+            $.getJSON("api/getSubjects", function( response ) {
                 
             //     var ctr = 0;
-            //     $.each( response, function( i, item ) {
+                $.each( response, function( i, item ) {
+                    $("#tb").append(
+                    '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ='+response[i].id+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject" delID = '+response[i].id+'><i class="fas fa-trash-alt"></i></button></td></tr>');
             //         ctr++;
             //     var result = {
             //         num: ctr,
@@ -711,36 +716,36 @@ $(document).ready(function(){
             //         subject: item.subject             
             //     }
             //     resultsList.push(result);
-            //     });
+                });
             //     console.log(resultsList);
-            // });
+            });
             // var templateData = {
             //     tableRecord: resultsList
             // }
             // console.log(templateData);
             // App.canvas.mustache('viewSubjects', templateData);
 
-            App.canvas.mustache('viewSubjects');
+            // App.canvas.mustache('viewSubjects');
             
-            $.ajax({
-                type: "get",
-                url: "api/getSubjects",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    var rlen = response.length;
-                    console.log(rlen);
-                    for(i=0;rlen>0;i++)
-                    {
-                        $("#tb").append(
-                            '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ='+response[i].id+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject" delID = '+response[i].id+'><i class="fas fa-trash-alt"></i></button></td></tr>');
-                        rlen--;
-                    }
+            // $.ajax({
+            //     type: "get",
+            //     url: "api/getSubjects",
+            //     dataType: "json",
+            //     success: function (response) {
+            //         console.log(response);
+            //         var rlen = response.length;
+            //         console.log(rlen);
+            //         for(i=0;rlen>0;i++)
+            //         {
+            //             $("#tb").append(
+            //                 '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ='+response[i].id+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject" delID = '+response[i].id+'><i class="fas fa-trash-alt"></i></button></td></tr>');
+            //             rlen--;
+            //         }
                     $(document).on('click','#editSubeject',function(){
                         var editID = $(this).attr('editID');
                         console.log(editID);
                         $.ajax({
-                            type: "get",
+                            type: "post",
                             url: "api/getSubjectEdit",
                             data: {
                                 editID : editID
@@ -786,8 +791,32 @@ $(document).ready(function(){
                             }
                         });
                     });
-                }
-            });
+                // }
+            // });
+                    $(document).on('click','#deleteSubject',function(){
+                        var delID = $(this).attr('delID');
+                        console.log(delID);
+                        $.ajax({
+                            type: "post",
+                            url: "api/deleteSubject",
+                            data: {
+                                delID:delID
+                            },
+                            dataType: "json",
+                            success: function (response) {
+                                if(response.valid)
+                                {
+                                    alert("Subject deleted successfully");
+                                    window.location.reload();
+                                }
+                                else
+                                {
+                                    alert("Something went wrong");
+                                    window.location.reload();
+                                }
+                            }
+                        });
+                    });
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
