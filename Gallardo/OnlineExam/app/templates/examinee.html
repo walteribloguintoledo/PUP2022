@@ -1,0 +1,374 @@
+<!-- Insert examinee user interface here -->
+<script type="text/template" id="examineeDashboard">
+    <body id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="examineeDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/examineeDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item"><a id="examineeDashboard" class="nav-link active" href="#/examineeDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a><a id="examsToTake" class="nav-link active" href="#/examsToTake"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>View Exams to Take</span></a><a id="examsScores" class="nav-link active" href="#/examScores"><i class="fas fa-trophy" style="font-size: 16px;"></i><span>Scores</span></a></li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                        <form class="me-auto navbar-search w-100">
+                                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown no-arrow mx-1"></li>
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                                </li>
+                                <div class="d-none d-sm-block topbar-divider"></div>
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Examinee</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-dark mb-0">Dashboard</h3><a id="examsScores" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#/examScores"><i class="fas fa-medal fa-sm text-white-50" style="width: 20.3px;font-size: 16px;"></i>View Scores</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow border-start-primary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>NO. of EXAMS Taken</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span>5</span></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-pencil-ruler fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow border-start-success py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>No. of Passed Exams</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span>4</span></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-crown fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow border-start-info py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>no. of Failed Exams</span></div>
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-auto">
+                                                        <div class="text-dark fw-bold h5 mb-0 me-3"><span>10</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-sad-tear fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xl-3 mb-4">
+                                <div class="card shadow border-start-warning py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-warning fw-bold text-xs mb-1"><span>no. of Exams to take</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span>10</span></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-folder-open fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-xl-6 mb-4">
+                                <div class="card shadow border-start-info py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <p style="color: var(--bs-dark);font-size: 28px;">Scoring System</p>
+                                            </div>
+                                            <div class="col-auto col-xl-2 col-xxl-3"><i class="far fa-grin-stars fa-2x text-gray-300" style="font-size: 50px;"></i></div>
+                                        </div>
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="font-size: 14px;color: #009e49;margin-left: 17px;">Level 1 - Easy Score / No.of items * 100</span></div>
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="font-size: 14px;color: #f77f00;margin-left: 17px;">Level 2 - Average Score / no.of items * 100</span></div>
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="font-size: 16px;color: #000001;font-weight: bold;">+</span><span style="font-size: 14px;color: #e8112d;margin-left: 8px;">Level 3 - Difficult Score / No. of Items * 100</span>
+                                                    <hr style="color: var(--bs-dark);margin-top: 5px;height: 4px;width: 330.2px;">
+                                                </div>
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="font-size: 16px;color: #0072c6;">EXAm Score = Total Score / 3&nbsp;</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card shadow border-start-info py-2">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-xl-9">
+                                                <p style="color: var(--bs-dark);font-size: 28px;">Passing Grade</p>
+                                            </div>
+                                            <div class="col-xl-1 offset-xl-0"><i class="fas fa-graduation-cap fa-2x text-gray-300" style="font-size: 53px;"></i></div>
+                                        </div>
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="font-size: 20px;color: #009e49;margin-left: 0px;">EXAm Score must be 80% or above</span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </body>
+</script>
+
+<script type="text/template" id="examsToTake">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="examineeDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/examineeDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item"><a id="examineeDashboard" class="nav-link active" href="#/examineeDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a><a id="examsToTake" class="nav-link active" href="#/examsToTake"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>View Exams to Take</span></a><a id="examsScores" class="nav-link active" href="#/examScores"><i class="fas fa-trophy" style="font-size: 16px;"></i><span>Scores</span></a></li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                        <form class="me-auto navbar-search w-100">
+                                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown no-arrow mx-1"></li>
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                                </li>
+                                <div class="d-none d-sm-block topbar-divider"></div>
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Examinee</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a>
+                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-dark mb-0">Exams to Take</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-medal fa-sm text-white-50" style="width: 20.3px;font-size: 16px;"></i>View Scores</a>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12 col-xl-12 col-xxl-11 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-7 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-0">
+                                                <h4 style="color: var(--bs-dark);font-weight: bold;margin-top: 8px;">JavaScript 1</h4>
+                                            </div>
+                                            <div class="col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2 offset-sm-0"><button class="btn btn-primary rounded-pill" type="button"><i class="fa fa-pencil" style="margin-left: 0px;margin-right: 8px;font-size: 18px;"></i>Take Exam</button></div>
+                                        </div>
+                                        <h6 class="text-muted card-subtitle mb-2"></h6>
+                                        <p class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12 col-xl-12 col-xxl-11 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-7 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-0">
+                                                <h4 style="color: var(--bs-dark);font-weight: bold;margin-top: 8px;">MySQL 1</h4>
+                                            </div>
+                                            <div class="col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2 offset-sm-0"><button class="btn btn-primary rounded-pill" type="button"><i class="fa fa-pencil" style="margin-left: 0px;margin-right: 8px;font-size: 18px;"></i>Take Exam</button></div>
+                                        </div>
+                                        <h6 class="text-muted card-subtitle mb-2"></h6>
+                                        <p class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12 col-xl-12 col-xxl-11 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-7 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-0">
+                                                <h4 style="color: var(--bs-dark);font-weight: bold;margin-top: 8px;">JavaScript 2</h4>
+                                            </div>
+                                            <div class="col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2 offset-sm-0"><button class="btn btn-primary rounded-pill" type="button"><i class="fa fa-pencil" style="margin-left: 0px;margin-right: 8px;font-size: 18px;"></i>Take Exam</button></div>
+                                        </div>
+                                        <h6 class="text-muted card-subtitle mb-2"></h6>
+                                        <p class="card-text"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="examScores">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="examineeDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/examineeDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item"><a id="examineeDashboard" class="nav-link active" href="#/examineeDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a><a id="examsToTake" class="nav-link active" href="#/examsToTake"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>View Exams to Take</span></a><a id="examsScores" class="nav-link active" href="#/examScores"><i class="fas fa-trophy" style="font-size: 16px;"></i><span>Scores</span></a></li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                        <form class="me-auto navbar-search w-100">
+                                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                                <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown no-arrow mx-1"></li>
+                                <li class="nav-item dropdown no-arrow mx-1">
+                                    <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                                </li>
+                                <div class="d-none d-sm-block topbar-divider"></div>
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Examinee</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                            <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-4">Summary of Scores</h3>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Exam Scores</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Exam Name</th>
+                                                <th>Score</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>JavaScript 1</td>
+                                                <td>95</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>MySQL 1</td>
+                                                <td>89</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>PHP 2</td>
+                                                <td>90</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>HTML 1</td>
+                                                <td>80</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr></tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>

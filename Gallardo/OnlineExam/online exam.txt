@@ -169,3 +169,31 @@ Possible options to attend in the case:
                                                 <td></td>
                                             </tr>
                                             {{/tableRecord}} -->
+
+===========================================================
+Online Exam File structure:
+root
+	api
+		vendor
+			slim
+		functions
+		index.php
+	app
+		js
+			app.js
+		css
+		template
+			admin.html
+			user.html
+			examinee.html
+		index.html
+	auth
+		js
+			auth.js
+		css
+		template
+		index.html
+	assets
+		js
+		css
+	index.html
