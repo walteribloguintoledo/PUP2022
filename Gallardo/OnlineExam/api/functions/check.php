@@ -1,15 +1,14 @@
 <?php
-function checkUser($uname,$email,$pswd)
+function checkUser($email,$pswd) // Checks if the user exist
 {
-    // include "connect.php";
     $data = array();
     
-    $sql = ORM::for_table('users')->where('username',$uname)->where('email',$email)->where('password',$pswd)->find_many();
+    $sql = ORM::for_table('users')->where('email',$email)->where('password',$pswd)->find_many();
     
     foreach ($sql as $row)
     {
-        $data = array("valid" => true, "userid"=> $row->userid,"uname" => $row->username, "email" => $row->email,"password" => $row->password);
+        $data = array("valid" => true, "id"=> $row->id,"uid" => $row->uid, "userType" => $row->userType, "firstname"=> $row->firstname, "middlename" => $row->middlename, "lastname" => $row->lastname,  "email" => $row->email,"password" => $row->password, "category" => $row->category);
     }
-    echo json_encode($data);
+    return $data;
 }
 ?>

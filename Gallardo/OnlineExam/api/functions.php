@@ -292,4 +292,32 @@ function deleteSubject($delID)
     $data = array("valid" => true);
     return $data;
 }
+
+//======================MAKE THESE INTO A JSON FILE========================//
+// function saveSettings($numOfItems1,$numOfItems2,$numOfItems3,$passingGrade)
+// {
+//     $sqlnumofitems1 = ORM::for_table('settings')->create();
+//     $sqlnumofitems1->set('keyIndex','No. of Items for Level 1',$numOfItems1);
+//     $sqlnumofitems1->set('value',$numOfItems1);
+//     $sqlnumofitems1->save();
+
+//     $sqlnumofitems2 = ORM::for_table('settings')->create();
+//     $sqlnumofitems2->set('keyIndex','No. of Items for Level 2',$numOfItems2);
+//     $sqlnumofitems2->set('value',$numOfItems2);
+//     $sqlnumofitems2->save();
+
+//     $sqlnumofitems3 = ORM::for_table('settings')->create();
+//     $sqlnumofitems3->set('keyIndex','No. of Items for Level 3',$numOfItems3);
+//     $sqlnumofitems3->set('value',$numOfItems3);
+//     $sqlnumofitems3->save();
+    
+//     $sqlpassingGrade = ORM::for_table('settings')->create();
+//     $sqlpassingGrade->set('keyIndex','No. of Items for Level 1',$passingGrade);
+//     $sqlpassingGrade->set('value',$passingGrade);
+//     $sqlpassingGrade->save();
+
+//     $data = array("valid"=>true,"numOfItems1"=>$numOfItems1,"numOfItems2"=>$numOfItems2,"numOfItems3"=>$numOfItems3, "passingGrade"=>$passingGrade);
+
+//     return $data;
+// }
 ?>

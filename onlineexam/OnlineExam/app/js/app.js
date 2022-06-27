@@ -1,13 +1,14 @@
 $(document).ready(function(){
     var App = {
         canvas:$("#canvas"),
-        url: "http://localhost/PUP2022-1/Gallardo/OnlineExam/#",
-        api: "/api"
+        url: "http://onlineexam/",
+        api: "../api"
     }
     var currentUser = [];
     var login = 0;
     var logout = 0;
-    $.Mustache.load('authentication.html').done(function(){
+    var questioncount = 0;
+    $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
             App.canvas.mustache('creatorDashboard');
             $("#creatorDashboard").on('click', function(){
@@ -62,7 +63,7 @@ $(document).ready(function(){
             App.canvas.mustache('createExam');
             $.ajax({
                 type: "get",
-                url: "api/getCategory",//on this part add the JOIN on category and subject
+                url: App.api + "/getCategory",//on this part add the JOIN on category and subject
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -77,7 +78,7 @@ $(document).ready(function(){
             });
             $.ajax({
                 type: "get",
-                url: "api/getSubjects",
+                url: App.api + "/getSubjects",
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -190,7 +191,7 @@ $(document).ready(function(){
                     console.log(answer);
                     $.ajax({
                         type: "post",
-                        url: "api/addQuestion",
+                        url: App.api + "/addQuestion",
                         data: {
                             level:level,
                             examQuestion : examQuestion,
@@ -341,7 +342,7 @@ $(document).ready(function(){
                                 console.log(questioncount);
                                 $.ajax({
                                     type: "post",
-                                    url: "api/createExam",
+                                    url: App.api + "/createExam",
                                     data: {
                                         category:category,
                                         subject:subject,
@@ -402,6 +403,11 @@ $(document).ready(function(){
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
         });
         Path.map("#/createdExams").to(function(){
             App.canvas.mustache('createdExams');
@@ -445,15 +451,18 @@ $(document).ready(function(){
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
         });
         Path.map("#/categories").to(function(){
-            // App.canvas.mustache('viewCategories');
-            
-            
             var resultsList = [];
-            $.getJSON( "api/getCategory", function( response ) {
+            var results = getJSONDoc ( App.api + "/getCategory"); 
+            console.log(results);
                 var ctr = 0;
-                $.each( response, function( i, item ) {
+                $.each( results, function( i, item ) {
                     ctr++;
                     var result = {
                         num: ctr,
@@ -463,34 +472,16 @@ $(document).ready(function(){
                     }
                 resultsList.push(result);
                 });
-                console.log(resultsList);
-            });
-            var templateData = {
-                tableRecords: resultsList
-            }
-            console.log(templateData);
-            App.canvas.html("").append($.Mustache.render("viewCategories",templateData));
-            // App.canvas.mustache('viewCategories', templateData);
-            // $.ajax({
-            //     type: "get",
-            //     url: "api/getCategory",
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log(response);
-            //         var rlen = response.length;
-            //         console.log(rlen);
-            //         for(i=0;rlen>0;i++)
-            //         {
-            //             $("#tb").append(
-            //             '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].category+'<td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID='+response[i].uid+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" delID='+response[i].uid+' id="deleteCategory"><i class="fas fa-trash-alt"></i></button></td></tr>)');
-            //             rlen--;
-            //         }
+                var templateData = {
+                    tableRecords: resultsList
+                }
+                App.canvas.html("").append($.Mustache.render("viewCategories",templateData));
                     $(document).on('click','#editCategory',function(){
                         var editID = $(this).attr('editID');
                         console.log(editID);
                         $.ajax({
                             type: "post",
-                            url: "api/fetchCategoryEdit",
+                            url: App.api + "/fetchCategoryEdit",
                             data: {
                                 editID : editID
                             },
@@ -509,7 +500,7 @@ $(document).ready(function(){
                                     {
                                         $.ajax({
                                             type: "post",
-                                            url: "api/editCategory",
+                                            url: App.api + "/editCategory",
                                             data: {
                                                 editID : editID,
                                                 newCategory : newCategory
@@ -538,7 +529,7 @@ $(document).ready(function(){
                         console.log(delID);
                         $.ajax({
                             type: "post",
-                            url: "api/deleteCategory",
+                            url: App.api + "/deleteCategory",
                             data: {
                                 delID:delID
                             },
@@ -557,8 +548,6 @@ $(document).ready(function(){
                             }
                         });
                     });
-                // }
-            // });
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -595,6 +584,12 @@ $(document).ready(function(){
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
+
             $("#addCategorymodal-form").on('submit',function(e){
                 e.preventDefault();
                 var categoryName = $("#category").val();
@@ -606,7 +601,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: "api/addCategory",
+                        url: App.api + "/addCategory",
                         data: {
                             categoryName : categoryName
                         },
@@ -632,53 +627,33 @@ $(document).ready(function(){
             });
         });
         Path.map("#/subjects").to(function(){
-            // var resultsList = [];
-            App.canvas.mustache('viewSubjects');
-            $.getJSON("api/getSubjects", function( response ) {
-                
-            //     var ctr = 0;
-                $.each( response, function( i, item ) {
-                    $("#tb").append(
-                    '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ='+response[i].id+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject" delID = '+response[i].id+'><i class="fas fa-trash-alt"></i></button></td></tr>');
-            //         ctr++;
-            //     var result = {
-            //         num: ctr,
-            //         id: item.id,
-            //         uid: item.uid,
-            //         subject: item.subject             
-            //     }
-            //     resultsList.push(result);
+            var resultsList = [];
+            var results = getJSONDoc ( App.api + "/getSubjects");
+            console.log(results);
+                var ctr = 0;
+                $.each( results, function( i, item ) {
+                    ctr++;
+                var result = {
+                    num: ctr,
+                    id: item.id,
+                    uid: item.uid,
+                    subject: item.subject             
+                }
+                resultsList.push(result);
                 });
-            //     console.log(resultsList);
-            });
-            // var templateData = {
-            //     tableRecord: resultsList
-            // }
-            // console.log(templateData);
-            // App.canvas.mustache('viewSubjects', templateData);
-
-            // App.canvas.mustache('viewSubjects');
+                console.log(resultsList);
             
-            // $.ajax({
-            //     type: "get",
-            //     url: "api/getSubjects",
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log(response);
-            //         var rlen = response.length;
-            //         console.log(rlen);
-            //         for(i=0;rlen>0;i++)
-            //         {
-            //             $("#tb").append(
-            //                 '<tr><td>'+response[i].id+'</td><td>'+response[i].uid+'</td><td>'+response[i].subject+'</td><td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ='+response[i].id+'><i class="fas fa-edit"></i></button></td><td><button class="btn btn-primary btn-danger" type="button" id="deleteSubject" delID = '+response[i].id+'><i class="fas fa-trash-alt"></i></button></td></tr>');
-            //             rlen--;
-            //         }
+            var templateData = {
+                tableRecords: resultsList
+            }
+            console.log(templateData);
+            App.canvas.html("").append($.Mustache.render("viewSubjects",templateData));
                     $(document).on('click','#editSubeject',function(){
                         var editID = $(this).attr('editID');
                         console.log(editID);
                         $.ajax({
                             type: "post",
-                            url: "api/getSubjectEdit",
+                            url: App.api + "/getSubjectEdit",
                             data: {
                                 editID : editID
                             },
@@ -698,7 +673,7 @@ $(document).ready(function(){
                                     {
                                         $.ajax({
                                             type: "post",
-                                            url: "api/editSubject",
+                                            url: App.api + "/editSubject",
                                             data: {
                                                 editID : editID,
                                                 uid: uid,
@@ -723,14 +698,12 @@ $(document).ready(function(){
                             }
                         });
                     });
-                // }
-            // });
                     $(document).on('click','#deleteSubject',function(){
                         var delID = $(this).attr('delID');
                         console.log(delID);
                         $.ajax({
                             type: "post",
-                            url: "api/deleteSubject",
+                            url: App.api + "/deleteSubject",
                             data: {
                                 delID:delID
                             },
@@ -785,10 +758,15 @@ $(document).ready(function(){
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
             $("#addSubject").on('click',function(){
                 $.ajax({
                     type: "get",
-                    url: "api/getCategory",
+                    url: App.api + "/getCategory",
                     dataType: "json",
                     success: function (response) {
                         console.log(response);
@@ -828,7 +806,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: "api/addSubject",
+                        url: App.api + "/addSubject",
                         data: {
                             subjectCategory : subjectCategory,
                             subjectName : subjectName
@@ -890,6 +868,11 @@ $(document).ready(function(){
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
         });
         Path.map("#/scores").to(function(){
             App.canvas.mustache('viewSummaryScores');
@@ -929,67 +912,122 @@ $(document).ready(function(){
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
         });
         
         Path.map("#/examSettings").to(function(){
             App.canvas.mustache('examSettings');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
+            
+            $("#examSettings-form").on('submit',function(e){
+                e.preventDefault();
+                var numOfItems1 = $("#numOfItems1").val();
+                var numOfItems2 = $("#numOfItems2").val();
+                var numOfItems3 = $("#numOfItems3").val();
+                var passingGrade = $("#passingGrade").val();
+                var errorMessage = [];
+                var error = 0;
+                if(numOfItems1==''|| numOfItems1==null)
+                {
+                    errorMessage.push(" No. of items for level 1");
+                    error = 1;
+                }
+                if(numOfItems2==''||numOfItems2==null)
+                {
+                    errorMessage.push(" No. of items for level 2");
+                    error = 1;
+                }
+                if(numOfItems3==''||numOfItems3==null)
+                {
+                    errorMessage.push(" No. of items for level 3");
+                    error = 1;
+                }
+                if(passingGrade==''||passingGrade==null)
+                {
+                    errorMessage.push(" Passing Grade");
+                    error = 1;
+                }
+                if(error!=0)
+                {
+                   alert(errorMessage+" CANNOT BE BLANK")
+                }
+                else
+                {
+                    $.ajax({
+                        type: "post",
+                        url: App.api + "/settings",
+                        data: {
+                            numOfItems1:numOfItems1,
+                            numOfItems2:numOfItems2,
+                            numOfItems3:numOfItems3,
+                            passingGrade:passingGrade
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Settings have ben saved");
+                                $("#numOfItems1").val(response.numOfItems1);
+                                $("#numOfItems2").val(response.numOfItems2);
+                                $("#numOfItems3").val(response.numOfItems3);
+                                $("#passingGrade").val(response.passingGrade);
+                            }
+                            else
+                            {
+                                alert("Something went wrong");
+                            }
+                        }
+                    });
+                }
+            });
+
         });
-        Path.map("#/examineeDashboard").to(function(){
-            App.canvas.mustache('examineeDashboard');
-            $("#examineeDashboard-logo").on('click', function(){
-                window.location.replace("#/examineeDashboard");
-                window.location.reload();
-            });
-            $("#examineeDashboard").on('click', function(){
-                window.location.replace("#/examineeDashboard");
-                window.location.reload();
-            });
-            $("#examsToTake").on('click', function(){
-                window.location.replace("#/examsToTake");
-                window.location.reload();
-            });
-            $("#examsScores").on('click', function(){
-                window.location.replace("#/examScores");
-                window.location.reload();
-            });
-        });
-        Path.map("#/examsToTake").to(function(){
-            App.canvas.mustache('examsToTake');
-            $("#examineeDashboard-logo").on('click', function(){
-                window.location.replace("#/examineeDashboard");
-                window.location.reload();
-            });
-            $("#examineeDashboard").on('click', function(){
-                window.location.replace("#/examineeDashboard");
-                window.location.reload();
-            });
-            $("#examsToTake").on('click', function(){
-                window.location.replace("#/examsToTake");
-                window.location.reload();
-            });
-            $("#examsScores").on('click', function(){
-                window.location.replace("#/examScores");
-                window.location.reload();
-            });
-        });
-        Path.map("#/examScores").to(function(){
-            App.canvas.mustache('examScores');
-            $("#examineeDashboard-logo").on('click', function(){
-                window.location.replace("#/examineeDashboard");
-                window.location.reload();
-            });
-            $("#examineeDashboard").on('click', function(){
-                window.location.replace("#/examineeDashboard");
-                window.location.reload();
-            });
-            $("#examsToTake").on('click', function(){
-                window.location.replace("#/examsToTake");
-                window.location.reload();
-            });
-            $("#examsScores").on('click', function(){
-                window.location.replace("#/examScores");
-                window.location.reload();
-            });
+        Path.rescue(function(){
+            alert("404: Route Not Found");
         });
         Path.root("#/login");
         Path.listen();

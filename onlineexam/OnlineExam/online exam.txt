@@ -148,8 +148,9 @@ REVISIONS:
 ========================================================================================================
 RESOLVED:
 REVISIONS:
-1. Make the add, and edit as modals.
-2. Put add buttons on the listing pages.
+1. Make the add, and edit as modals.[done]
+2. Put add buttons on the listing pages.[done]
+3. Make exam settings as JSON file
 
 IDEAS:    RESOLVED
 
@@ -169,3 +170,32 @@ Possible options to attend in the case:
                                                 <td></td>
                                             </tr>
                                             {{/tableRecord}} -->
+
+
+===========================================================
+Online Exam File structure:
+root
+	api
+		vendor
+			slim
+		functions
+		index.php
+	app
+		js
+			app.js
+		css
+		template
+			admin.html
+			user.html
+			examinee.html
+		index.html
+	auth
+		js
+			auth.js
+		css
+		template
+		index.html
+	assets
+		js
+		css
+	index.html

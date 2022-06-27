@@ -7,7 +7,7 @@ $(document).ready(function(){
     var currentUser = [];
     var login = 0;
     var logout = 0;
-    $.Mustache.load('authentication.html').done(function(){
+    $.Mustache.load('../auth/templates/authentication.html').done(function(){
         Path.map("#/login").to(function(){
             App.canvas.mustache('login');
             $("#form-login").on('submit',function(e){
@@ -37,7 +37,7 @@ $(document).ready(function(){
                     console.log(pswrd);
                     $.ajax({
                         type: "post",
-                        url: "api/check",
+                        url: "../api/check",
                         data: {
                             email : email,
                             pswrd : pswrd
@@ -53,8 +53,7 @@ $(document).ready(function(){
                                     console.log(currentUser);
                                     login++;
                                     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-                                    window.location.replace("#/creatorDashboard");
-                                    window.location.reload();
+                                    window.location.replace("../app/#/creatorDashboard");
                                 }
                                 if(response.userType == "Examinee")
                                 {
@@ -81,7 +80,7 @@ $(document).ready(function(){
             App.canvas.mustache('loginAsGuest');
             $.ajax({
                 type: "get",
-                url: "api/getCategory",
+                url: "../api/getCategory",
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -130,7 +129,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: "api/guestLogin",
+                        url: "../api/guestLogin",
                         dataType: "json",
                         data: {
                             guestFirstName : guestFirstName,
@@ -217,7 +216,7 @@ $(document).ready(function(){
                 {
                         $.ajax({
                             type: "post",
-                            url: "api/creatorRegister",
+                            url: "../api/creatorRegister",
                             dataType: "json",
                             data: {
                                 userType : userType,
@@ -250,7 +249,7 @@ $(document).ready(function(){
             App.canvas.mustache('examineeSignup');
             $.ajax({
                 type: "get",
-                url: "api/getCategory",
+                url: "../api/getCategory",
                 dataType: "json",
                 success: function (response) {
                     console.log(response);
@@ -327,7 +326,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: "api/examineeRegister",
+                        url: "../api/examineeRegister",
                         dataType: "json",
                         data: {
                             userType : userType,
@@ -356,6 +355,13 @@ $(document).ready(function(){
                     });
                 }
             });
+        });
+        Path.map("#/prompt").to(function(){
+            App.canvas.mustache('prompt');
+            $("#login-parent").hide();
+        });
+        Path.rescue(function(){
+            alert("404: Route Not Found");
         });
         Path.root("#/login");
         Path.listen();

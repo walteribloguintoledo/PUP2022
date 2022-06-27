@@ -1,10 +1,19 @@
 <?php
 require 'vendors/Slim/Slim.php';
 include 'vendors/idiorm.php';
-include 'functions.php';
+// include 'functions.php';
+include 'functions.loader.php';
 
 
 $app = new Slim();
+
+$app->get('/test', function(){
+    $keys = ["No. of Items for Level 1", "No. of Items for Level 2","No. of Items for Level 3", "Passing Grade"];
+
+    for($i=0;$i<count($keys);$i++) {
+        echo $keys[$i] . " ";
+    }
+});
 
 // $app->post("/sample/post/:var", function($var) {
 //     $param = explode(".", $var); //fsgggsgsgsg.4645475
@@ -152,6 +161,16 @@ $app->post('/deleteSubject',function(){
     $delID = $_POST['delID'];
     $delete = deleteSubject($delID);
     echo json_encode($delete);
+});
+
+//Saving Settings
+$app->post('/settings',function(){
+    $numOfItems1 = $_POST['numOfItems1'];
+    $numOfItems2 = $_POST['numOfItems2'];
+    $numOfItems3 = $_POST['numOfItems3'];
+    $passingGrade = $_POST['passingGrade'];
+    $settings = saveSettings($numOfItems1,$numOfItems2,$numOfItems3,$passingGrade);
+    echo json_encode($settings);
 });
 $app->run();
 

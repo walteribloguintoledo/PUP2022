@@ -477,6 +477,11 @@ $.Mustache.options.warnOnMissingTemplates = true;
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
         });
         Path.map("#/createdExams").to(function(){
             App.canvas.mustache('createdExams');
@@ -518,6 +523,11 @@ $.Mustache.options.warnOnMissingTemplates = true;
 
             $("#scores").on('click', function(){
                 window.location.replace("#/scores");
+                window.location.reload();
+            });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
                 window.location.reload();
             });
         });
@@ -672,6 +682,12 @@ $.Mustache.options.warnOnMissingTemplates = true;
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
+
             $("#addCategorymodal-form").on('submit',function(e){
                 e.preventDefault();
                 var categoryName = $("#category").val();
@@ -862,6 +878,11 @@ $.Mustache.options.warnOnMissingTemplates = true;
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
             $("#addSubject").on('click',function(){
                 $.ajax({
                     type: "get",
@@ -967,6 +988,11 @@ $.Mustache.options.warnOnMissingTemplates = true;
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
         });
         Path.map("#/scores").to(function(){
             App.canvas.mustache('viewSummaryScores');
@@ -1006,10 +1032,119 @@ $.Mustache.options.warnOnMissingTemplates = true;
                 window.location.replace("#/scores");
                 window.location.reload();
             });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
         });
         
         Path.map("#/examSettings").to(function(){
             App.canvas.mustache('examSettings');
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
+            
+            $("#examSettings-form").on('submit',function(e){
+                e.preventDefault();
+                var numOfItems1 = $("#numOfItems1").val();
+                var numOfItems2 = $("#numOfItems2").val();
+                var numOfItems3 = $("#numOfItems3").val();
+                var passingGrade = $("#passingGrade").val();
+                var errorMessage = [];
+                var error = 0;
+                if(numOfItems1==''|| numOfItems1==null)
+                {
+                    errorMessage.push(" No. of items for level 1");
+                    error = 1;
+                }
+                if(numOfItems2==''||numOfItems2==null)
+                {
+                    errorMessage.push(" No. of items for level 2");
+                    error = 1;
+                }
+                if(numOfItems3==''||numOfItems3==null)
+                {
+                    errorMessage.push(" No. of items for level 3");
+                    error = 1;
+                }
+                if(passingGrade==''||passingGrade==null)
+                {
+                    errorMessage.push(" Passing Grade");
+                    error = 1;
+                }
+                if(error!=0)
+                {
+                   alert(errorMessage+" CANNOT BE BLANK")
+                }
+                else
+                {
+                    $.ajax({
+                        type: "post",
+                        url: "api/settings",
+                        data: {
+                            numOfItems1:numOfItems1,
+                            numOfItems2:numOfItems2,
+                            numOfItems3:numOfItems3,
+                            passingGrade:passingGrade
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Settings have ben saved");
+                                $("#numOfItems1").val(response.numOfItems1);
+                                $("#numOfItems2").val(response.numOfItems2);
+                                $("#numOfItems3").val(response.numOfItems3);
+                                $("#passingGrade").val(response.passingGrade);
+                            }
+                            else
+                            {
+                                alert("Something went wrong");
+                            }
+                        }
+                    });
+                }
+            });
+
         });
 
         Path.map("#/examineeDashboard").to(function(){
