@@ -7,7 +7,7 @@ $(document).ready(function(){
     var currentUser = [];
     var login = 0;
     var logout = 0;
-    $.Mustache.load('../auth/templates/authentication.html').done(function(){
+    $.Mustache.load('templates/authentication.html').done(function(){
         Path.map("#/login").to(function(){
             App.canvas.mustache('login');
             $("#form-login").on('submit',function(e){
@@ -77,23 +77,26 @@ $(document).ready(function(){
             });
         });
         Path.map("#/loginAsGuest").to(function(){
-            App.canvas.mustache('loginAsGuest');
-            $.ajax({
-                type: "get",
-                url: "../api/getCategory",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    var rlen = response.length;
-                    console.log(rlen);
-                    for(i=0;rlen>0;i++)
-                    {
-                        $("#categories").append('<option>'+response[i].category+'</option>');
+            var resultsList = [];
+            var results = getJSONDoc ( App.api + "/getCategory"); 
+            console.log(results);
+                var ctr = 0;
+                $.each( results, function( i, item ) {
+                    ctr++;
+                    var result = {
+                        num: ctr,
+                        id: item.id,
+                        uid: item.uid,
+                        category: item.category             
                     }
+                resultsList.push(result);
+                });
+                var templateData = {
+                    categoryOptions: resultsList
                 }
-            });
-            $("#login-parent").hide();
-            $("#guestLogin-form").on('submit', function(e){
+            App.canvas.html("").append($.Mustache.render("loginAsGuest",templateData));
+                $("#login-parent").hide();
+                $("#guestLogin-form").on('submit', function(e){
                 e.preventDefault();
                 var guestFirstName = $('#guestFirstName').val();
                 var guestMiddlename = $('#guestMiddleName').val();
@@ -246,22 +249,24 @@ $(document).ready(function(){
             })
         });
         Path.map("#/examineeRegister").to(function(){
-            App.canvas.mustache('examineeSignup');
-            $.ajax({
-                type: "get",
-                url: "../api/getCategory",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    var rlen = response.length;
-                    console.log(rlen);
-                    for(i=0;rlen>0;i++)
-                    {
-                        $("#categories").append('<option>'+response[i].category+'</option>');
+            var resultsList = [];
+            var results = getJSONDoc ( App.api + "/getCategory"); 
+            console.log(results);
+                var ctr = 0;
+                $.each( results, function( i, item ) {
+                    ctr++;
+                    var result = {
+                        num: ctr,
+                        id: item.id,
+                        uid: item.uid,
+                        category: item.category             
                     }
+                resultsList.push(result);
+                });
+                var templateData = {
+                    categoryOptions: resultsList
                 }
-            });
-            $("#prompt-parent").hide();
+                App.canvas.html("").append($.Mustache.render("examineeSignup",templateData));
             
             $("#examineeSignup-form").on('submit', function(e){
                 e.preventDefault();

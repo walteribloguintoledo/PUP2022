@@ -475,7 +475,7 @@ $(document).ready(function(){
                 var templateData = {
                     tableRecords: resultsList
                 }
-                App.canvas.html("").append($.Mustache.render("viewCategories",templateData));
+            App.canvas.html("").append($.Mustache.render("viewCategories",templateData));
                     $(document).on('click','#editCategory',function(){
                         var editID = $(this).attr('editID');
                         console.log(editID);
@@ -627,6 +627,20 @@ $(document).ready(function(){
             });
         });
         Path.map("#/subjects").to(function(){
+            var categoryList = [];
+                var categories = getJSONDoc ( App.api + "/getCategory"); 
+                console.log(categories);
+                var ctr = 0;
+                $.each( categories, function( i, item ) {
+                    ctr++;
+                    var result = {
+                        num: ctr,
+                        id: item.id,
+                        uid: item.uid,
+                        category: item.category             
+                    }
+                categoryList.push(result);
+                });
             var resultsList = [];
             var results = getJSONDoc ( App.api + "/getSubjects");
             console.log(results);
@@ -644,9 +658,11 @@ $(document).ready(function(){
                 console.log(resultsList);
             
             var templateData = {
-                tableRecords: resultsList
+                tableRecords: resultsList,
+                categoryOptions:categoryList 
             }
             console.log(templateData);
+
             App.canvas.html("").append($.Mustache.render("viewSubjects",templateData));
                     $(document).on('click','#editSubeject',function(){
                         var editID = $(this).attr('editID');
@@ -722,6 +738,7 @@ $(document).ready(function(){
                             }
                         });
                     });
+            
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -763,25 +780,7 @@ $(document).ready(function(){
                 window.location.replace("#/examSettings");
                 window.location.reload();
             });
-            $("#addSubject").on('click',function(){
-                $.ajax({
-                    type: "get",
-                    url: App.api + "/getCategory",
-                    dataType: "json",
-                    success: function (response) {
-                        console.log(response);
-                        var rlen = response.length;
-                        console.log(rlen);
-                        for(i=0;rlen>0;i++)
-                        {
-                            $("#examcategories").append('<option id = "categoryOpt" value='+response[i].uid+'>'+response[i].category+'</option>');
-                            console.log(response[i].uid) // THIS NEEDS SOME FIXING AND THINKING
-                            rlen--;
-                        }
-                    }
-                });
-                
-            });
+            
             $("#addSubjectModal-form").on('submit',function(e){
                 e.preventDefault();
                 var subjectCategory = $("#subjectCategory").val();
@@ -831,7 +830,28 @@ $(document).ready(function(){
             });
         });
         Path.map("#/examinees").to(function(){
-            App.canvas.mustache('viewExaminees');
+            var examineeList = [];
+            var getExaminees = getJSONDoc (App.api + "/getExaminees");
+            console.log(getExaminees);
+            var ctr = 0;
+            $.each(getExaminees,function( i , item ){
+                ctr++;
+                var examinees = {
+                    num: ctr,
+                    uid: item.uid,
+                    name: item.firstname + " " + item.lastname,
+                    address: item.address,
+                    birthday : item.birthday,
+                    email : item.email,
+                    contact : item.contact,      
+                }
+                examineeList.push(examinees);
+            });
+            var templateData = {
+                examinees : examineeList
+            }
+            console.log(templateData);
+            App.canvas.html("").append($.Mustache.render("viewExaminees",templateData));
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -920,6 +940,32 @@ $(document).ready(function(){
         });
         
         Path.map("#/examSettings").to(function(){
+            var examSettings = [];
+            var getSettings = getJSONDoc (App.api + "/json/settings.json");
+            console.log(getSettings);
+            $("#numOfItems1").val(getSettings.settings.level1);
+            $("#numOfItems2").val(getSettings.settings.level2);
+            $("#numOfItems3").val(getSettings.settings.level3);
+            $("#passingGrade").val(getSettings.settings.passingGrade);
+            // var ctr = 0;
+            // $.each(getExaminees,function( i , item ){
+            //     ctr++;
+            //     var examinees = {
+            //         num: ctr,
+            //         uid: item.uid,
+            //         name: item.firstname + " " + item.lastname,
+            //         address: item.address,
+            //         birthday : item.birthday,
+            //         email : item.email,
+            //         contact : item.contact,      
+            //     }
+            //     examineeList.push(examinees);
+            // }); 
+            // var templateData = {
+            //     examinees : examineeList
+            // }
+            // console.log(templateData);
+            // App.canvas.html("").append($.Mustache.render("viewExaminees",templateData));
             App.canvas.mustache('examSettings');
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");

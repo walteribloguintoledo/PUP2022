@@ -64,6 +64,9 @@
                                                 <div class="col-sm-12 col-lg-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><select class="form-select" style="border-radius: 75px; font-family: Nunito;" id="category" name="category">
                                                 <optgroup label="Category" id="categories">
                                                     <option value="" selected>Select Category</option>
+                                                    {{#categoryOptions}}
+                                                    <option value="{{category}}">{{category}}</option>
+                                                    {{/categoryOptions}}
                                                 </optgroup>
                                                 </select></div>
                                             </div>
@@ -209,6 +212,9 @@
                                         <div class="col-sm-12 col-lg-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><select class="form-select" style="border-radius: 75px; font-family: Nunito;" id="category" name="category">
                                         <optgroup label="Categories" id ="categories">
                                             <option value="" selected>Select Category</option>
+                                            {{#categoryOptions}}
+                                            <option value={{category}}>{{category}}</option>
+                                            {{/categoryOptions}}
                                         </optgroup>
                                     </select></div>
                                     </div>

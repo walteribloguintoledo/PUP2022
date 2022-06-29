@@ -35,6 +35,9 @@ $app->get('/test', function(){
 
 //For registration of Exam Creator
 $app->post('/creatorRegister',function(){
+    $num = mt_rand(1000,9999);
+    $str = substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,4);
+    $userid = date("Y")."-".$str."-".$num;
     $userType = $_POST['userType'];
     $creatorFirstname = $_POST['creatorFirstname'];
     $creatorMiddleName = $_POST['creatorMiddleName'];
@@ -44,11 +47,14 @@ $app->post('/creatorRegister',function(){
     $creatorEmail = $_POST['creatorEmail'];
     $creatorPswrd = $_POST['creatorPswrd'];
     $creatorContact = $_POST['creatorContact'];
-    $creatorRegister = registerCreator($userType, $creatorFirstname, $creatorMiddleName, $creatorLastName,$creatorAddress, $creatorBirthday, $creatorEmail, $creatorPswrd,$creatorContact);
+    $creatorRegister = registerCreator($userid,$userType, $creatorFirstname, $creatorMiddleName, $creatorLastName,$creatorAddress, $creatorBirthday, $creatorEmail, $creatorPswrd,$creatorContact);
     echo json_encode ($creatorRegister);
 });
 //For registration of Examinee
 $app->post('/examineeRegister',function(){
+    $num = mt_rand(1000,9999);
+    $str = substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,4);
+    $userid = date("Y")."-".$str."-".$num;
     $userType = $_POST['userType'];
     $examineeFirstname = $_POST['examineeFirstName'];
     $examineeMiddleName = $_POST['examineeMiddleName'];
@@ -59,7 +65,7 @@ $app->post('/examineeRegister',function(){
     $examineePswrd = $_POST['examineePswrd'];
     $examineeContact = $_POST['examineeContact'];
     $category = $_POST['category'];
-    $examineeRegister = registerExaminee($userType, $examineeFirstname, $examineeMiddleName, $examineeLastName,$examineeAddress, $examineeBirthday, $examineeEmail, $examineePswrd,$examineeContact,$category);
+    $examineeRegister = registerExaminee($userid,$userType, $examineeFirstname, $examineeMiddleName, $examineeLastName,$examineeAddress, $examineeBirthday, $examineeEmail, $examineePswrd,$examineeContact,$category);
     echo json_encode ($examineeRegister);
 });
 //Fetches Category
@@ -74,11 +80,14 @@ $app->get('/getSubjects',function(){
 });
 //Registers and logs guest user
 $app->post('/guestLogin',function(){
+    $num = mt_rand(1000,9999);
+    $str = substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,4);
+    $userid = date("Y")."-".$str."-".$num;
     $guestFirstname = $_POST['guestFirstName'];
     $guestMiddleName = $_POST['guestMiddlename'];
     $guestLastName = $_POST['guestLastName'];
     $category = $_POST['category'];
-    $guest = guestLogin($guestFirstname,$guestMiddleName,$guestLastName,$category);
+    $guest = guestLogin($userid,$guestFirstname,$guestMiddleName,$guestLastName,$category);
     echo json_encode ($guest);
 });
 //Checks if user is registered
@@ -172,6 +181,13 @@ $app->post('/settings',function(){
     $settings = saveSettings($numOfItems1,$numOfItems2,$numOfItems3,$passingGrade);
     echo json_encode($settings);
 });
+
+//Fetching Examinees data
+$app->get('/getExaminees',function(){
+    $fetchExaminees = getExaminees();
+    echo json_encode($fetchExaminees);
+});
+
 $app->run();
 
 ?>

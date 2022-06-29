@@ -669,6 +669,9 @@
                                     <div class="col"><select class="form-select" id="subjectCategory" name="category">
         <optgroup label="Exam Category" id="examcategories">
             <option value="" selected>Select Category</option>
+            {{#categoryOptions}}
+            <option value={{uid}}>{{category}}</option>
+            {{/categoryOptions}}
         </optgroup>
     </select></div>
                                 </div>
@@ -768,7 +771,8 @@
                                     <table class="table my-0" id="dataTable">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>#</th>
+                                                <th>User ID</th>
                                                 <th>Name</th>
                                                 <th>Address</th>
                                                 <th>Birthdate</th>
@@ -777,75 +781,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{#examinees}}
                                             <tr>
-                                                <td>1</td>
-                                                <td>Airi Satou</td>
-                                                <td>Tokyo</td>
-                                                <td>2008/11/28</td>
-                                                <td>user@mail.com</td>
-                                                <td>09264578596</td>
+                                                <td>{{num}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{name}}</td>
+                                                <td>{{address}}</td>
+                                                <td>{{birthday}}<br></td>
+                                                <td>{{email}}</td>
+                                                <td>{{contact}}</td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Angelica Ramos</td>
-                                                <td>London</td>
-                                                <td>2009/10/09<br></td>
-                                                <td>user@mail.com<br></td>
-                                                <td>09521324563</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Ashton Cox</td>
-                                                <td>San Francisco</td>
-                                                <td>2009/01/12<br></td>
-                                                <td>user@mail.com<br></td>
-                                                <td>09321456879</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Bradley Greer</td>
-                                                <td>London</td>
-                                                <td>2012/10/13<br></td>
-                                                <td>user@mail.com</td>
-                                                <td>09655646331</td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Brenden Wagner</td>
-                                                <td>San Francisco</td>
-                                                <td>2011/06/07<br></td>
-                                                <td>user@mail.com</td>
-                                                <td>09547821355</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Brielle Williamson</td>
-                                                <td>New York</td>
-                                                <td>2012/12/02<br></td>
-                                                <td>user@mail.com</td>
-                                                <td>09524642323</td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>Bruno Nash<br></td>
-                                                <td>London</td>
-                                                <td>2011/05/03<br></td>
-                                                <td>user@mail.com</td>
-                                                <td>09541124510</td>
-                                            </tr>
-                                            <tr>
-                                                <td>8</td>
-                                                <td>Caesar Vance</td>
-                                                <td>New York</td>
-                                                <td>2011/12/12<br></td>
-                                                <td>user@mail.com</td>
-                                                <td>09123456789</td>
-                                            </tr>
-                                            <tr></tr>
+                                            {{/examinees}}
                                         </tbody>
-                                        <tfoot>
-                                            <tr></tr>
-                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
