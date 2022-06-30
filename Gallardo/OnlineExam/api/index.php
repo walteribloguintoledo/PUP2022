@@ -1,7 +1,6 @@
 <?php
 require 'vendors/Slim/Slim.php';
 include 'vendors/idiorm.php';
-// include 'functions.php';
 include 'functions.loader.php';
 
 
@@ -116,6 +115,12 @@ $app->post('/createExam',function(){
     $level = $_POST['level'];
     $createExam = addExam($category,$subject,$level);
     echo json_encode($createExam);
+});
+
+$app->get('/viewCreatedExams',function(){
+    $createdExams = viewCreatedExams();
+    echo json_encode($createdExams);
+
 });
 //Creates new category
 $app->post('/addCategory',function(){

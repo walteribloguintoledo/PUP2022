@@ -356,67 +356,27 @@
                                     <table class="table my-0" id="dataTable">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>#</th>
                                                 <th>Exam Code</th>
                                                 <th>Category&nbsp;</th>
                                                 <th>Subject</th>
                                                 <th>Level</th>
-                                                <th>Status</th>
                                                 <th>Edit</th>
                                                 <th>Delete</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{#createdExams}}
                                             <tr>
-                                                <td>1</td>
-                                                <td>20220606-123-123-1</td>
-                                                <td>BS Information Technology</td>
-                                                <td>JavaScript 1</td>
-                                                <td>1</td>
-                                                <td>1</td>
+                                                <td>{{num}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{category}}</td>
+                                                <td>{{subject}}</td>
+                                                <td>{{level}}</td>
                                                 <td><a class="btn btn-primary btn-success" type="button" href="editExam.html"><i class="fas fa-edit"></i></a></td>
                                                 <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>20220609-345-345-1</td>
-                                                <td>BS Computer Science</td>
-                                                <td>HTML 1</td>
-                                                <td>2</td>
-                                                <td>1</td>
-                                                <td><a class="btn btn-primary btn-success" type="button" href="editExam.html"><i class="fas fa-edit"></i></a></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>20220605-567-567-1</td>
-                                                <td>BS Computer Engineering</td>
-                                                <td>MySQL 1<br></td>
-                                                <td>3</td>
-                                                <td>1</td>
-                                                <td><a class="btn btn-primary btn-success" type="button" href="editExam.html"><i class="fas fa-edit"></i></a></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>20220601-789-789-1</td>
-                                                <td>BS Accountancy</td>
-                                                <td>Fundamentals of Accounting</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td><a class="btn btn-primary btn-success" type="button" href="editExam.html"><i class="fas fa-edit"></i></a></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>20220602-101-101-1</td>
-                                                <td>BS Digital Marketing</td>
-                                                <td>Digital Media Marketing</td>
-                                                <td>1</td>
-                                                <td>1</td>
-                                                <td><a class="btn btn-primary btn-success" type="button" href="editExam.html"><i class="fas fa-edit"></i></a></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button"><i class="fas fa-trash-alt"></i></button></td>
-                                            </tr>
+                                            {{/createdExams}}
                                         </tbody>
                                         <tfoot>
                                             <tr></tr>
@@ -1023,7 +983,7 @@
                                                 <form id="examSettings-form">
                                                     <div class="row">
                                                         <div class="col-sm-6 col-xl-5 col-xxl-4 offset-xl-1 offset-xxl-2">
-                                                            <div class="mb-3"><label class="form-label" style="color: var(--bs-success);"><strong>Number of Items for Level 1 - Easy</strong><br></label><input class="form-control" type="number" id="numOfItems1" placeholder="No. of Items" name="numOfItems1"></div>
+                                                            <div class="mb-3"><label class="form-label" style="color: var(--bs-success);"><strong>Number of Items for Level 1 - Easy</strong><br></label><input class="form-control" type="text" id="numOfItems1" placeholder="No. of Items" name="numOfItems1"></div>
                                                         </div>
                                                         <div class="col-sm-6 col-xl-5 col-xxl-4">
                                                             <div class="mb-3"><label class="form-label" style="color: var(--bs-warning);"><strong>Number of Items for Level 2 - Average</strong><br></label><input class="form-control" type="number" id="numOfItems2" placeholder="No. of Items" name="numOfItems2"></div>

@@ -8,6 +8,7 @@ $(document).ready(function(){
     var login = 0;
     var logout = 0;
     var questioncount = 0;
+    var getSettings = getJSONDoc (App.api + "/json/settings.json");
     $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
             App.canvas.mustache('creatorDashboard');
@@ -353,6 +354,7 @@ $(document).ready(function(){
                                         if(response.valid)
                                         {
                                             alert("Exam Successfully Created");
+                                            window.location.reload();
                                         }
                                         else
                                         {
@@ -410,7 +412,29 @@ $(document).ready(function(){
             });
         });
         Path.map("#/createdExams").to(function(){
-            App.canvas.mustache('createdExams');
+            var createdExamsList = [];
+            var getCreatedExams = getJSONDoc (App.api + "/viewCreatedExams");
+            
+            var ctr = 0;
+                $.each( getCreatedExams, function( i, item ) {
+                    ctr++;
+                    var result = {
+                        num: ctr,
+                        id: item.id,
+                        uid: item.uid,
+                        category: item.category,
+                        subject: item.subject,
+                        level : item.level               
+                    }
+                createdExamsList.push(result);
+                });
+                var templateData = {
+                    createdExams : createdExamsList
+                }
+                console.log(templateData);
+            App.canvas.html("").append($.Mustache.render("createdExams",templateData));
+            // App.canvas.mustache('createdExams');
+            
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -940,33 +964,12 @@ $(document).ready(function(){
         });
         
         Path.map("#/examSettings").to(function(){
-            var examSettings = [];
-            var getSettings = getJSONDoc (App.api + "/json/settings.json");
-            console.log(getSettings);
+            App.canvas.mustache('examSettings');
             $("#numOfItems1").val(getSettings.settings.level1);
             $("#numOfItems2").val(getSettings.settings.level2);
             $("#numOfItems3").val(getSettings.settings.level3);
             $("#passingGrade").val(getSettings.settings.passingGrade);
-            // var ctr = 0;
-            // $.each(getExaminees,function( i , item ){
-            //     ctr++;
-            //     var examinees = {
-            //         num: ctr,
-            //         uid: item.uid,
-            //         name: item.firstname + " " + item.lastname,
-            //         address: item.address,
-            //         birthday : item.birthday,
-            //         email : item.email,
-            //         contact : item.contact,      
-            //     }
-            //     examineeList.push(examinees);
-            // }); 
-            // var templateData = {
-            //     examinees : examineeList
-            // }
-            // console.log(templateData);
-            // App.canvas.html("").append($.Mustache.render("viewExaminees",templateData));
-            App.canvas.mustache('examSettings');
+            
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();

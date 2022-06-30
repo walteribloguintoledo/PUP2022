@@ -1,10 +1,11 @@
 <?php
-function registerCreator($userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact) // Registers a new Exam Creator
+function registerCreator($userid,$userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact) // Registers a new Exam Creator
 {
         $existemail= ORM::for_table('users')->where('email',$email)->count();
         if($existemail == 0)
         {
             $sql = ORM::for_table('users')->create();
+            $sql->set('uid',$userid);
             $sql->set('userType',$userType);
             $sql->set('firstname',$firstname);
             $sql->set('middlename',$middlename);
@@ -15,7 +16,7 @@ function registerCreator($userType, $firstname, $middlename, $lastname,$address,
             $sql->set('password',$pswrd);
             $sql->set('contact',$contact);
             $sql->save();
-            $data = array("valid"=> true,"userType"=> $userType,"firstname"=> $firstname, "middlename"=>  $middlename,"lastname"=> $lastname, "address"=> $address,"birthday"=> $birthday, "email"=> $email,"password" => $pswrd, "contact" => $contact);
+            $data = array("valid"=> true,"uid"=>$userid, "userType"=> $userType,"firstname"=> $firstname, "middlename"=>  $middlename,"lastname"=> $lastname, "address"=> $address,"birthday"=> $birthday, "email"=> $email,"password" => $pswrd, "contact" => $contact);
         }
         else if($existemail != 0)
         {
@@ -28,12 +29,13 @@ function registerCreator($userType, $firstname, $middlename, $lastname,$address,
         
         return $data;
 }
-function registerExaminee($userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact, $category) //Registers a new Examinee
+function registerExaminee($userid,$userType, $firstname, $middlename, $lastname,$address, $birthday, $email, $pswrd,$contact, $category) //Registers a new Examinee
 {
         $existemail= ORM::for_table('users')->where('email',$email)->count();
         if($existemail == 0)
         {
             $sql = ORM::for_table('users')->create();
+            $sql->set('uid',$userid);
             $sql->set('userType',$userType);
             $sql->set('firstname',$firstname);
             $sql->set('middlename',$middlename);
@@ -45,7 +47,7 @@ function registerExaminee($userType, $firstname, $middlename, $lastname,$address
             $sql->set('contact',$contact);
             $sql->set('category', $category);
             $sql->save();
-            $data = array("valid"=> true,"userType"=> $userType,"firstname"=> $firstname, "middlename"=>  $middlename,"lastname"=> $lastname, "address"=> $address,"birthday"=> $birthday, "email"=> $email,"password" => $pswrd, "contact" => $contact, "category" => $category);
+            $data = array("valid"=> true,"userid"=>$userid,"userType"=> $userType,"firstname"=> $firstname, "middlename"=>  $middlename,"lastname"=> $lastname, "address"=> $address,"birthday"=> $birthday, "email"=> $email,"password" => $pswrd, "contact" => $contact, "category" => $category);
         }
         else if($existemail != 0)
         {
@@ -59,16 +61,16 @@ function registerExaminee($userType, $firstname, $middlename, $lastname,$address
         return $data;
 }
 
-function guestLogin($guestFirstname,$guestMiddleName,$guestLastName,$category) // Registers and Logs on Guest user
+function guestLogin($userid,$guestFirstname,$guestMiddleName,$guestLastName,$category) // Registers and Logs on Guest user
 {
         $sql = ORM::for_table('guest')->create();
-        
+        $sql->set('uid',$userid);
         $sql->set('firstname',$guestFirstname);
         $sql->set('middlename',$guestMiddleName);
         $sql->set('lastname',$guestLastName);
         $sql->set('category', $category);
         $sql->save();
-        $data = array("valid"=> true,"firstname"=> $guestFirstname, "middlename"=>  $guestMiddleName,"lastname"=> $guestLastName,"category" => $category);
+        $data = array("valid"=> true,"userid"=>$userid,"firstname"=> $guestFirstname, "middlename"=>  $guestMiddleName,"lastname"=> $guestLastName,"category" => $category);
         
         return $data;
 }
