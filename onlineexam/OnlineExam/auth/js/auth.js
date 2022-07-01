@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var App = {
         canvas:$("#canvas"),
-        url: "http://localhost/PUP2022-1/Gallardo/OnlineExam/#",
+        url: "http://onlineexam/",
         api: "/api"
     }
     var currentUser = [];

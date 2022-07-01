@@ -91,9 +91,10 @@ $app->post('/guestLogin',function(){
 });
 //Checks if user is registered
 $app->post('/check',function(){
+    $token = substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'),0,6);
     $email = $_POST['email'];
     $pswrd = $_POST['pswrd'];
-    $check = checkUser($email,$pswrd);
+    $check = checkUser($email,$pswrd,$token);
     echo json_encode ($check);
 });
 //For inserting exam questions
