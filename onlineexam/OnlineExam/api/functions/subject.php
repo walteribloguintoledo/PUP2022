@@ -1,4 +1,16 @@
 <?php
+
+function getSubjectExam($categoryName)
+{
+    $data = array();
+    $sql = ORM::for_table('category')->join('subject',array('category.uid','=','subject.uid'))->where('category',$categoryName)->find_many();
+    foreach ($sql as $row)
+    {
+       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectName);
+    }
+
+    return $data;
+}
 function getSubject() // Retrieves Exam Subjects
 {
     $data = array();

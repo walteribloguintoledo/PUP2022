@@ -199,3 +199,15 @@ root
 		js
 		css
 	index.html
+
+July 1,2022 
+PROBLEM:
+When the user selects a category the subject won't appear in the options if the structure is to
+fetch the category data first then render it using mustache then handling an event in which the 
+category field is selected.
+
+GOAL:
+Once a Category is selected the subjects under that category must be shown in the option field of "subject"
+
+POSSIBLE SOLUTION:
+Make the getJSON function for the category involve the fetching of the subjects

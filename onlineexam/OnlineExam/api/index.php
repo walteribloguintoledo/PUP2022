@@ -77,6 +77,12 @@ $app->get('/getSubjects',function(){
     $fetchSubject = getSubject();
     echo json_encode ($fetchSubject);
 });
+//Fetch subject for creating exam
+$app->get('/getSubjectExam',function(){
+    $categoryName = $_GET['category'];
+    $fetchSubject = getSubjectExam($categoryName);
+    echo json_encode ($fetchSubject);
+});
 //Registers and logs guest user
 $app->post('/guestLogin',function(){
     $num = mt_rand(1000,9999);
@@ -91,10 +97,9 @@ $app->post('/guestLogin',function(){
 });
 //Checks if user is registered
 $app->post('/check',function(){
-    $token = substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'),0,6);
     $email = $_POST['email'];
     $pswrd = $_POST['pswrd'];
-    $check = checkUser($email,$pswrd,$token);
+    $check = checkUser($email,$pswrd);
     echo json_encode ($check);
 });
 //For inserting exam questions

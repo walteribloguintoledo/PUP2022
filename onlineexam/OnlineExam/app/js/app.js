@@ -61,37 +61,91 @@ $(document).ready(function(){
         });
         
         Path.map("#/createExam").to(function(){
-            App.canvas.mustache('createExam');
-            $.ajax({
-                type: "get",
-                url: App.api + "/getCategory",//on this part add the JOIN on category and subject
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    var rlen = response.length;
-                    console.log(rlen);
-                    for(i=0;rlen>0;i++)
-                    {
-                        $("#examcategories").append('<option>'+response[i].category+'</option>');
-                        rlen--;
-                    }
+            var categoryList = [];
+            var subjectList = [];
+            var categories = getJSONDoc ( App.api + "/getCategory"); 
+            console.log(categories);
+            var ctr = 0;
+            $.each( categories, function( i, item ) {
+                ctr++;
+                var result = {
+                    num: ctr,
+                    id: item.id,
+                    uid: item.uid,
+                    category: item.category             
                 }
+            categoryList.push(result);
             });
-            $.ajax({
-                type: "get",
-                url: App.api + "/getSubjects",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                    var rlen = response.length;
-                    console.log(rlen);
-                    for(i=0;rlen>0;i++)
-                    {
-                        $("#examsubjects").append('<option>'+response[i].subject+'</option>');
-                        rlen--;
-                    }
-                }
+            var examcategory;
+            var subjects = getJSONDoc ( App.api + "/getSubjectExam?category=" + examcategory);
+                    $.each( subjects, function( i, item ) {
+                        ctr++;
+                        var result = {
+                            num: ctr,
+                            id: item.id,
+                            uid: item.uid,
+                            subject: item.subject            
+                        }
+                        subjectList.push(result);
+                    });
+            var templateData = {
+                categoryOptions:categoryList,
+                subjectOption:subjectList
+            }
+            console.log(templateData);
+            App.canvas.html("").append($.Mustache.render("createExam",templateData));
+            $("#category").on('click',function(){
+                examcategory = $("#category").val();
+                console.log(examcategory);
+                console.log(templateData);
+                // var subjects = getJSONDoc ( App.api + "/getSubjectExam?category=" + category);
+                //     $.each( subjects, function( i, item ) {
+                //         ctr++;
+                //         var result = {
+                //             num: ctr,
+                //             id: item.id,
+                //             uid: item.uid,
+                //             subject: item.subject            
+                //         }
+                //         subjectList.push(result);
+                //     });
+                // console.log(templateData);
+                
+                // $.ajax({
+                //     type: "post",
+                //     url: App.api + "/getSubjectExam",
+                //     data: {
+                //         category:category
+                //     },
+                //     dataType: "json",
+                //     success: function (response) {
+                //         console.log(response);
+                //         var rlen = response.length;
+                //         console.log(rlen);
+                //         for(i=0;rlen>0;i++)
+                //         {
+                //             $("#examsubjects").append('<option>'+response[i].subject+'</option>');
+                //             rlen--;
+                //         }
+                //     }
+                // });
             });
+            
+            // $.ajax({
+            //     type: "get",
+            //     url: App.api + "/getSubjects",
+            //     dataType: "json",
+            //     success: function (response) {
+            //         console.log(response);
+            //         var rlen = response.length;
+            //         console.log(rlen);
+            //         for(i=0;rlen>0;i++)
+            //         {
+            //             $("#examsubjects").append('<option>'+response[i].subject+'</option>');
+            //             rlen--;
+            //         }
+            //     }
+            // });
             
             $("#level").on('click',function(){
                 var level = $("#level").val();
@@ -500,78 +554,78 @@ $(document).ready(function(){
                     tableRecords: resultsList
                 }
             App.canvas.html("").append($.Mustache.render("viewCategories",templateData));
-                    $(document).on('click','#editCategory',function(){
-                        var editID = $(this).attr('editID');
-                        console.log(editID);
-                        $.ajax({
-                            type: "post",
-                            url: App.api + "/fetchCategoryEdit",
-                            data: {
-                                editID : editID
-                            },
-                            dataType: "json",
-                            success: function (response) {
-                                console.log(response.category);
-                                $("#newCategory").val(response.category);
-                                $("#editCategoryModal-form").on('submit',function(e){
-                                    e.preventDefault();
-                                    var newCategory = $("#newCategory").val();
-                                    if(newCategory==''||newCategory==null)
-                                    {
-                                        alert("Category CANNOT BE BLANK");
-                                    }
-                                    else
-                                    {
-                                        $.ajax({
-                                            type: "post",
-                                            url: App.api + "/editCategory",
-                                            data: {
-                                                editID : editID,
-                                                newCategory : newCategory
-                                            },
-                                            dataType: "json",
-                                            success: function (response) {
-                                                console.log(response);
-                                                if(response.valid)
-                                                {
-                                                    alert("New Category saved");
-                                                    window.location.reload();
-                                                }
-                                                else
-                                                {
-                                                    alert("The category already exist");
-                                                }
-                                            }
-                                        });
-                                    }
-                                })
-                            }
-                        });
-                    });
-                    $(document).on('click','#deleteCategory',function(){
-                        var delID = $(this).attr('delID');
-                        console.log(delID);
-                        $.ajax({
-                            type: "post",
-                            url: App.api + "/deleteCategory",
-                            data: {
-                                delID:delID
-                            },
-                            dataType: "json",
-                            success: function (response) {
-                                if(response.valid)
+                $('.btn-edit').off('click').on('click',function(){
+                    var editID = $(this).attr('editID');
+                    console.log(editID);
+                    $.ajax({
+                        type: "post",
+                        url: App.api + "/fetchCategoryEdit",
+                        data: {
+                            editID : editID
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response.category);
+                            $("#newCategory").val(response.category);
+                            $("#editCategoryModal-form").on('submit',function(e){
+                                e.preventDefault();
+                                var newCategory = $("#newCategory").val();
+                                if(newCategory==''||newCategory==null)
                                 {
-                                    alert("Category deleted successfully");
-                                    window.location.reload();
+                                    alert("Category CANNOT BE BLANK");
                                 }
                                 else
                                 {
-                                    alert("Something went wrong");
-                                    window.location.reload();
+                                    $.ajax({
+                                        type: "post",
+                                        url: App.api + "/editCategory",
+                                        data: {
+                                            editID : editID,
+                                            newCategory : newCategory
+                                        },
+                                        dataType: "json",
+                                        success: function (response) {
+                                            console.log(response);
+                                            if(response.valid)
+                                            {
+                                                alert("New Category saved");
+                                                window.location.reload();
+                                            }
+                                            else
+                                            {
+                                                alert("The category already exist");
+                                            }
+                                        }
+                                    });
                                 }
-                            }
-                        });
+                            })
+                        }
                     });
+                });
+                $('.btn-delete').off('click').on('click',function(){
+                    var delID = $(this).attr('delID');
+                    console.log(delID);
+                    $.ajax({
+                        type: "post",
+                        url: App.api + "/deleteCategory",
+                        data: {
+                            delID:delID
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Category deleted successfully");
+                                window.location.reload();
+                            }
+                            else
+                            {
+                                alert("Something went wrong");
+                                window.location.reload();
+                            }
+                        }
+                    });
+                });
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -688,7 +742,7 @@ $(document).ready(function(){
             console.log(templateData);
 
             App.canvas.html("").append($.Mustache.render("viewSubjects",templateData));
-                    $(document).on('click','#editSubeject',function(){
+                    $('.btn-edit').off('click').on('click',function(){
                         var editID = $(this).attr('editID');
                         console.log(editID);
                         $.ajax({
@@ -738,7 +792,7 @@ $(document).ready(function(){
                             }
                         });
                     });
-                    $(document).on('click','#deleteSubject',function(){
+                    $('.btn-delete').off('click').on('click',function(){
                         var delID = $(this).attr('delID');
                         console.log(delID);
                         $.ajax({

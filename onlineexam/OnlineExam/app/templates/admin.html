@@ -175,37 +175,7 @@
                     <div class="container-fluid">
                         <h3 class="text-dark mb-4">Create Exam</h3>
                         <div class="row mb-3">
-                            <div class="col-lg-8">
-                                <div class="row mb-3 d-none">
-                                    <div class="col">
-                                        <div class="card textwhite bg-primary text-white shadow">
-                                            <div class="card-body">
-                                                <div class="row mb-2">
-                                                    <div class="col">
-                                                        <p class="m-0"></p>
-                                                        <p class="m-0"><strong>65.2%</strong></p>
-                                                    </div>
-                                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                                </div>
-                                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="card textwhite bg-success text-white shadow">
-                                            <div class="card-body">
-                                                <div class="row mb-2">
-                                                    <div class="col">
-                                                        <p class="m-0">Peformance</p>
-                                                        <p class="m-0"><strong>65.2%</strong></p>
-                                                    </div>
-                                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
-                                                </div>
-                                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-lg-8">                                
                                 <form id="createExam-form">
                                 <div class="row">
                                     <div class="col-lg-12 offset-lg-3">
@@ -219,6 +189,9 @@
                                                             <div class="mb-3"><label class="form-label" for="username"><strong>Category</strong></label><select class="form-select" id="category">
         <optgroup label="Exam Categories" id="examcategories">
             <option value="" selected>Select Exam Category</option>
+            {{#categoryOptions}}
+            <option value="{{category}}">{{category}}</option>
+            {{/categoryOptions}}
         </optgroup>
     </select></div>
                                                         </div>
@@ -226,6 +199,9 @@
                                                             <div class="mb-3"><label class="form-label" for="username"><strong>Subject</strong></label><select class="form-select" id="subject">
         <optgroup label="Exam Subject" id="examsubjects">
             <option value="" selected>Select Exam Subject</option>
+            {{#subjectOption}}
+            <option value="{{subject}}">{{subject}}</option>
+            {{/subjectOption}}
         </optgroup>
     </select></div>
                                                         </div>
@@ -462,11 +438,11 @@
                                         <tbody>
                                             {{#tableRecords}}
                                             <tr>
-                                                <td>{{id}}</td>
+                                                <td>{{num}}</td>
                                                 <td>{{uid}}</td>
                                                 <td>{{category}}</td>
-                                                <td><button class="btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID={{uid}}><i class="fas fa-edit"></i></button></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button" id="deleteCategory" delID={{uid}}><i class="fas fa-trash-alt"></i></button></td>
+                                                <td><button class="btn-edit btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID={{uid}}><i class="fas fa-edit"></i></button></td>
+                                                <td><button class="btn-delete btn btn-primary btn-danger" type="button" id="deleteCategory" delID={{uid}}><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                             {{/tableRecords}}
                                         </tbody>
@@ -598,11 +574,11 @@
                                         <tbody>
                                             {{#tableRecords}}
                                             <tr>
-                                                <td>{{id}}</td>
+                                                <td>{{num}}</td>
                                                 <td>{{uid}}</td>
                                                 <td>{{subject}}</td>
-                                                <td><button class="btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ={{id}}><i class="fas fa-edit"></i></button></td>
-                                                <td><button class="btn btn-primary btn-danger" type="button" id="deleteCategory" delID={{id}}><i class="fas fa-trash-alt"></i></button></td>
+                                                <td><button class="btn-edit btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ={{id}}><i class="fas fa-edit"></i></button></td>
+                                                <td><button class="btn-delete btn btn-primary btn-danger" type="button" id="deleteCategory" delID={{id}}><i class="fas fa-trash-alt"></i></button></td>
                                             </tr>
                                             {{/tableRecords}}
                                         </tbody>
