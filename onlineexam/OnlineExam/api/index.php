@@ -7,7 +7,8 @@ include 'functions.loader.php';
 $app = new Slim();
 
 $app->get('/test', function(){
-    $keys = ["No. of Items for Level 1", "No. of Items for Level 2","No. of Items for Level 3", "Passing Grade"];
+    $keys = ["No. of Items for Level 1", "No. of Items for Level 2",
+                "No. of Items for Level 3", "Passing Grade"];
 
     for($i=0;$i<count($keys);$i++) {
         echo $keys[$i] . " ";
@@ -78,7 +79,7 @@ $app->get('/getSubjects',function(){
     echo json_encode ($fetchSubject);
 });
 //Fetch subject for creating exam
-$app->get('/getSubjectExam',function(){
+$app->get('/subjectExam',function(){
     $categoryName = $_GET['category'];
     $fetchSubject = getSubjectExam($categoryName);
     echo json_encode ($fetchSubject);
@@ -116,10 +117,11 @@ $app->post('/addQuestion',function(){
 });
 //For Creating exam details
 $app->post('/createExam',function(){
+    $examcode = date("Y").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
     $category = $_POST['category'];
     $subject = $_POST['subject'];
     $level = $_POST['level'];
-    $createExam = addExam($category,$subject,$level);
+    $createExam = addExam($category,$subject,$level,$examcode);
     echo json_encode($createExam);
 });
 

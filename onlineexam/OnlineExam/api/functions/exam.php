@@ -49,12 +49,13 @@ function addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$a
     return $data;
 }
 
-function addExam($category,$subject,$level) //Creates and inserts exam details
+function addExam($category,$subject,$level,$examcode) //Creates and inserts exam details
 {
     $existExam = ORM::for_table('exams')->where('category',$category)->where('subject',$subject)->where('level',$level)->count();
     if($existExam==0)
     {
         $sql = ORM::for_table('exams')->create();
+            $sql->set('uid',$examcode);
             $sql->set('category',$category);
             $sql->set('subject',$subject);
             $sql->set('level',$level);

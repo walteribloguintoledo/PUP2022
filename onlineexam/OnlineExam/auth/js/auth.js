@@ -46,8 +46,8 @@ $(document).ready(function(){
                         success: function (response) {
                             if(response.valid)
                             {
-                                console.log(guid());
                                 localStorage.setItem("token",JSON.stringify(guid()));
+                                console.log(guid());
                                 if(response.userType == "Exam Creator")
                                 {
                                     alert("You are now logged in Exam Creator");

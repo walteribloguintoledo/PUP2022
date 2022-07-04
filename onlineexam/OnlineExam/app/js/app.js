@@ -8,6 +8,7 @@ $(document).ready(function(){
     var login = 0;
     var logout = 0;
     var questioncount = 0;
+    var questioncountinit=0;
     var getSettings = getJSONDoc (App.api + "/json/settings.json");
     $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
@@ -62,7 +63,7 @@ $(document).ready(function(){
         
         Path.map("#/createExam").to(function(){
             var categoryList = [];
-            var subjectList = [];
+            
             var categories = getJSONDoc ( App.api + "/getCategory"); 
             console.log(categories);
             var ctr = 0;
@@ -76,76 +77,39 @@ $(document).ready(function(){
                 }
             categoryList.push(result);
             });
-            var examcategory;
-            var subjects = getJSONDoc ( App.api + "/getSubjectExam?category=" + examcategory);
-                    $.each( subjects, function( i, item ) {
-                        ctr++;
-                        var result = {
-                            num: ctr,
-                            id: item.id,
-                            uid: item.uid,
-                            subject: item.subject            
-                        }
-                        subjectList.push(result);
-                    });
+            
             var templateData = {
                 categoryOptions:categoryList,
-                subjectOption:subjectList
-            }
+               }
             console.log(templateData);
             App.canvas.html("").append($.Mustache.render("createExam",templateData));
-            $("#category").on('click',function(){
-                examcategory = $("#category").val();
-                console.log(examcategory);
-                console.log(templateData);
-                // var subjects = getJSONDoc ( App.api + "/getSubjectExam?category=" + category);
-                //     $.each( subjects, function( i, item ) {
-                //         ctr++;
-                //         var result = {
-                //             num: ctr,
-                //             id: item.id,
-                //             uid: item.uid,
-                //             subject: item.subject            
-                //         }
-                //         subjectList.push(result);
-                //     });
-                // console.log(templateData);
+            $("#category").on('click',function(e){
+                e.preventDefault();
+                var subjectList = [];
+                var subjectData = {
+                    subjectOption:subjectList
+                };
+                if($("#category").val()!='')
+                {
+                    var examcategory = $("#category").val();
+                    var subjects = getJSONDoc ( App.api + "/subjectExam?category=" + examcategory);
+                        $.each( subjects, function( i, item ) {
+                            ctr++;
+                            var result = {
+                                num: ctr,
+                                id: item.id,
+                                uid: item.uid,
+                                subject: item.subject            
+                            }
+                            subjectList.push(result);
+                            
+                                $("#examsubjects").append('<option value="'+result.subject+'">'+result.subject+'</option>');
+                           
+                        });
+                        console.log(subjectData);
+                }
                 
-                // $.ajax({
-                //     type: "post",
-                //     url: App.api + "/getSubjectExam",
-                //     data: {
-                //         category:category
-                //     },
-                //     dataType: "json",
-                //     success: function (response) {
-                //         console.log(response);
-                //         var rlen = response.length;
-                //         console.log(rlen);
-                //         for(i=0;rlen>0;i++)
-                //         {
-                //             $("#examsubjects").append('<option>'+response[i].subject+'</option>');
-                //             rlen--;
-                //         }
-                //     }
-                // });
             });
-            
-            // $.ajax({
-            //     type: "get",
-            //     url: App.api + "/getSubjects",
-            //     dataType: "json",
-            //     success: function (response) {
-            //         console.log(response);
-            //         var rlen = response.length;
-            //         console.log(rlen);
-            //         for(i=0;rlen>0;i++)
-            //         {
-            //             $("#examsubjects").append('<option>'+response[i].subject+'</option>');
-            //             rlen--;
-            //         }
-            //     }
-            // });
             
             $("#level").on('click',function(){
                 var level = $("#level").val();
@@ -260,7 +224,7 @@ $(document).ready(function(){
                         success: function (response) {
                             if(response.valid)
                             {
-                                alert("Exam Question Added");
+                                alert("Exam question added");
                             }
                             else
                             {
@@ -351,7 +315,7 @@ $(document).ready(function(){
                         }
                         if(answer==""||answer==null)
                         {
-                            errorMessage.push(" Answer 4");
+                            errorMessage.push(" Answer");
                             error++;
                         }
                         if(error!=0)
@@ -487,8 +451,6 @@ $(document).ready(function(){
                 }
                 console.log(templateData);
             App.canvas.html("").append($.Mustache.render("createdExams",templateData));
-            // App.canvas.mustache('createdExams');
-            
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
