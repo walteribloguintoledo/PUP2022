@@ -4,12 +4,19 @@ $(document).ready(function(){
         url: "http://onlineexam/",
         api: "../api"
     }
-    var currentUser = [];
+    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    var userid = currentUser[0].uid
     var login = 0;
     var logout = 0;
     var questioncount = 0;
     var questioncountinit=0;
     var getSettings = getJSONDoc (App.api + "/json/settings.json");
+    var token = JSON.parse(localStorage.getItem('token'));
+    var param = token+"."+userid;
+    console.log(token);
+    console.log(currentUser);
+    console.log(userid);
+    console.log(param);
     $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
             App.canvas.mustache('creatorDashboard');
@@ -59,11 +66,15 @@ $(document).ready(function(){
                 window.location.reload();
             });
 
+            $("#logout").on('click',function(){
+                alert("You are logging out");
+                window.location.reload("#/logout");
+            })
+
         });
         
         Path.map("#/createExam").to(function(){
             var categoryList = [];
-            
             var categories = getJSONDoc ( App.api + "/getCategory"); 
             console.log(categories);
             var ctr = 0;
@@ -499,7 +510,7 @@ $(document).ready(function(){
         });
         Path.map("#/categories").to(function(){
             var resultsList = [];
-            var results = getJSONDoc ( App.api + "/getCategory"); 
+            var results = getJSONDoc ( App.api + "/getCategory/var:"+param); 
             console.log(results);
                 var ctr = 0;
                 $.each( results, function( i, item ) {
@@ -521,7 +532,7 @@ $(document).ready(function(){
                     console.log(editID);
                     $.ajax({
                         type: "post",
-                        url: App.api + "/fetchCategoryEdit",
+                        url: App.api + "/fetchCategoryEdit/var:"+param,
                         data: {
                             editID : editID
                         },
@@ -540,7 +551,7 @@ $(document).ready(function(){
                                 {
                                     $.ajax({
                                         type: "post",
-                                        url: App.api + "/editCategory",
+                                        url: App.api + "/editCategory/var:"+param,
                                         data: {
                                             editID : editID,
                                             newCategory : newCategory
@@ -569,7 +580,7 @@ $(document).ready(function(){
                     console.log(delID);
                     $.ajax({
                         type: "post",
-                        url: App.api + "/deleteCategory",
+                        url: App.api + "/deleteCategory/var:"+param,
                         data: {
                             delID:delID
                         },
@@ -641,7 +652,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: App.api + "/addCategory",
+                        url: App.api + "/addCategory/var:"+param,
                         data: {
                             categoryName : categoryName
                         },
@@ -668,7 +679,7 @@ $(document).ready(function(){
         });
         Path.map("#/subjects").to(function(){
             var categoryList = [];
-                var categories = getJSONDoc ( App.api + "/getCategory"); 
+                var categories = getJSONDoc ( App.api + "/getCategory/var:"+param); 
                 console.log(categories);
                 var ctr = 0;
                 $.each( categories, function( i, item ) {
@@ -682,7 +693,7 @@ $(document).ready(function(){
                 categoryList.push(result);
                 });
             var resultsList = [];
-            var results = getJSONDoc ( App.api + "/getSubjects");
+            var results = getJSONDoc ( App.api + "/getSubjects/var:"+param);
             console.log(results);
                 var ctr = 0;
                 $.each( results, function( i, item ) {
@@ -709,7 +720,7 @@ $(document).ready(function(){
                         console.log(editID);
                         $.ajax({
                             type: "post",
-                            url: App.api + "/getSubjectEdit",
+                            url: App.api + "/getSubjectEdit/var:"+param,
                             data: {
                                 editID : editID
                             },
@@ -729,7 +740,7 @@ $(document).ready(function(){
                                     {
                                         $.ajax({
                                             type: "post",
-                                            url: App.api + "/editSubject",
+                                            url: App.api + "/editSubject/var:"+param,
                                             data: {
                                                 editID : editID,
                                                 uid: uid,
@@ -759,7 +770,7 @@ $(document).ready(function(){
                         console.log(delID);
                         $.ajax({
                             type: "post",
-                            url: App.api + "/deleteSubject",
+                            url: App.api + "/deleteSubject/var:"+param,
                             data: {
                                 delID:delID
                             },
@@ -845,7 +856,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: App.api + "/addSubject",
+                        url: App.api + "/addSubject/var:"+param,
                         data: {
                             subjectCategory : subjectCategory,
                             subjectName : subjectName
@@ -871,7 +882,7 @@ $(document).ready(function(){
         });
         Path.map("#/examinees").to(function(){
             var examineeList = [];
-            var getExaminees = getJSONDoc (App.api + "/getExaminees");
+            var getExaminees = getJSONDoc (App.api + "/getExaminees/var:"+param);
             console.log(getExaminees);
             var ctr = 0;
             $.each(getExaminees,function( i , item ){
@@ -1091,6 +1102,11 @@ $(document).ready(function(){
             });
 
         });
+        Path.map("#/logout").to(function(){
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('token');
+            window.location.href = "../auth/#/login"
+        })
         Path.rescue(function(){
             alert("404: Route Not Found");
         });

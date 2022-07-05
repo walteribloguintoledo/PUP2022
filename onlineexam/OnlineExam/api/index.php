@@ -68,16 +68,7 @@ $app->post('/examineeRegister',function(){
     $examineeRegister = registerExaminee($userid,$userType, $examineeFirstname, $examineeMiddleName, $examineeLastName,$examineeAddress, $examineeBirthday, $examineeEmail, $examineePswrd,$examineeContact,$category);
     echo json_encode ($examineeRegister);
 });
-//Fetches Category
-$app->get('/getCategory',function(){
-    $fetchCategory = getCategory();
-    echo json_encode ($fetchCategory);
-});
-//Fetches Subject
-$app->get('/getSubjects',function(){
-    $fetchSubject = getSubject();
-    echo json_encode ($fetchSubject);
-});
+
 //Fetch subject for creating exam
 $app->get('/subjectExam',function(){
     $categoryName = $_GET['category'];
@@ -130,59 +121,164 @@ $app->get('/viewCreatedExams',function(){
     echo json_encode($createdExams);
 
 });
-//Creates new category
-$app->post('/addCategory',function(){
-    $categoryCode = mt_rand(1000,9999);
-    $categoryName = $_POST['categoryName'];
-    $insertCategory = addCategory( $categoryCode,$categoryName);
-    echo json_encode($insertCategory);
-});
-//Creates new subject
-$app->post('/addSubject',function(){
-    $subjectCategory = $_POST['subjectCategory'];
-    $subjectName = $_POST['subjectName'];
-    $insertSubject = addSubject($subjectCategory,$subjectName);
-    echo json_encode($insertSubject);
-});
-//Fetches category to edit
-$app->post('/fetchCategoryEdit',function(){
-    $editID = $_POST['editID'];
-    $fetch = getCategoryData($editID);
-    echo json_encode($fetch);
-});
-//Fetches subject to edit
-$app->post('/getSubjectEdit',function(){
-    $editID = $_POST['editID'];
-    $fetch = getSubjectData($editID);
-    echo json_encode($fetch);
-});
-//Updating category
-$app->post('/editCategory',function(){
-    $editID = $_POST['editID'];
-    $newCategory = $_POST['newCategory'];
-    $edit = editCategory($editID,$newCategory);
-    echo json_encode($edit);
-});
-//Updating subject
-$app->post('/editSubject',function(){
-    $editID = $_POST['editID'];
-    $uid = $_POST['uid'];
-    $newSubject = $_POST['newSubject'];
-    $edit = editSubject($editID,$uid,$newSubject);
-    echo json_encode($edit);
-});
-//Deleting category
-$app->post('/deleteCategory',function(){
-    $delID = $_POST['delID'];
-    $delete = deleteCategory($delID);
-    echo json_encode($delete);
+//Fetches Category
+$app->get('/getCategory/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $fetchCategory = getCategory();
+        echo json_encode ($fetchCategory);
+    }
 });
 
+//Creates new category
+$app->post('/addCategory/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $categoryCode = mt_rand(1000,9999);
+        $categoryName = $_POST['categoryName'];
+        $insertCategory = addCategory( $categoryCode,$categoryName);
+        echo json_encode($insertCategory);
+    }
+});
+//Fetches category to edit
+$app->post('/fetchCategoryEdit/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $editID = $_POST['editID'];
+        $fetch = getCategoryData($editID);
+        echo json_encode($fetch);
+    }
+});
+//Updating category
+$app->post('/editCategory/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $editID = $_POST['editID'];
+        $newCategory = $_POST['newCategory'];
+        $edit = editCategory($editID,$newCategory);
+        echo json_encode($edit);
+    }
+});
+//Deleting category
+$app->post('/deleteCategory/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth)
+    {
+        $verified = 1; $error = 0;
+        $delID = $_POST['delID'];
+        $delete = deleteCategory($delID);
+        echo json_encode($delete);
+    }
+});
+//Fetches Subject
+$app->get('/getSubjects/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth)
+    {
+        $verified = 1; $error = 0;
+        $fetchSubject = getSubject();
+        echo json_encode ($fetchSubject);
+    }
+});
+//Creates new subject
+$app->post('/addSubject/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth)
+    {
+        $subjectCategory = $_POST['subjectCategory'];
+        $subjectName = $_POST['subjectName'];
+        $insertSubject = addSubject($subjectCategory,$subjectName);
+        echo json_encode($insertSubject);
+    }
+});
+//Fetches subject to edit
+$app->post('/getSubjectEdit/:var',function($var){
+    $param = explode(".", $var); 
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth)
+    {
+        $editID = $_POST['editID'];
+        $fetch = getSubjectData($editID);
+        echo json_encode($fetch);
+    }
+    
+});
+//Updating subject
+$app->post('/editSubject/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth)
+    {
+        $editID = $_POST['editID'];
+        $uid = $_POST['uid'];
+        $newSubject = $_POST['newSubject'];
+        $edit = editSubject($editID,$uid,$newSubject);
+        echo json_encode($edit);
+    }
+});
 //Deleting subject
-$app->post('/deleteSubject',function(){
-    $delID = $_POST['delID'];
-    $delete = deleteSubject($delID);
-    echo json_encode($delete);
+$app->post('/deleteSubject/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth)
+    {
+        $delID = $_POST['delID'];
+        $delete = deleteSubject($delID);
+        echo json_encode($delete);
+    }
 });
 
 //Saving Settings
@@ -196,9 +292,19 @@ $app->post('/settings',function(){
 });
 
 //Fetching Examinees data
-$app->get('/getExaminees',function(){
-    $fetchExaminees = getExaminees();
-    echo json_encode($fetchExaminees);
+$app->get('/getExaminees/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth)
+    {
+        $fetchExaminees = getExaminees();
+        echo json_encode($fetchExaminees);
+    }
+    
 });
 
 $app->run();

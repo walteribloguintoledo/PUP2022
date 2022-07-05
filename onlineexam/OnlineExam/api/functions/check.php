@@ -11,4 +11,18 @@ function checkUser($email,$pswd) // Checks if the user exist
     }
     return $data;
 }
+function checkToken($uid)
+{
+    $response = 0;
+    $sql = ORM::for_table('users')->where('uid',$uid)->count();
+    if($sql==1)
+    {
+        $response = true;
+    }
+    else
+    {
+        $response = false;
+    }
+    return $response;
+}
 ?>
