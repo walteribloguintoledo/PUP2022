@@ -5,9 +5,22 @@ $(document).ready(function(){
         api: "/api"
     }
     var currentUser = [];
-    var login = 0;
-    var logout = 0;
+    var login = JSON.parse(localStorage.getItem('currentUser'));
+    
     $.Mustache.load('templates/authentication.html').done(function(){
+        if(login!=null)
+        {
+            var userType = login[0].userType;
+            if(userType=="Exam Creator")
+            {
+                window.location.href = "../app/#/creatorDashboard";
+            }
+            if(userType=="Examinee")
+            {
+                window.location.href = "../app/#/examineeDashboard";
+            }
+        }
+       
         Path.map("#/login").to(function(){
             App.canvas.mustache('login');
             $("#form-login").on('submit',function(e){
@@ -46,8 +59,8 @@ $(document).ready(function(){
                         success: function (response) {
                             if(response.valid)
                             {
-                                localStorage.setItem("token",JSON.stringify(guid()));
-                                console.log(guid());
+                                var token = localStorage.setItem("token",JSON.stringify(guid()));
+                                console.log(token);
                                 if(response.userType == "Exam Creator")
                                 {
                                     alert("You are now logged in Exam Creator");
@@ -64,8 +77,7 @@ $(document).ready(function(){
                                     console.log(currentUser);
                                     login++;
                                     localStorage.setItem("currentUser", JSON.stringify(currentUser));
-                                    window.location.replace("#/examineeDashboard");
-                                    window.location.reload();
+                                    window.location.replace("../app/#/examineeDashboard");
                                 }
                             }
                             else
@@ -369,6 +381,7 @@ $(document).ready(function(){
         });
         Path.rescue(function(){
             alert("404: Route Not Found");
+            window.location.replace("#/login");
         });
         Path.root("#/login");
         Path.listen();

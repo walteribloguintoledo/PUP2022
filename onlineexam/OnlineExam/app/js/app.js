@@ -5,9 +5,10 @@ $(document).ready(function(){
         api: "../api"
     }
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var userid = currentUser[0].uid
-    var login = 0;
-    var logout = 0;
+    var userid = currentUser[0].uid;
+    var userType = currentUser[0].userType;
+    // var login = 0;
+    // var logout = 0;
     var questioncount = 0;
     var questioncountinit=0;
     var getSettings = getJSONDoc (App.api + "/json/settings.json");
@@ -17,6 +18,9 @@ $(document).ready(function(){
     console.log(currentUser);
     console.log(userid);
     console.log(param);
+    console.log(userType);
+    if(userType=="Exam Creator")
+    {
     $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
             App.canvas.mustache('creatorDashboard');
@@ -75,7 +79,7 @@ $(document).ready(function(){
         
         Path.map("#/createExam").to(function(){
             var categoryList = [];
-            var categories = getJSONDoc ( App.api + "/getCategory"); 
+            var categories = getJSONDoc ( App.api + "/getCategory/var:"+param); 
             console.log(categories);
             var ctr = 0;
             $.each( categories, function( i, item ) {
@@ -1102,6 +1106,7 @@ $(document).ready(function(){
             });
 
         });
+        
         Path.map("#/logout").to(function(){
             localStorage.removeItem('currentUser');
             localStorage.removeItem('token');
@@ -1109,8 +1114,75 @@ $(document).ready(function(){
         })
         Path.rescue(function(){
             alert("404: Route Not Found");
+            window.location.replace('#/creatorDashboard');
         });
-        Path.root("#/login");
+        Path.root("#/creatorDashboard");
         Path.listen();
     });
+}
+
+if(userType=="Examinee")
+{
+    $.Mustache.load('templates/examinee.html').done(function(){
+    Path.map("#/examineeDashboard").to(function(){
+        App.canvas.mustache('examineeDashboard');
+        $("#examineeDashboard-logo").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examineeDashboard").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examsToTake").on('click', function(){
+            window.location.replace("#/examsToTake");
+            window.location.reload();
+        });
+        $("#examsScores").on('click', function(){
+            window.location.replace("#/examScores");
+            window.location.reload();
+        });
+    });
+    Path.map("#/examsToTake").to(function(){
+        App.canvas.mustache('examsToTake');
+        $("#examineeDashboard-logo").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examineeDashboard").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examsToTake").on('click', function(){
+            window.location.replace("#/examsToTake");
+            window.location.reload();
+        });
+        $("#examsScores").on('click', function(){
+            window.location.replace("#/examScores");
+            window.location.reload();
+        });
+    });
+    Path.map("#/examScores").to(function(){
+        App.canvas.mustache('examScores');
+        $("#examineeDashboard-logo").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examineeDashboard").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examsToTake").on('click', function(){
+            window.location.replace("#/examsToTake");
+            window.location.reload();
+        });
+        $("#examsScores").on('click', function(){
+            window.location.replace("#/examScores");
+            window.location.reload();
+        });
+    });
+    Path.root("#/login");
+    Path.listen();
+});
+}
 });

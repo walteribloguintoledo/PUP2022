@@ -68,6 +68,11 @@ $app->post('/examineeRegister',function(){
     $examineeRegister = registerExaminee($userid,$userType, $examineeFirstname, $examineeMiddleName, $examineeLastName,$examineeAddress, $examineeBirthday, $examineeEmail, $examineePswrd,$examineeContact,$category);
     echo json_encode ($examineeRegister);
 });
+//Fetches Category for the examineeRegister and guest
+$app->get('/getCategory',function(){
+    $fetchCategory = getCategory();
+    echo json_encode ($fetchCategory);
+});
 
 //Fetch subject for creating exam
 $app->get('/subjectExam',function(){
@@ -96,6 +101,8 @@ $app->post('/check',function(){
 });
 //For inserting exam questions
 $app->post('/addQuestion',function(){
+    $keyIndex = ['question','choice1','choice2','choice3','choice4','answer'];
+    $examcode = date("Ymd").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
     $level = $_POST['level'];
     $examQuestion = $_POST['examQuestion'];
     $choice1 = $_POST['choice1'];
@@ -103,12 +110,12 @@ $app->post('/addQuestion',function(){
     $choice3 = $_POST['choice3'];
     $choice4 = $_POST['choice4'];
     $answer = $_POST['answer'];
-    $inserQuestion = addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer);
+    $inserQuestion = addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer,$keyIndex,$examcode);
     echo json_encode($inserQuestion);
 });
 //For Creating exam details
 $app->post('/createExam',function(){
-    $examcode = date("Y").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
+    $examcode = date("Ymd").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
     $category = $_POST['category'];
     $subject = $_POST['subject'];
     $level = $_POST['level'];
