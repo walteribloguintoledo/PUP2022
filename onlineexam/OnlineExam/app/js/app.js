@@ -78,6 +78,8 @@ $(document).ready(function(){
         });
         
         Path.map("#/createExam").to(function(){
+            var examcode = getJSONDoc ( App.api + "/examcode/var:"+param);
+            console.log(examcode);
             var categoryList = [];
             var categories = getJSONDoc ( App.api + "/getCategory/var:"+param); 
             console.log(categories);
@@ -154,8 +156,6 @@ $(document).ready(function(){
             });
             $("#addQuestion").on('click',function(e){
                 e.preventDefault();
-                var category = $("#category").val();
-                var subject = $("#subject").val();
                 var level = $("#level").val();
                 var examQuestion = $("#examQuestion").val();
                 var choice1 = $("#choice1").val();
@@ -163,18 +163,10 @@ $(document).ready(function(){
                 var choice3 = $("#choice3").val();
                 var choice4 = $("#choice4").val();
                 var answer = $("#answer").val();
-                errorMessage = [];
+                var errorMessage = [];
+                var examEntry=[];
+                var record=[];
                 error = 0;
-                if(category==""||category==null)
-                {
-                    errorMessage.push(" Category");
-                    error++;
-                }
-                if(subject==""||subject==null)
-                {
-                    errorMessage.push(" Subject");
-                    error++;
-                }
                 if(level==""||level==null)
                 {
                     errorMessage.push(" Level");
@@ -225,8 +217,9 @@ $(document).ready(function(){
                     console.log(answer);
                     $.ajax({
                         type: "post",
-                        url: App.api + "/addQuestion",
+                        url: App.api + "/addQuestion/var:"+param,
                         data: {
+                            examcode: examcode,
                             level:level,
                             examQuestion : examQuestion,
                             choice1: choice1,
@@ -247,6 +240,7 @@ $(document).ready(function(){
                             }
                         }
                     });
+                    
                     $("#examQuestion").val('');
                     $("#choice1").val('');
                     $("#choice2").val('');
@@ -284,7 +278,7 @@ $(document).ready(function(){
                     var choice3 = $("#choice3").val();
                     var choice4 = $("#choice4").val();
                     var answer = $("#answer").val();
-                    errorMessage = [];
+                    var errorMessage = [];
                     error = 0;
                     if(questioncountinit==0)
                     {
@@ -348,8 +342,17 @@ $(document).ready(function(){
                                 console.log(choice3);
                                 console.log(choice4);
                                 console.log(answer);
-                                console.log(questioncount);
                         }
+                        console.log(examEntry);
+                        $("#category").attr('disabled',true);
+                        $("#subject").attr('disabled',true);
+                        $("#level").attr('disabled',true);
+                        $("#examQuestion").val('');
+                        $("#choice1").val('');
+                        $("#choice2").val('');
+                        $("#choice3").val('');
+                        $("#choice4").val('');
+                        $("#answer").val('');
                     }
                     else
                     {
@@ -376,8 +379,9 @@ $(document).ready(function(){
                                 console.log(questioncount);
                                 $.ajax({
                                     type: "post",
-                                    url: App.api + "/createExam",
+                                    url: App.api + "/createExam/var:"+param,
                                     data: {
+                                        examcode:examcode,
                                         category:category,
                                         subject:subject,
                                         level:level
@@ -391,7 +395,22 @@ $(document).ready(function(){
                                         }
                                         else
                                         {
-                                            alert("The exam is already created")
+                                            alert("The exam is already created");
+                                            $.ajax({
+                                                type: "post",
+                                                url: App.api +"/deleteDuplicatedExam/var:"+param,
+                                                data: {
+                                                    examcode:examcode
+                                                },
+                                                dataType: "json",
+                                                success: function (response) {
+                                                    if(response.valid)
+                                                    {
+                                                        window.location.reload();
+                                                    }
+                                                    
+                                                }
+                                            });
                                         }
                                     }
                                 });
@@ -446,8 +465,8 @@ $(document).ready(function(){
         });
         Path.map("#/createdExams").to(function(){
             var createdExamsList = [];
-            var getCreatedExams = getJSONDoc (App.api + "/viewCreatedExams");
-            
+            var getCreatedExams = getJSONDoc (App.api + "/viewCreatedExams/var:"+param);
+            console.log(getCreatedExams);
             var ctr = 0;
                 $.each( getCreatedExams, function( i, item ) {
                     ctr++;

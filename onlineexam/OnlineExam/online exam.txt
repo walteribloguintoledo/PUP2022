@@ -211,3 +211,28 @@ Once a Category is selected the subjects under that category must be shown in th
 
 POSSIBLE SOLUTION:
 Make the getJSON function for the category involve the fetching of the subjects
+
+$.ajax({
+                        type: "post",
+                        url: App.api + "/addQuestion",
+                        data: {
+                            level:level,
+                            examQuestion : examQuestion,
+                            choice1: choice1,
+                            choice2 : choice2,
+                            choice3 : choice3,
+                            choice4 : choice4,
+                            answer : answer
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Exam question added");
+                            }
+                            else
+                            {
+                                alert("The question already exist");
+                            }
+                        }
+                    });

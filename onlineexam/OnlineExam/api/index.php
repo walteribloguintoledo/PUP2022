@@ -99,34 +99,99 @@ $app->post('/check',function(){
     $check = checkUser($email,$pswrd);
     echo json_encode ($check);
 });
+//Create Exam code
+$app->get('/examcode/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $examcode = date("Ymd").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
+        echo json_encode($examcode);
+    }
+    
+});
 //For inserting exam questions
-$app->post('/addQuestion',function(){
-    $keyIndex = ['question','choice1','choice2','choice3','choice4','answer'];
-    $examcode = date("Ymd").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
-    $level = $_POST['level'];
-    $examQuestion = $_POST['examQuestion'];
-    $choice1 = $_POST['choice1'];
-    $choice2 = $_POST['choice2'];
-    $choice3 = $_POST['choice3'];
-    $choice4 = $_POST['choice4'];
-    $answer = $_POST['answer'];
-    $inserQuestion = addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer,$keyIndex,$examcode);
-    echo json_encode($inserQuestion);
+$app->post('/addQuestion/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $keyIndex = ['question','choice1','choice2','choice3','choice4','answer'];
+        $examcode = $_POST['examcode'];
+        $level = $_POST['level'];
+        $examQuestion = $_POST['examQuestion'];
+        $choice1 = $_POST['choice1'];
+        $choice2 = $_POST['choice2'];
+        $choice3 = $_POST['choice3'];
+        $choice4 = $_POST['choice4'];
+        $answer = $_POST['answer'];
+        $insertQuestion = addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer,$keyIndex,$examcode);
+        echo json_encode($insertQuestion);
+    }
+    
 });
 //For Creating exam details
-$app->post('/createExam',function(){
-    $examcode = date("Ymd").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
-    $category = $_POST['category'];
-    $subject = $_POST['subject'];
-    $level = $_POST['level'];
-    $createExam = addExam($category,$subject,$level,$examcode);
-    echo json_encode($createExam);
+$app->post('/createExam/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $examcode = $_POST['examcode'];
+        $category = $_POST['category'];
+        $subject = $_POST['subject'];
+        $level = $_POST['level'];
+        $createExam = addExam($category,$subject,$level,$examcode);
+        echo json_encode($createExam);
+    }
+    
 });
 
-$app->get('/viewCreatedExams',function(){
-    $createdExams = viewCreatedExams();
-    echo json_encode($createdExams);
+$app->get('/viewCreatedExams/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $createdExams = viewCreatedExams();
+        echo json_encode($createdExams);
+    }   
 
+});
+
+$app->post('/deleteDuplicatedExam/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $examcode = $_POST['examcode'];
+        $delete = deleteDuplicatedExam($examcode);
+        echo json_encode($delete);
+    }
+    
 });
 //Fetches Category
 $app->get('/getCategory/:var',function($var){

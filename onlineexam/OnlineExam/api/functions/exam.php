@@ -49,7 +49,16 @@ function viewCreatedExams()
     foreach ($sql as $row)
     {
         $data[]=array("valid"=>true,"id"=>$row->id,"uid"=>$row->uid,"category"=>$row->category,"subject"=>$row->subject,"level"=>$row->level);
+        
     }
+    return $data;   
+}
+
+function deleteDuplicatedExam($examcode)
+{
+    $sql = ORM::for_table('exam_entry')->where('uid',$examcode)->find_many();
+    $sql->delete();
+    $data = array("valid" => true);
     return $data;
 }
 ?>
