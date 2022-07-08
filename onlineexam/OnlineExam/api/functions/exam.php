@@ -2,7 +2,7 @@
 function addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer,$keyIndex,$examcode) // Insert entries in the exam_entry table
 {
     $value = [$examQuestion,$choice1,$choice2,$choice3,$choice4,$answer];
-    $existquestion = ORM::for_table('exam_entry')->where('value',$examQuestion)->count();
+    $existquestion = ORM::for_table('exam_entry')->where('value',$examQuestion)->where('uid',$examcode)->count();
     if($existquestion==0)
     {
         for($i=0;$i<count($keyIndex);$i++)
@@ -57,6 +57,16 @@ function viewCreatedExams()
 function deleteDuplicatedExam($examcode)
 {
     $sql = ORM::for_table('exam_entry')->where('uid',$examcode)->find_many();
+    $sql->delete();
+    $data = array("valid" => true);
+    return $data;
+}
+
+function deleteExam($delID)
+{
+    $sql = ORM::for_table('exams')->where('uid',$delID)->find_many();
+    $sql->delete();
+    $sql = ORM::for_table('exam_entry')->where('uid',$delID)->find_many();
     $sql->delete();
     $data = array("valid" => true);
     return $data;

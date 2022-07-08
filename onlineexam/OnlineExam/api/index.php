@@ -176,7 +176,21 @@ $app->get('/viewCreatedExams/:var',function($var){
     }   
 
 });
-
+$app->post('/deleteExam/:var',function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2 && $auth) 
+    {
+        $verified = 1; $error = 0;
+        $delID = $_POST['delID'];
+        $delete = deleteExam($delID);
+        echo json_encode($delete);
+    }  
+});
 $app->post('/deleteDuplicatedExam/:var',function($var){
     $param = explode(".", $var); 
     $token = $param[0];

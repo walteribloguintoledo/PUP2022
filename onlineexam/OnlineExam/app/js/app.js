@@ -164,9 +164,7 @@ $(document).ready(function(){
                 var choice4 = $("#choice4").val();
                 var answer = $("#answer").val();
                 var errorMessage = [];
-                var examEntry=[];
-                var record=[];
-                error = 0;
+                var  error = 0;
                 if(level==""||level==null)
                 {
                     errorMessage.push(" Level");
@@ -343,7 +341,6 @@ $(document).ready(function(){
                                 console.log(choice4);
                                 console.log(answer);
                         }
-                        console.log(examEntry);
                         $("#category").attr('disabled',true);
                         $("#subject").attr('disabled',true);
                         $("#level").attr('disabled',true);
@@ -391,6 +388,7 @@ $(document).ready(function(){
                                         if(response.valid)
                                         {
                                             alert("Exam Successfully Created");
+                                            window.location.replace("#/createdExams");
                                             window.location.reload();
                                         }
                                         else
@@ -480,11 +478,35 @@ $(document).ready(function(){
                     }
                 createdExamsList.push(result);
                 });
-                var templateData = {
+                var examsCreated = {
                     createdExams : createdExamsList
                 }
-                console.log(templateData);
-            App.canvas.html("").append($.Mustache.render("createdExams",templateData));
+                console.log(examsCreated);
+            App.canvas.html("").append($.Mustache.render("createdExams",examsCreated));
+            $('.btn-deleteExam').off('click').on('click',function(){
+                var delID = $(this).attr('delID');
+                console.log(delID);
+                $.ajax({
+                    type: "post",
+                    url: App.api + "/deleteExam/var:"+param,
+                    data: {
+                        delID:delID
+                    },
+                    dataType: "json",
+                    success: function (response) {
+                        if(response.valid)
+                        {
+                            alert("Exam deleted successfully");
+                            window.location.reload();
+                        }
+                        else
+                        {
+                            alert("Something went wrong");
+                            window.location.reload();
+                        }
+                    }
+                });
+            });
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
