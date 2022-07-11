@@ -44,12 +44,13 @@ function addExam($category,$subject,$level,$examcode) //Creates and inserts exam
 }
 
 function viewCreatedExams()
-{
+{   
+    $data = array();
     $sql = ORM::for_table('exams')->find_many();
+    
     foreach ($sql as $row)
     {
         $data[]=array("valid"=>true,"id"=>$row->id,"uid"=>$row->uid,"category"=>$row->category,"subject"=>$row->subject,"level"=>$row->level);
-        
     }
     return $data;   
 }

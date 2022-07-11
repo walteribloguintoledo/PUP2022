@@ -5,6 +5,7 @@ $(document).ready(function(){
         api: "/api"
     }
     var currentUser = [];
+    var userid;
     var login = JSON.parse(localStorage.getItem('currentUser'));
     
     $.Mustache.load('templates/authentication.html').done(function(){
@@ -59,15 +60,18 @@ $(document).ready(function(){
                         success: function (response) {
                             if(response.valid)
                             {
-                                var token = localStorage.setItem("token",JSON.stringify(guid()));
+                                var token = localStorage.setItem("token",guid());
                                 console.log(token);
                                 if(response.userType == "Exam Creator")
                                 {
                                     alert("You are now logged in Exam Creator");
                                     currentUser.push(response);
+                                    userid=response.uid;
                                     console.log(currentUser);
+                                    console.log(response.uid);
                                     login++;
                                     localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                                    localStorage.setItem("userid",userid);
                                     window.location.replace("../app/#/creatorDashboard");
                                 }
                                 if(response.userType == "Examinee")

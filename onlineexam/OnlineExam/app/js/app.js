@@ -2,28 +2,53 @@ $(document).ready(function(){
     var App = {
         canvas:$("#canvas"),
         url: "http://onlineexam/",
-        api: "../api"
+        api: "../api",
+        token: localStorage.getItem('token'),
+        userid: localStorage.getItem('userid'),
+        authenticate: function() {
+            var param = App.token+"."+App.userid;
+            var authentic = getJSONDoc(App.api+ "/authenticate/var:" +param);
+            console.log(authentic);
+            console.log(authentic.verified);
+            return authentic.verified;
+        }
     }
+    
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var userid = currentUser[0].uid;
     var userType = currentUser[0].userType;
+    var param = App.token+"."+App.userid;
     // var login = 0;
     // var logout = 0;
     var questioncount = 0;
     var questioncountinit=0;
     var getSettings = getJSONDoc (App.api + "/json/settings.json");
-    var token = JSON.parse(localStorage.getItem('token'));
-    var param = token+"."+userid;
-    console.log(token);
+    
+    console.log(App.token);
     console.log(currentUser);
-    console.log(userid);
+    console.log(App.userid);
     console.log(param);
     console.log(userType);
-    if(userType=="Exam Creator")
+    
+    if(userType=="Exam Creator" && App.authenticate()==1)
     {
     $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
             App.canvas.mustache('creatorDashboard');
+            var dashContents = getJSONDoc ( App.api + "/creatorDashboard/var:"+param);
+            console.log(dashContents);
+            var dashData = {
+                exams:dashContents.exam,
+                examinees:dashContents.examinees,
+                questions:dashContents.questions,       
+            };
+            $("#numOfExams").append(dashData.exams);
+            $("#numOfExaminees").append(dashData.examinees);
+            $("#numOfQuestions").append(dashData.questions);
+            $("#passing").append(getSettings.settings.passingGrade);
+            $("#lvl1").append(getSettings.settings.level1);
+            $("#lvl2").append(getSettings.settings.level2);
+            $("#lvl3").append(getSettings.settings.level3);
+
             $("#creatorDashboard").on('click', function(){
                 window.location.replace("#/creatorDashboard");
                 window.location.reload();
@@ -1036,6 +1061,7 @@ $(document).ready(function(){
         });
         
         Path.map("#/examSettings").to(function(){
+            
             App.canvas.mustache('examSettings');
             $("#numOfItems1").val(getSettings.settings.level1);
             $("#numOfItems2").val(getSettings.settings.level2);
@@ -1156,13 +1182,14 @@ $(document).ready(function(){
         Path.rescue(function(){
             alert("404: Route Not Found");
             window.location.replace('#/creatorDashboard');
+            window.location.reload();
         });
         Path.root("#/creatorDashboard");
         Path.listen();
     });
 }
 
-if(userType=="Examinee")
+if(userType=="Examinee" && App.authenticate()==1)
 {
     $.Mustache.load('templates/examinee.html').done(function(){
     Path.map("#/examineeDashboard").to(function(){
@@ -1221,6 +1248,11 @@ if(userType=="Examinee")
             window.location.replace("#/examScores");
             window.location.reload();
         });
+    });
+    Path.map("#/logout").to(function(){
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
+        window.location.href = "../auth/#/login"
     });
     Path.root("#/login");
     Path.listen();

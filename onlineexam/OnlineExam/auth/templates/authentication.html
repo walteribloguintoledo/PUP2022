@@ -139,16 +139,16 @@
                                         <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="userType" name="userType" style="font-weight: bold;" value="Exam Creator" readonly></div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorFirstname" placeholder="First Name" name="creatorFirstname" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorFirstname" placeholder="First Name" name="creatorFirstname" style="font-weight: bold;"maxlength="50" onkeypress="lettersOnly(event)"></div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorMiddleName" placeholder="Middle Name" name="creatorMiddleName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorMiddleName" placeholder="Middle Name" name="creatorMiddleName" style="font-weight: bold;"maxlength="50" onkeypress="lettersOnly(event)"></div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorLastName" placeholder="Last Name" name="creatorLastName" style="font-weight: bold;" onkeypress="lettersOnly(event)"></div>
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorLastName" placeholder="Last Name" name="creatorLastName" style="font-weight: bold;"maxlength="50" onkeypress="lettersOnly(event)"></div>
                                     </div>
                                     <div class="row mb-3">
-                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorAddress" placeholder="Address" name="creatorAddress" style="font-weight: bold;" ></div>
+                                        <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" type="text" id="creatorAddress" placeholder="Address" name="creatorAddress" maxlength="500" style="font-weight: bold;" ></div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><input class="form-control form-control-user" id="creatorBirthday" name="creatorBirthday" style="font-weight: bold;" type="date"></div>
@@ -156,7 +156,7 @@
                                     <div class="mb-3"><input class="form-control form-control-user" type="email" id="creatorEmail" aria-describedby="emailHelp" placeholder="Email Address" name="creatorEmail" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="creatorPswrd" placeholder="Password" name="creatorPswrd" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
-                                        <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="creatorContact" placeholder="Contact" name="contact" style="font-weight: bold;" onkeypress="numOnly(event)"></div>
+                                        <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="creatorContact" maxlength="11" placeholder="Contact" name="contact" style="font-weight: bold;" onkeypress="numOnly(event)"></div>
                                     </div>
                                     <hr style="height: 8px;color: var(--bs-dark);"><button class="btn btn-primary d-block btn-user w-100" type="submit">Register Account</button>
                                 </form>
@@ -206,14 +206,14 @@
                                     <div class="mb-3"><input class="form-control form-control-user" type="email" id="examineeEmail" aria-describedby="emailHelp" placeholder="Email Address" name="examineeEmail" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
                                     <div class="row mb-3">
                                         <div class="col-sm-6 mb-3 mb-sm-0"><input class="form-control form-control-user" type="password" id="examineePswrd" placeholder="Password" name="examineePswrd" style="font-weight: bold;" onkeypress="noSpace(event)"></div>
-                                        <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="examineeContact" placeholder="Contact" name="examineeContact" style="font-weight: bold;"></div>
+                                        <div class="col-sm-6"><input class="form-control form-control-user" type="text" id="examineeContact" placeholder="Contact" name="examineeContact" style="font-weight: bold;" maxlength="11" onkeypress="numOnly(event)"></div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-sm-12 col-lg-12 col-xl-12 offset-xl-0 mb-3 mb-sm-0"><select class="form-select" style="border-radius: 75px; font-family: Nunito;" id="category" name="category">
                                         <optgroup label="Categories" id ="categories">
                                             <option value="" selected>Select Category</option>
                                             {{#categoryOptions}}
-                                            <option value={{category}}>{{category}}</option>
+                                            <option value="{{category}}">{{category}}</option>
                                             {{/categoryOptions}}
                                         </optgroup>
                                     </select></div>

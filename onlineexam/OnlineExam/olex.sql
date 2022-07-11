@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2022 at 12:11 PM
+-- Generation Time: Jul 11, 2022 at 12:15 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -37,14 +37,12 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `uid`, `category`) VALUES
-(2, 3952, 'BS Computer Science'),
-(4, 2693, 'BS Computer Engineering'),
-(5, 3061, 'BS Business Administration'),
-(6, 4108, 'BS Psychology'),
-(7, 2757, 'BS Accountancy'),
-(8, 1720, 'BS Biology'),
-(10, 6233, 'BS Mathematics'),
-(11, 2507, 'BS Information Technology');
+(1, 1422, 'BS Information Technology'),
+(2, 6198, 'BS Computer Science'),
+(3, 2918, 'BS Business Administration'),
+(4, 7385, 'BS Electronics Engineering'),
+(5, 8939, 'BS Mathematics'),
+(6, 8144, 'BS Civil Engineering');
 
 -- --------------------------------------------------------
 
@@ -66,13 +64,10 @@ CREATE TABLE `exams` (
 --
 
 INSERT INTO `exams` (`id`, `uid`, `category`, `subject`, `level`, `status`) VALUES
-(1, '', 'BS Computer Science', 'Data Analytics', 1, 1),
-(2, '', 'BS Computer Engineering', 'Robotics', 1, 1),
-(3, '', 'BS Computer Science', 'Data', 1, 1),
-(4, '', 'BS Computer Science', 'Data Analytics', 2, 1),
-(5, '', 'BS Computer Science', 'Data Analytics', 3, 1),
-(6, '20225XF8JI', 'BS Computer Engineering', 'Robotics of the Modern World', 1, 1),
-(7, '202245KC1F', 'BS Biology', 'Parts of the Cell', 2, 1);
+(9, '20220711GKTYR5', 'BS Information Technology', 'MySQL', 1, 1),
+(10, '20220711CAVGBD', 'BS Information Technology', 'PHP Basics', 1, 1),
+(11, '20220711DW785Q', 'BS Computer Science', 'Data Analytics', 1, 1),
+(12, '202207112LDYJZ', 'BS Computer Science', 'MySQL', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -108,114 +103,54 @@ CREATE TABLE `exam_entry` (
 --
 
 INSERT INTO `exam_entry` (`id`, `uid`, `keyIndex`, `value`, `level`, `status`) VALUES
-(1, '', 'question', 'Ut quis blanditiis v', 1, 1),
-(2, '', 'choice1', 'Omnis nulla aut aut ', 1, 1),
-(3, '', 'choice2', 'Rerum ut quis quo al', 1, 1),
-(4, '', 'choice3', 'Nisi dolor numquam i', 1, 1),
-(5, '', 'choice4', 'Duis eos earum unde ', 1, 1),
-(6, '', 'answer', 'Unde repudiandae eu ', 1, 1),
-(7, '', 'question', 'Tempora aliqua Nihi', 1, 1),
-(8, '', 'choice1', 'Sunt minus lorem pr', 1, 1),
-(9, '', 'choice2', 'Non voluptas labore ', 1, 1),
-(10, '', 'choice3', 'Quo sint sed eos a', 1, 1),
-(11, '', 'choice4', 'Reprehenderit dolor', 1, 1),
-(12, '', 'answer', 'Minima aut atque in ', 1, 1),
-(13, '', 'question', 'Nostrud veniam maxi', 1, 1),
-(14, '', 'choice1', 'Consequuntur quia au', 1, 1),
-(15, '', 'choice2', 'Magnam non qui rerum', 1, 1),
-(16, '', 'choice3', 'Consequuntur quia au', 1, 1),
-(17, '', 'choice4', 'Quis ea ut voluptate', 1, 1),
-(18, '', 'answer', 'Modi animi placeat', 1, 1),
-(19, '', 'question', 'Est ut qui velit ass', 1, 1),
-(20, '', 'choice1', 'Consequuntur quia au', 1, 1),
-(21, '', 'choice2', 'Ullamco ducimus vol', 1, 1),
-(22, '', 'choice3', 'Consequuntur quia au', 1, 1),
-(23, '', 'choice4', 'Quis ea ut voluptate', 1, 1),
-(24, '', 'answer', 'Facilis sunt necessi', 1, 1),
-(25, '', 'question', 'Minima eveniet cumq', 1, 1),
-(26, '', 'choice1', 'Incidunt deserunt e', 1, 1),
-(27, '', 'choice2', 'Debitis qui qui aspe', 1, 1),
-(28, '', 'choice3', 'Consequuntur quia au', 1, 1),
-(29, '', 'choice4', 'Quis ea ut voluptate', 1, 1),
-(30, '', 'answer', 'Facilis sunt necessi', 1, 1),
-(31, '', 'question', 'In saepe quia enim s', 2, 1),
-(32, '', 'choice1', 'Tenetur culpa venia', 2, 1),
-(33, '', 'choice2', 'Animi molestiae qui', 2, 1),
-(34, '', 'choice3', 'Ex sed consequatur n', 2, 1),
-(35, '', 'choice4', 'Rem ullam corporis u', 2, 1),
-(36, '', 'answer', 'Autem sit dolorum mo', 2, 1),
-(37, '', 'question', 'Aliquam in iure eius', 2, 1),
-(38, '', 'choice1', 'Laborum aliqua Id r', 2, 1),
-(39, '', 'choice2', 'Magnam facere deseru', 2, 1),
-(40, '', 'choice3', 'Magnam non laborum i', 2, 1),
-(41, '', 'choice4', 'Voluptatem modi inci', 2, 1),
-(42, '', 'answer', 'Aut molestiae sint q', 2, 1),
-(43, '', 'question', 'Nam a hic distinctio', 2, 1),
-(44, '', 'choice1', 'Excepturi enim proid', 2, 1),
-(45, '', 'choice2', 'Commodo aperiam et c', 2, 1),
-(46, '', 'choice3', 'Qui dolores sit tem', 2, 1),
-(47, '', 'choice4', 'Ducimus veritatis u', 2, 1),
-(48, '', 'answer', 'Exercitationem molli', 2, 1),
-(49, '', 'question', 'Facilis voluptas des', 3, 1),
-(50, '', 'choice1', 'Accusantium unde exe', 3, 1),
-(51, '', 'choice2', 'Eos sunt doloribus d', 3, 1),
-(52, '', 'choice3', 'Voluptatem blanditi', 3, 1),
-(53, '', 'choice4', 'Eos commodo aut eos', 3, 1),
-(54, '', 'answer', 'Beatae consequatur a', 3, 1),
-(55, '', 'question', 'Voluptates magnam vo', 3, 1),
-(56, '', 'choice1', 'Enim dolorem quisqua', 3, 1),
-(57, '', 'choice2', 'Quia qui minim conse', 3, 1),
-(58, '', 'choice3', 'Vitae magnam nisi en', 3, 1),
-(59, '', 'choice4', 'Tempora explicabo V', 3, 1),
-(60, '', 'answer', 'Quo eu laborum Ab q', 3, 1),
-(61, '', 'question', 'Dolore labore et ad ', 3, 1),
-(62, '', 'choice1', 'Quia reprehenderit ', 3, 1),
-(63, '', 'choice2', 'Elit animi in non ', 3, 1),
-(64, '', 'choice3', 'Ad occaecat quam et ', 3, 1),
-(65, '', 'choice4', 'Dolor tempora fuga ', 3, 1),
-(66, '', 'answer', 'Recusandae Dolorum ', 3, 1),
-(67, '', 'question', 'Eos eum voluptatum ', 3, 1),
-(68, '', 'choice1', 'Temporibus rerum adi', 3, 1),
-(69, '', 'choice2', 'Saepe soluta omnis q', 3, 1),
-(70, '', 'choice3', 'Minim provident in ', 3, 1),
-(71, '', 'choice4', 'Rem nesciunt impedi', 3, 1),
-(72, '', 'answer', 'Aliquip consequatur', 3, 1),
-(73, '', 'question', 'Quaerat possimus al', 3, 1),
-(74, '', 'choice1', 'Consequat Pariatur', 3, 1),
-(75, '', 'choice2', 'Blanditiis neque vol', 3, 1),
-(76, '', 'choice3', 'In a eveniet dolore', 3, 1),
-(77, '', 'choice4', 'Deleniti nihil est ', 3, 1),
-(78, '', 'answer', 'Nihil fugiat praesen', 3, 1),
-(79, '', 'question', 'Qui laudantium iste', 1, 1),
-(80, '', 'choice1', 'Omnis molestiae ea m', 1, 1),
-(81, '', 'choice2', 'Praesentium corporis', 1, 1),
-(82, '', 'choice3', 'Vel nostrud non quam', 1, 1),
-(83, '', 'choice4', 'Aut delectus sapien', 1, 1),
-(84, '', 'answer', 'Ut quis nesciunt ne', 1, 1),
-(85, '', 'question', 'Mollit quod nostrud ', 1, 1),
-(86, '', 'choice1', 'Quisquam temporibus ', 1, 1),
-(87, '', 'choice2', 'Modi elit quod null', 1, 1),
-(88, '', 'choice3', 'Nulla voluptatum et ', 1, 1),
-(89, '', 'choice4', 'Recusandae Irure lo', 1, 1),
-(90, '', 'answer', 'Deserunt cillum aut ', 1, 1),
-(91, '', 'question', 'Autem incididunt exp', 2, 1),
-(92, '', 'choice1', 'Aut consequatur odit', 2, 1),
-(93, '', 'choice2', 'Magnam non qui rerum', 2, 1),
-(94, '', 'choice3', 'Consequuntur quia au', 2, 1),
-(95, '', 'choice4', 'Mollit dignissimos v', 2, 1),
-(96, '', 'answer', 'Facilis sunt necessi', 2, 1),
-(97, '', 'question', 'Quis illum sunt ad ', 2, 1),
-(98, '', 'choice1', 'Tempor ut et debitis', 2, 1),
-(99, '', 'choice2', 'Sit rem architecto ', 2, 1),
-(100, '', 'choice3', 'Vel eos dolor in ap', 2, 1),
-(101, '', 'choice4', 'Ipsum recusandae Si', 2, 1),
-(102, '', 'answer', 'Non cillum voluptati', 2, 1),
-(103, '', 'question', 'Voluptatem in ut co', 2, 1),
-(104, '', 'choice1', 'Eveniet ab qui cill', 2, 1),
-(105, '', 'choice2', 'Commodi ut illo id o', 2, 1),
-(106, '', 'choice3', 'Atque magnam deserun', 2, 1),
-(107, '', 'choice4', 'Voluptas velit dolor', 2, 1),
-(108, '', 'answer', 'Esse fugiat fugiat', 2, 1);
+(91, '20220711GKTYR5', 'question', 'A database can be best described as a ?', 1, 1),
+(92, '20220711GKTYR5', 'choice1', 'Collection of data', 1, 1),
+(93, '20220711GKTYR5', 'choice2', 'Collection of related tables', 1, 1),
+(94, '20220711GKTYR5', 'choice3', 'Collection of tables', 1, 1),
+(95, '20220711GKTYR5', 'choice4', 'Collection of views', 1, 1),
+(96, '20220711GKTYR5', 'answer', 'Collection of data', 1, 1),
+(97, '20220711GKTYR5', 'question', 'A new Database is created by ?', 1, 1),
+(98, '20220711GKTYR5', 'choice1', 'Use database command', 1, 1),
+(99, '20220711GKTYR5', 'choice2', 'Create table command', 1, 1),
+(100, '20220711GKTYR5', 'choice3', 'Create database command', 1, 1),
+(101, '20220711GKTYR5', 'choice4', 'Crete store cammnd', 1, 1),
+(102, '20220711GKTYR5', 'answer', 'Create database command', 1, 1),
+(103, '20220711CAVGBD', 'question', 'Which of following statements will be used to fetch SINGLE record from a MySQL resultset', 1, 1),
+(104, '20220711CAVGBD', 'choice1', 'Mysql_connect', 1, 1),
+(105, '20220711CAVGBD', 'choice2', 'Mysql_query', 1, 1),
+(106, '20220711CAVGBD', 'choice3', 'Mysql_fetch_array', 1, 1),
+(107, '20220711CAVGBD', 'choice4', 'Mysql_fetch_row', 1, 1),
+(108, '20220711CAVGBD', 'answer', 'Mysql_fetch_row', 1, 1),
+(109, '20220711CAVGBD', 'question', 'What is correct syntax of connecting to a MySql database', 1, 1),
+(110, '20220711CAVGBD', 'choice1', 'Mysql_connect($username,$password)', 1, 1),
+(111, '20220711CAVGBD', 'choice2', 'Connect_mysql($username,$password)', 1, 1),
+(112, '20220711CAVGBD', 'choice3', 'Mysql_connect("localhost",$username,$password)', 1, 1),
+(113, '20220711CAVGBD', 'choice4', 'None of the choices', 1, 1),
+(114, '20220711CAVGBD', 'answer', 'Mysql_connect("localhost",$username,$password)', 1, 1),
+(115, '20220711DW785Q', 'question', 'A voluminous amount of structured, semi-structured, and unstructured data that has the potential to be mined for information.', 1, 1),
+(116, '20220711DW785Q', 'choice1', 'Small Data', 1, 1),
+(117, '20220711DW785Q', 'choice2', 'Meta Data', 1, 1),
+(118, '20220711DW785Q', 'choice3', 'Statistical Data', 1, 1),
+(119, '20220711DW785Q', 'choice4', 'Big Data', 1, 1),
+(120, '20220711DW785Q', 'answer', 'Big Data', 1, 1),
+(121, '20220711DW785Q', 'question', 'A free, Java-based programming framework that supports the processing of large data sets in a distributed computing environment.', 1, 1),
+(122, '20220711DW785Q', 'choice1', 'Hadoop', 1, 1),
+(123, '20220711DW785Q', 'choice2', 'Python', 1, 1),
+(124, '20220711DW785Q', 'choice3', 'R', 1, 1),
+(125, '20220711DW785Q', 'choice4', 'Apache Groovy', 1, 1),
+(126, '20220711DW785Q', 'answer', 'Hadoop', 1, 1),
+(127, '202207112LDYJZ', 'question', 'SQL means structured query language.', 1, 1),
+(128, '202207112LDYJZ', 'choice1', 'TRUE', 1, 1),
+(129, '202207112LDYJZ', 'choice2', 'FALSE', 1, 1),
+(130, '202207112LDYJZ', 'choice3', 'Maybe', 1, 1),
+(131, '202207112LDYJZ', 'choice4', 'I don''t know', 1, 1),
+(132, '202207112LDYJZ', 'answer', 'TRUE', 1, 1),
+(133, '202207112LDYJZ', 'question', 'Which of the following is an example of relational database?', 1, 1),
+(134, '202207112LDYJZ', 'choice1', 'One to One', 1, 1),
+(135, '202207112LDYJZ', 'choice2', 'Two to Two', 1, 1),
+(136, '202207112LDYJZ', 'choice3', 'Three to Three', 1, 1),
+(137, '202207112LDYJZ', 'choice4', 'All of the above', 1, 1),
+(138, '202207112LDYJZ', 'answer', 'One to One', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -276,20 +211,6 @@ CREATE TABLE `settings` (
   `value` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `settings`
---
-
-INSERT INTO `settings` (`id`, `uid`, `keyIndex`, `value`) VALUES
-(1, 0, 'No. of Items for Lev', 20),
-(2, 0, 'No. of Items for Lev', 30),
-(3, 0, 'No. of Items for Lev', 50),
-(4, 0, 'No. of Items for Lev', 80),
-(5, 0, 'No. of Items for Level 1', 20),
-(6, 0, 'No. of Items for Level 2', 30),
-(7, 0, 'No. of Items for Level 3', 50),
-(8, 0, 'No. of Items for Level 1', 80);
-
 -- --------------------------------------------------------
 
 --
@@ -307,12 +228,18 @@ CREATE TABLE `subject` (
 --
 
 INSERT INTO `subject` (`id`, `uid`, `subjectName`) VALUES
-(3, 3952, 'Data Analytics'),
-(4, 3952, 'Artificial Intelligence'),
-(6, 2693, 'Robotics of the Modern World'),
-(8, 3061, 'Fundamentals of Accounting'),
-(9, 2757, 'Fundamentals of Accounting'),
-(10, 1720, 'Parts of the Cell');
+(1, 1422, 'PHP Basics'),
+(2, 6198, 'Data Analytics'),
+(3, 2918, 'Business Mathematics'),
+(4, 7385, 'Physics and Circuits'),
+(5, 8939, 'Algebra'),
+(6, 1422, 'JavaScript 1'),
+(7, 6198, 'JavaScript 1'),
+(8, 6198, 'PHP Basics'),
+(9, 8939, 'Basic Mathematics'),
+(10, 8144, 'Calculus'),
+(11, 1422, 'MySQL'),
+(12, 6198, 'MySQL');
 
 -- --------------------------------------------------------
 
@@ -340,19 +267,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `uid`, `userType`, `firstname`, `middlename`, `lastname`, `address`, `birthday`, `email`, `password`, `contact`, `category`) VALUES
-(1, '', 'Exam Creator', 'Griffin', 'Rooney Conrad', 'Burnett', 'Consequatur Cum qui', '2018-04-03', 'vyme@mailinator.com', 'Pa$$w0rd!', '09456011731', NULL),
-(2, '', 'Exam Creator', 'Carly', 'Carl English', 'Wilson', 'Et mollitia Nam impe', '2014-03-28', 'cajejy@mailinator.co', 'Pa$$w0rd!', '09392608855', NULL),
-(3, '', 'Exam Creator', 'Timothy', 'Stephen Donovan', 'House', 'Voluptate enim dolor', '1971-10-21', 'vyfiriz@mailinator.c', 'Pa$$w0rd!', '09361594872', NULL),
-(4, '', 'Exam Creator', 'Elliott', 'Justina Dennis', 'Molina', 'Omnis minim consecte', '1984-04-18', 'pyri@mailinator.com', 'Pa$$w0rd!', '09457689000', NULL),
-(5, '', 'Exam Creator', 'Oren', 'Neville Bruce', 'Dotson', 'Lorem harum earum un', '1979-01-02', 'suge@mailinator.com', 'Pa$$w0rd!', '09392608855', NULL),
-(6, '', 'Exam Creator', 'Anne', 'Mechelle Faulkner', 'Owens', 'Dolor culpa quia ar', '1982-03-20', 'bixicyqu@mailinator.', 'Pa$$w0rd!', '09361594872', NULL),
-(7, '', 'Exam Creator', 'Cooper', 'Jackson Dominguez', 'Garrett', 'In est tempor in vel', '2004-04-19', 'gocug@mailinator.com', 'Pa$$w0rd!', '09351404870', NULL),
-(8, '', 'Exam Creator', 'Daquan', 'Harlan Carrillo', 'Fulton', 'Sed fugit iste est ', '1986-02-01', 'xygyqaki@mailinator.', 'Pa$$w0rd!', '09392608855', NULL),
-(20, '', 'Exam Creator', 'Ed John Paul ', 'Del Rosario', 'Gallardo', '64 South Sikap St Brgy. Plainview Mandaluyong City', '1999-06-28', 'edjohnpaulgallardo@gmail.com', 'gallardo28', '09392608855', NULL),
-(27, '2022-3YON-9529', 'Exam Creator', 'Dahlia', 'Oprah Walton', 'Talley', 'Eligendi voluptas eu', '1997-06-22', 'lime@mailinator.com', 'Pa$$w0rd!', '09392608805', NULL),
-(28, '2022-HJ9U-2261', 'Examinee', 'Blaine', 'Nell Decker', 'Mendez', 'Odit enim repellendu', '1992-07-03', 'qibododeh@mailinator.com', 'Pa$$w0rd!', '09392608805', 'BS'),
-(29, '2022-GIUL-5983', 'Examinee', 'Vivian', 'Jocelyn Compton', 'Diaz', 'Tempora at enim magn', '2022-07-09', 'vagosovygu@mailinator.com', 'Pa$$w0rd!', '09124563789', 'BS'),
-(30, '2022-DACY-6551', 'Examinee', 'Joelle', 'Carol Austin', 'Mendez', 'Est laudantium ipsu', '1977-04-06', 'majokol@mailinator.com', 'Pa$$w0rd!', '09392608805', 'BS');
+(1, '2022-2EX8-7389', 'Exam Creator', 'Ed John Paul', 'Del Rosario', 'Gallardo', '64 South Sikap St Brgy. Plainview Mandaluyong City', '1999-06-28', 'edjohnpaulgallardo28@gmail.com', 'gallardo28', '09392608805', NULL),
+(2, '2022-FZIU-9422', 'Examinee', 'Hayes', 'Carlos Lyons', 'Whitfield', 'Laborum Alias et ut', '1986-09-03', 'dajalujahu@mailinator.com', 'Pa$$w0rd!n', '09251645789', 'BS'),
+(3, '2022-H8D3-1202', 'Examinee', 'Hector', 'Fritz Lamb', 'Pace', 'Ex rerum at omnis qu', '2001-08-05', 'sipumaka@mailinator.com', 'Pa$$w0rd!', '09123456789', 'BS Computer Science');
 
 --
 -- Indexes for dumped tables
@@ -416,17 +333,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `exams`
 --
 ALTER TABLE `exams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `exam_entry`
 --
 ALTER TABLE `exam_entry`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
 --
 -- AUTO_INCREMENT for table `guest`
 --
@@ -441,17 +358,17 @@ ALTER TABLE `scores`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --

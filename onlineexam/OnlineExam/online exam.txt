@@ -236,3 +236,11 @@ $.ajax({
                             }
                         }
                     });
+
+July 11 2022
+PROBLEM:
+The settings.json needs to overwrite
+
+POSSIBLE SOLUTIONS:
+-*- Fetch all the data of the settings.json and store it in the localStorage and overwrite it if needed.
+-*- Use the "var fs = require('fs')"
