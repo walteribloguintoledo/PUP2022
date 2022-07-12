@@ -22,7 +22,15 @@ $(document).ready(function(){
     var questioncount = 0;
     var questioncountinit=0;
     var getSettings = getJSONDoc (App.api + "/json/settings.json");
-    
+    localStorage.setItem("level1",getSettings.settings.level1);
+    localStorage.setItem("level2",getSettings.settings.level2);
+    localStorage.setItem("level3",getSettings.settings.level3);
+    localStorage.setItem("passingGrade",getSettings.settings.passingGrade)
+    lvl1 = localStorage.getItem("level1");
+    lvl2 = localStorage.getItem("level2");
+    lvl3 = localStorage.getItem("level3");
+    pssgrd = localStorage.getItem("passingGrade");
+    console.log(getSettings.settings.level1);
     console.log(App.token);
     console.log(currentUser);
     console.log(App.userid);
@@ -1063,10 +1071,10 @@ $(document).ready(function(){
         Path.map("#/examSettings").to(function(){
             
             App.canvas.mustache('examSettings');
-            $("#numOfItems1").val(getSettings.settings.level1);
-            $("#numOfItems2").val(getSettings.settings.level2);
-            $("#numOfItems3").val(getSettings.settings.level3);
-            $("#passingGrade").val(getSettings.settings.passingGrade);
+            $("#numOfItems1").val(lvl1);
+            $("#numOfItems2").val(lvl2);
+            $("#numOfItems3").val(lvl3);
+            $("#passingGrade").val(pssgrd);
             
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");
@@ -1146,7 +1154,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: App.api + "/settings",
+                        url: App.api + "/json/settings.json",
                         data: {
                             numOfItems1:numOfItems1,
                             numOfItems2:numOfItems2,
@@ -1155,19 +1163,25 @@ $(document).ready(function(){
                         },
                         dataType: "json",
                         success: function (response) {
-                            if(response.valid)
-                            {
+                            
                                 alert("Settings have ben saved");
-                                $("#numOfItems1").val(response.numOfItems1);
-                                $("#numOfItems2").val(response.numOfItems2);
-                                $("#numOfItems3").val(response.numOfItems3);
-                                $("#passingGrade").val(response.passingGrade);
+                                // $("#numOfItems1").val(numOfItems1);
+                                // $("#numOfItems2").val(numOfItems2);
+                                // $("#numOfItems3").val(numOfItems3);
+                                // $("#passingGrade").val(passingGrade);
+                                var jsonData = {
+                                    settings :{
+                                        level1:numOfItems1,
+                                        level2:numOfItems2,
+                                        level3:numOfItems3,
+                                        passingGrade:passingGrade
+                                    }
+                                }
+                                
+                                JSON.stringify(jsonData);
+                                console.log(jsonData);
                             }
-                            else
-                            {
-                                alert("Something went wrong");
-                            }
-                        }
+                        
                     });
                 }
             });
