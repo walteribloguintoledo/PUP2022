@@ -26,11 +26,13 @@ $(document).ready(function(){
     localStorage.setItem("level2",getSettings.settings.level2);
     localStorage.setItem("level3",getSettings.settings.level3);
     localStorage.setItem("passingGrade",getSettings.settings.passingGrade)
-    lvl1 = localStorage.getItem("level1");
-    lvl2 = localStorage.getItem("level2");
-    lvl3 = localStorage.getItem("level3");
-    pssgrd = localStorage.getItem("passingGrade");
-    console.log(getSettings.settings.level1);
+    lvl1 = JSON.parse(localStorage.getItem("level1"));
+    lvl2 = JSON.parse(localStorage.getItem("level2"));
+    lvl3 = JSON.parse(localStorage.getItem("level3"));
+    pssgrd = JSON.parse(localStorage.getItem("passingGrade"));
+    console.log(JSON.parse(getSettings.settings.level1));
+    console.log(lvl1);
+    console.log(getSettings);
     console.log(App.token);
     console.log(currentUser);
     console.log(App.userid);
@@ -166,19 +168,19 @@ $(document).ready(function(){
                 
                 if(level==1)
                 {
-                    questioncount=2;
+                    questioncount=lvl1;
                     console.log(level);
                     console.log(questioncount);
                 }
                 if(level==2)
                 {
-                    questioncount=3;
+                    questioncount=lvl2;
                     console.log(level);
                     console.log(questioncount);
                 }
                 if(level==3)
                 {
-                    questioncount=5;
+                    questioncount=lvl3;
                     console.log(level);
                     console.log(questioncount);
                 }
@@ -268,6 +270,8 @@ $(document).ready(function(){
                             else
                             {
                                 alert("The question already exist");
+                                questioncount++;
+                                console.log(questioncount)
                             }
                         }
                     });
@@ -1154,7 +1158,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: App.api + "/json/settings.json",
+                        url: App.api + "/settings/var:"+param,
                         data: {
                             numOfItems1:numOfItems1,
                             numOfItems2:numOfItems2,
@@ -1163,23 +1167,11 @@ $(document).ready(function(){
                         },
                         dataType: "json",
                         success: function (response) {
-                            
-                                alert("Settings have ben saved");
-                                // $("#numOfItems1").val(numOfItems1);
-                                // $("#numOfItems2").val(numOfItems2);
-                                // $("#numOfItems3").val(numOfItems3);
-                                // $("#passingGrade").val(passingGrade);
-                                var jsonData = {
-                                    settings :{
-                                        level1:numOfItems1,
-                                        level2:numOfItems2,
-                                        level3:numOfItems3,
-                                        passingGrade:passingGrade
-                                    }
+                                if(response.valid)
+                                {
+                                    alert("Settings have ben saved");
+                                    window.location.reload();
                                 }
-                                
-                                JSON.stringify(jsonData);
-                                console.log(jsonData);
                             }
                         
                     });

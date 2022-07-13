@@ -423,7 +423,7 @@ $app->post('/deleteSubject/:var',function($var){
     $verified = 0;
     $error = 1;
     $auth = checkToken($uid);
-    if(count($param)===2 && $auth)
+    if(count($param)===2)
     {
         if($auth!=0)
         {
@@ -436,13 +436,29 @@ $app->post('/deleteSubject/:var',function($var){
 });
 
 //Saving Settings
-$app->post('/settings',function(){
-    $numOfItems1 = $_POST['numOfItems1'];
-    $numOfItems2 = $_POST['numOfItems2'];
-    $numOfItems3 = $_POST['numOfItems3'];
-    $passingGrade = $_POST['passingGrade'];
-    $settings = saveSettings($numOfItems1,$numOfItems2,$numOfItems3,$passingGrade);
-    echo json_encode($settings);
+$app->post('/settings/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2)
+    {
+        if($auth!=0)
+        {
+            $numOfItems1 = $_POST['numOfItems1'];
+            $numOfItems2 = $_POST['numOfItems2'];
+            $numOfItems3 = $_POST['numOfItems3'];
+            $passingGrade = $_POST['passingGrade'];
+            $settings = array("settings" => array("level1"=>$numOfItems1,"level2"=>$numOfItems2,"level3"=>$numOfItems3,"passingGrade"=>$passingGrade));
+            file_put_contents("../api/json/settings.json",json_encode($settings),FILE_USE_INCLUDE_PATH);
+            $success = array("valid"=>true);
+            echo json_encode($success);
+        }
+        
+    }
+    
 });
 
 //Fetching Examinees data
