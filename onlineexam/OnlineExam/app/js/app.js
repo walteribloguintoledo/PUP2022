@@ -1181,9 +1181,8 @@ $(document).ready(function(){
         });
         
         Path.map("#/logout").to(function(){
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('token');
-            window.location.href = "../auth/#/login"
+            localStorage.clear();
+            window.location.href = "../auth/#/login";
         })
         Path.rescue(function(){
             alert("404: Route Not Found");
@@ -1197,6 +1196,10 @@ $(document).ready(function(){
 
 if(userType=="Examinee" && App.authenticate()==1)
 {
+    var user = JSON.parse(localStorage.getItem("currentUser"));
+    var userCategory = user[0].category
+    console.log(user);
+    console.log(userCategory);    
     $.Mustache.load('templates/examinee.html').done(function(){
     Path.map("#/examineeDashboard").to(function(){
         App.canvas.mustache('examineeDashboard');
@@ -1218,7 +1221,28 @@ if(userType=="Examinee" && App.authenticate()==1)
         });
     });
     Path.map("#/examsToTake").to(function(){
-        App.canvas.mustache('examsToTake');
+        var paramExaminee = App.token+"."+App.userid+"."+userCategory;
+        var examsList = [];
+        var getExams = getJSONDoc (App.api + "/viewExamsToTake/:var" + paramExaminee);
+        var ctr = 0;
+        $.each( getExams, function( i, item) {
+            ctr++;
+            var result = {
+                num: ctr,
+                id: item.id,
+                uid: item.uid,
+                category: item.category,
+                subject: item.subject,
+                level : item.level               
+            }
+        examsList.push(result);
+        });
+        var exams = {
+                exams : examsList
+            }
+        console.log(exams);
+        App.canvas.html("").append($.Mustache.render("examsToTake",exams));
+        // App.canvas.mustache('examsToTake');
         $("#examineeDashboard-logo").on('click', function(){
             window.location.replace("#/examineeDashboard");
             window.location.reload();
@@ -1256,9 +1280,8 @@ if(userType=="Examinee" && App.authenticate()==1)
         });
     });
     Path.map("#/logout").to(function(){
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('token');
-        window.location.href = "../auth/#/login"
+        localStorage.clear();
+        window.location.href = "../auth/#/login";
     });
     Path.root("#/login");
     Path.listen();

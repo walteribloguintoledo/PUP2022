@@ -72,4 +72,16 @@ function deleteExam($delID)
     $data = array("valid" => true);
     return $data;
 }
+
+//Functions for Examinee
+function getExamsToTake($category)
+{
+    $data = array();
+    $sql = ORM::for_table('exams')->where('category',$category)->find_many();
+    foreach($sql as $row)
+    {
+        $data[] = array("valid"=>true,"id"=>$row->id,"uid"=>$row->uid,"category"=>$row->category,"subject"=>$row->subject,"level"=>$row->level);
+    }
+    return $data;
+}
 ?>

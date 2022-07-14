@@ -469,7 +469,7 @@ $app->get('/getExaminees/:var',function($var){
     $verified = 0;
     $error = 1;
     $auth = checkToken($uid);
-    if(count($param)===2 && $auth)
+    if(count($param)===2)
     {
         if($auth!=0)
         {
@@ -477,6 +477,27 @@ $app->get('/getExaminees/:var',function($var){
             echo json_encode($fetchExaminees);
         }
         
+    }
+    
+});
+
+//EXAMINEE
+
+$app->get('/viewExamsToTake/:var', function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $category = $param[2];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===3)
+    {
+        if($auth!=0)
+        {
+            $examsToTake = getExamsToTake($category);
+            echo json_encode($examsToTake);
+        }
     }
     
 });

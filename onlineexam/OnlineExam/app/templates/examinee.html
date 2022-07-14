@@ -125,12 +125,11 @@
                                         </div>
                                         <div class="row align-items-center no-gutters">
                                             <div class="col me-2">
-                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="font-size: 20px;color: #009e49;margin-left: 0px;">EXAm Score must be 80% or above</span></div>
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span style="font-size: 20px;color: #009e49;margin-left: 0px;">Exam Score must be 80% or above</span></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card"></div>
                             </div>
                         </div>
                     </div>
@@ -179,13 +178,14 @@
                         <div class="d-sm-flex justify-content-between align-items-center mb-4">
                             <h3 class="text-dark mb-0">Exams to Take</h3><a class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-medal fa-sm text-white-50" style="width: 20.3px;font-size: 16px;"></i>View Scores</a>
                         </div>
+                        {{#exams}}
                         <div class="row mb-3">
                             <div class="col-md-12 col-xl-12 col-xxl-11 mb-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-sm-7 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-0">
-                                                <h4 style="color: var(--bs-dark);font-weight: bold;margin-top: 8px;">JavaScript 1</h4>
+                                                <h4 style="color: var(--bs-dark);font-weight: bold;margin-top: 8px;">{{subject}}</h4>
                                             </div>
                                             <div class="col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2 offset-sm-0"><button class="btn btn-primary rounded-pill" type="button"><i class="fa fa-pencil" style="margin-left: 0px;margin-right: 8px;font-size: 18px;"></i>Take Exam</button></div>
                                         </div>
@@ -195,38 +195,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-md-12 col-xl-12 col-xxl-11 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-7 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-0">
-                                                <h4 style="color: var(--bs-dark);font-weight: bold;margin-top: 8px;">MySQL 1</h4>
-                                            </div>
-                                            <div class="col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2 offset-sm-0"><button class="btn btn-primary rounded-pill" type="button"><i class="fa fa-pencil" style="margin-left: 0px;margin-right: 8px;font-size: 18px;"></i>Take Exam</button></div>
-                                        </div>
-                                        <h6 class="text-muted card-subtitle mb-2"></h6>
-                                        <p class="card-text"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-md-12 col-xl-12 col-xxl-11 mb-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-sm-7 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-0">
-                                                <h4 style="color: var(--bs-dark);font-weight: bold;margin-top: 8px;">JavaScript 2</h4>
-                                            </div>
-                                            <div class="col-sm-5 col-md-4 col-lg-3 col-xl-2 col-xxl-2 offset-sm-0"><button class="btn btn-primary rounded-pill" type="button"><i class="fa fa-pencil" style="margin-left: 0px;margin-right: 8px;font-size: 18px;"></i>Take Exam</button></div>
-                                        </div>
-                                        <h6 class="text-muted card-subtitle mb-2"></h6>
-                                        <p class="card-text"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{/exams}}
+                        
                     </div>
                 </div>
                 <footer class="bg-white sticky-footer">

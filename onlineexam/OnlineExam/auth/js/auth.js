@@ -78,9 +78,12 @@ $(document).ready(function(){
                                 {
                                     alert("You are now logged in Examinee");
                                     currentUser.push(response);
+                                    userid=response.uid;
                                     console.log(currentUser);
+                                    console.log(response.uid);
                                     login++;
                                     localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                                    localStorage.setItem("userid",userid);
                                     window.location.replace("../app/#/examineeDashboard");
                                 }
                             }
