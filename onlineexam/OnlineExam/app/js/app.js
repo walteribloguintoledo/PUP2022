@@ -170,24 +170,25 @@ $(document).ready(function(){
                 {
                     questioncount=lvl1;
                     console.log(level);
-                    console.log(questioncount);
+                    // console.log(questioncount);
                 }
                 if(level==2)
                 {
                     questioncount=lvl2;
                     console.log(level);
-                    console.log(questioncount);
+                    // console.log(questioncount);
                 }
                 if(level==3)
                 {
                     questioncount=lvl3;
                     console.log(level);
-                    console.log(questioncount);
+                    // console.log(questioncount);
                 }
                 if(questioncount!=0)
                 {
                     $("#addExam").attr("disabled",true);
                 }
+                console.log(questioncount);
             });
             $("#addQuestion").on('click',function(e){
                 e.preventDefault();
@@ -267,39 +268,40 @@ $(document).ready(function(){
                             {
                                 alert("Exam question added");
                             }
-                            else
+                            if(response.valid==false)
                             {
                                 alert("The question already exist");
-                                questioncount++;
-                                console.log(questioncount)
+                            }
+                            else
+                            {
+                                $("#examQuestion").val('');
+                                $("#choice1").val('');
+                                $("#choice2").val('');
+                                $("#choice3").val('');
+                                $("#choice4").val('');
+                                $("#answer").val('');
+                                $("#category").attr('disabled',true);
+                                $("#subject").attr('disabled',true);
+                                $("#level").attr('disabled',true);
+                                questioncount--;
+                                console.log(questioncount);
+
+                                if(questioncount==0)
+                                {
+                                    $("#addExam").attr("disabled",false);
+                                    $("#addQuestion").attr("disabled",true);
+                                    $("#examQuestion").attr("disabled",true);
+                                    $("#choice1").attr("disabled",true);
+                                    $("#choice2").attr("disabled",true);
+                                    $("#choice3").attr("disabled",true);
+                                    $("#choice4").attr("disabled",true);
+                                    $("#answer").attr("disabled",true);
+                                    questioncountinit = 1;
+                                    console.log(questioncountinit);
+                                }
                             }
                         }
                     });
-                    
-                    $("#examQuestion").val('');
-                    $("#choice1").val('');
-                    $("#choice2").val('');
-                    $("#choice3").val('');
-                    $("#choice4").val('');
-                    $("#answer").val('');
-                    $("#category").attr('disabled',true);
-                    $("#subject").attr('disabled',true);
-                    $("#level").attr('disabled',true);
-                    questioncount--;
-                    console.log(questioncount);
-                    if(questioncount==0)
-                    {
-                        $("#addExam").attr("disabled",false);
-                        $("#addQuestion").attr("disabled",true);
-                        $("#examQuestion").attr("disabled",true);
-                        $("#choice1").attr("disabled",true);
-                        $("#choice2").attr("disabled",true);
-                        $("#choice3").attr("disabled",true);
-                        $("#choice4").attr("disabled",true);
-                        $("#answer").attr("disabled",true);
-                        questioncountinit = 1;
-                        console.log(questioncountinit);
-                    }
                 }
             });
             $("#createExam-form").on('submit',function(e){
@@ -1242,7 +1244,31 @@ if(userType=="Examinee" && App.authenticate()==1)
             }
         console.log(exams);
         App.canvas.html("").append($.Mustache.render("examsToTake",exams));
-        // App.canvas.mustache('examsToTake');
+
+        $("#takeExam").on('click',function(){
+            window.location.replace("#/takeExam");
+            window.location.reload();
+        });
+
+        $("#examineeDashboard-logo").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examineeDashboard").on('click', function(){
+            window.location.replace("#/examineeDashboard");
+            window.location.reload();
+        });
+        $("#examsToTake").on('click', function(){
+            window.location.replace("#/examsToTake");
+            window.location.reload();
+        });
+        $("#examsScores").on('click', function(){
+            window.location.replace("#/examScores");
+            window.location.reload();
+        });
+    });
+    Path.map('#/takeExam').to(function(){
+        App.canvas.mustache('takeExam');
         $("#examineeDashboard-logo").on('click', function(){
             window.location.replace("#/examineeDashboard");
             window.location.reload();

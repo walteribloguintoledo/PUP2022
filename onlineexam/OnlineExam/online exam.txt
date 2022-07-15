@@ -244,3 +244,26 @@ The settings.json needs to overwrite
 POSSIBLE SOLUTIONS:
 -*- Fetch all the data of the settings.json and store it in the localStorage and overwrite it if needed.
 -*- Use the "var fs = require('fs')"
+
+[DONE]
+
+TO DO :
+
+REFACTOR TOKEN AUTHENTICATION:
+
+*Create a flowchart on how the token authentication work*
+Concept:
+- Once the user accesses the system the authentication runs which then verifies if the token is not expired
+Idea on the process:
+1. The user accesses the online exam system
+2. The token generates
+3. The token is saved into the database
+    *possible DB design 
+    id       userid                      token                     status
+     1    2022-2EX8-7389   1DE295AC-57C7-D5C7-4030-1C14F9E83DDC       1
+
+On the examinee side:
+1. Before loading the design the token authentication runs
+2. The token authentication function fetches the data of token on the database with the following conditions
+    - the token status must not be expired if it is expired the system must let the user to login
+
