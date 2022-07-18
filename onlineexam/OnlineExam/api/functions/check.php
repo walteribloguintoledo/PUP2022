@@ -25,4 +25,24 @@ function checkToken($uid)
     }
     return $response;
 }
+function logtoken($token,$userid,$usertype,$category)
+{
+    $sql = ORM::for_table('token_auth')->create();
+    $sql->set('uid',$userid);
+    $sql->set('userType',$usertype);
+    $sql->set('category',$category);
+    $sql->set('token',$token);
+    $sql->save();
+}
+function getloggedUser()
+{
+    $data = array();
+    $sql = ORM::for_table('token_auth')->find_many();
+
+    foreach ($sql as $row)
+    {
+        $data = array("valid" => true, "id"=> $row->id,"uid" => $row->uid, "userType" => $row->userType, "category" => $row->category);
+    }
+    return $data;
+}
 ?>

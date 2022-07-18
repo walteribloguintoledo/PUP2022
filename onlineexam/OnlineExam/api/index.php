@@ -24,6 +24,17 @@ $app->get("/authenticate/:var", function($var) {
     echo json_encode($response);
 });
 
+$app->post("/storeToken",function(){
+    $token = $_POST['token'];
+    $userid = $_POST['userid'];
+    $userType = $_POST['userType'];
+    $category = $_POST['category'];
+    $logdata = logtoken($token,$userid,$usertype,$category);
+});
+$app->get("/getLoggedUser",function(){
+    $loggeduser = getloggedUser();
+    echo json_encode($loggeduser);
+});
 //For registration of Exam Creator
 
 $app->get('/creatorDashboard/:var',function($var){

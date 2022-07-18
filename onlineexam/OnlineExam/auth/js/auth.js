@@ -2,12 +2,24 @@ $(document).ready(function(){
     var App = {
         canvas:$("#canvas"),
         url: "http://onlineexam/",
-        api: "/api"
+        api: "/api",
+        authenticate: function(token,userid) {
+            var token;
+            var userid;
+            var param = token+"."+userid
+            var authentic = getJSONDoc(App.api+ "/authenticate/var:" +param);
+            console.log(authentic);
+            console.log(authentic.verified);
+            return authentic.verified;
+        }
     }
     var currentUser = [];
     var userid;
     var login = JSON.parse(localStorage.getItem('currentUser'));
-    
+    var token = guid();
+    console.log(token);
+    // var auth = App.authenticate(token);
+    // console.log(auth);
     $.Mustache.load('templates/authentication.html').done(function(){
         if(login!=null)
         {
@@ -47,32 +59,46 @@ $(document).ready(function(){
                 }
                 else
                 {
-                    console.log(email);
-                    console.log(pswrd);
                     $.ajax({
                         type: "post",
                         url: "../api/check",
                         data: {
                             email : email,
-                            pswrd : pswrd
+                            pswrd : pswrd,
+                            token : token
                         },
                         dataType: "json",
                         success: function (response) {
                             if(response.valid)
                             {
-                                var token = localStorage.setItem("token",guid());
-                                console.log(token);
+                                userid=response.uid;
+                                userType=response.usertype;
+                                category=response.category;
+                                console.log(currentUser);
+                                console.log(response.uid);
+                                console.log(response.userType);
                                 if(response.userType == "Exam Creator")
                                 {
-                                    alert("You are now logged in Exam Creator");
                                     currentUser.push(response);
-                                    userid=response.uid;
-                                    console.log(currentUser);
-                                    console.log(response.uid);
-                                    login++;
-                                    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-                                    localStorage.setItem("userid",userid);
-                                    window.location.replace("../app/#/creatorDashboard");
+                                   
+                                    if(App.authenticate(token,userid)==1)
+                                    {
+                                        $.ajax({
+                                            type: "post",
+                                            url: App.api + "/storeToken",
+                                            data: {
+                                                userid:userid,
+                                                token:token,
+                                                userType : userType,
+                                                category:category
+                                            },
+                                            dataType: "json",
+                                        });
+                                        alert("You are now logged in Exam Creator");
+                                        // window.location.replace("../app/#/creatorDashboard");
+                                    }
+                                    
+                                    
                                 }
                                 if(response.userType == "Examinee")
                                 {

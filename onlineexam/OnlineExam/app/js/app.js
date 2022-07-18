@@ -11,27 +11,32 @@ $(document).ready(function(){
             console.log(authentic);
             console.log(authentic.verified);
             return authentic.verified;
+        },
+        settings: function(){
+            var data = [];
+            var settings = getJSONDoc (App.api + "/json/settings.json");
+            lvl1 = JSON.parse(settings.settings.level1);
+            lvl2 = JSON.parse(settings.settings.level2);
+            lvl3 = JSON.parse(settings.settings.level3);
+            pssgrd = JSON.parse(settings.settings.passingGrade);
+            console.log(settings);
+            data = {
+                lvl1 : lvl1,
+                lvl2 : lvl2,
+                lvl3 : lvl3,
+                pssgrd : pssgrd
+            }
+            return data;
         }
     }
-    
+    var loggeduser = getJSONDoc ( App.api + "/getLoggedUser");
+    console.log(loggeduser);
     var currentUser = JSON.parse(localStorage.getItem('currentUser'));
     var userType = currentUser[0].userType;
     var param = App.token+"."+App.userid;
-    // var login = 0;
-    // var logout = 0;
     var questioncount = 0;
     var questioncountinit=0;
-    var getSettings = getJSONDoc (App.api + "/json/settings.json");
-    localStorage.setItem("level1",getSettings.settings.level1);
-    localStorage.setItem("level2",getSettings.settings.level2);
-    localStorage.setItem("level3",getSettings.settings.level3);
-    localStorage.setItem("passingGrade",getSettings.settings.passingGrade)
-    lvl1 = JSON.parse(localStorage.getItem("level1"));
-    lvl2 = JSON.parse(localStorage.getItem("level2"));
-    lvl3 = JSON.parse(localStorage.getItem("level3"));
-    pssgrd = JSON.parse(localStorage.getItem("passingGrade"));
-    console.log(JSON.parse(getSettings.settings.level1));
-    console.log(lvl1);
+    var getSettings = App.settings();
     console.log(getSettings);
     console.log(App.token);
     console.log(currentUser);
@@ -44,6 +49,7 @@ $(document).ready(function(){
     $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
             App.canvas.mustache('creatorDashboard');
+            getSettings;
             var dashContents = getJSONDoc ( App.api + "/creatorDashboard/var:"+param);
             console.log(dashContents);
             var dashData = {
@@ -54,10 +60,10 @@ $(document).ready(function(){
             $("#numOfExams").append(dashData.exams);
             $("#numOfExaminees").append(dashData.examinees);
             $("#numOfQuestions").append(dashData.questions);
-            $("#passing").append(getSettings.settings.passingGrade);
-            $("#lvl1").append(getSettings.settings.level1);
-            $("#lvl2").append(getSettings.settings.level2);
-            $("#lvl3").append(getSettings.settings.level3);
+            $("#passing").append(getSettings.pssgrd);
+            $("#lvl1").append(getSettings.lvl1);
+            $("#lvl2").append(getSettings.lvl2);
+            $("#lvl3").append(getSettings.lvl3);
 
             $("#creatorDashboard").on('click', function(){
                 window.location.replace("#/creatorDashboard");
@@ -1075,12 +1081,12 @@ $(document).ready(function(){
         });
         
         Path.map("#/examSettings").to(function(){
-            
+            getSettings;
             App.canvas.mustache('examSettings');
-            $("#numOfItems1").val(lvl1);
-            $("#numOfItems2").val(lvl2);
-            $("#numOfItems3").val(lvl3);
-            $("#passingGrade").val(pssgrd);
+            $("#numOfItems1").val(getSettings.lvl1);
+            $("#numOfItems2").val(getSettings.lvl2);
+            $("#numOfItems3").val(getSettings.lvl3);
+            $("#passingGrade").val(getSettings.pssgrd);
             
             $("#creatorDashboard-logo").on('click', function(){
                 window.location.replace("#/creatorDashboard");

@@ -262,6 +262,12 @@ Idea on the process:
     id       userid                      token                     status
      1    2022-2EX8-7389   1DE295AC-57C7-D5C7-4030-1C14F9E83DDC       1
 
+
+ANOTHER IDEA:
+- Create activity log 
+*possible DB design 
+    logid      userid                      token                            logdate         
+     1    2022-2EX8-7389   1DE295AC-57C7-D5C7-4030-1C14F9E83DDC       2022/07/18 11:17:00 
 On the examinee side:
 1. Before loading the design the token authentication runs
 2. The token authentication function fetches the data of token on the database with the following conditions
