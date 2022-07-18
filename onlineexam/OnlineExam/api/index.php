@@ -27,13 +27,35 @@ $app->get("/authenticate/:var", function($var) {
 $app->post("/storeToken",function(){
     $token = $_POST['token'];
     $userid = $_POST['userid'];
-    $userType = $_POST['userType'];
     $category = $_POST['category'];
-    $logdata = logtoken($token,$userid,$usertype,$category);
+    $userType = $_POST['userType'];
+    $logdata = logtoken($token,$userid,$category,$userType);
 });
 $app->get("/getLoggedUser",function(){
     $loggeduser = getloggedUser();
     echo json_encode($loggeduser);
+});
+$app->get("/checkLoggedUser",function(){
+    $loggeduser = checkloggedUser();
+    echo json_encode($loggeduser);
+});
+$app->post("/logout/:var",function($var){
+    $param = explode(".", $var); 
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2) 
+    {
+        if($auth==1)
+        {
+            $tkn = $_POST['token'];
+            $logout = userlogout($uid,$tkn);
+            echo json_encode($logout);
+        }
+        
+    }
 });
 //For registration of Exam Creator
 
@@ -44,10 +66,14 @@ $app->get('/creatorDashboard/:var',function($var){
     $verified = 0;
     $error = 1;
     $auth = checkToken($uid);
-    if(count($param)===2 && $auth) 
+    if(count($param)===2) 
     {
-        $getDashContents = dashboardData();
-        echo json_encode($getDashContents);
+        if($auth==1)
+        {
+            $getDashContents = dashboardData();
+            echo json_encode($getDashContents);
+        }
+        
     }
     
 });

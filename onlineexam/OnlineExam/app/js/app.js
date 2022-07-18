@@ -3,13 +3,9 @@ $(document).ready(function(){
         canvas:$("#canvas"),
         url: "http://onlineexam/",
         api: "../api",
-        token: localStorage.getItem('token'),
-        userid: localStorage.getItem('userid'),
         authenticate: function() {
             var param = App.token+"."+App.userid;
             var authentic = getJSONDoc(App.api+ "/authenticate/var:" +param);
-            console.log(authentic);
-            console.log(authentic.verified);
             return authentic.verified;
         },
         settings: function(){
@@ -19,7 +15,6 @@ $(document).ready(function(){
             lvl2 = JSON.parse(settings.settings.level2);
             lvl3 = JSON.parse(settings.settings.level3);
             pssgrd = JSON.parse(settings.settings.passingGrade);
-            console.log(settings);
             data = {
                 lvl1 : lvl1,
                 lvl2 : lvl2,
@@ -29,21 +24,14 @@ $(document).ready(function(){
             return data;
         }
     }
-    var loggeduser = getJSONDoc ( App.api + "/getLoggedUser");
-    console.log(loggeduser);
-    var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    var userType = currentUser[0].userType;
-    var param = App.token+"."+App.userid;
+    var currentUser = getJSONDoc ( App.api + "/getLoggedUser");
+    console.log(currentUser);
+    var userType = currentUser.userType;
+    var param = currentUser.token+"."+currentUser.uid;
     var questioncount = 0;
     var questioncountinit=0;
     var getSettings = App.settings();
-    console.log(getSettings);
-    console.log(App.token);
-    console.log(currentUser);
-    console.log(App.userid);
-    console.log(param);
-    console.log(userType);
-    
+
     if(userType=="Exam Creator" && App.authenticate()==1)
     {
     $.Mustache.load('templates/admin.html').done(function(){
@@ -111,10 +99,9 @@ $(document).ready(function(){
                 window.location.reload();
             });
 
-            $("#logout").on('click',function(){
-                alert("You are logging out");
-                window.location.reload("#/logout");
-            })
+            // $("#logout").on('click',function(){
+            //     window.location.replace("#/logout");
+            // });
 
         });
         
@@ -1178,19 +1165,41 @@ $(document).ready(function(){
                                 if(response.valid)
                                 {
                                     alert("Settings have ben saved");
-                                    window.location.reload();
+                                    
                                 }
                             }
-                        
                     });
+                    getSettings;
+                                $("#numOfItems1").val(getSettings.lvl1);
+                                $("#numOfItems2").val(getSettings.lvl2);
+                                $("#numOfItems3").val(getSettings.lvl3);
+                                $("#passingGrade").val(getSettings.pssgrd);
+                                window.location.reload();
                 }
             });
 
         });
         
         Path.map("#/logout").to(function(){
-            localStorage.clear();
-            window.location.href = "../auth/#/login";
+            $.ajax({
+                type: "post",
+                url: App.api + "/logout/var:" + param,
+                data: {
+                    status:0,
+                    uid : currentUser.uid,
+                    token : currentUser.token
+                },
+                dataType: "json",
+                success: function (response) {
+                    if(response.valid)
+                    {
+                        alert("You are logging out");
+                        window.location.href = "../auth/#/login";
+                    }
+                   
+                }
+            });
+            
         })
         Path.rescue(function(){
             alert("404: Route Not Found");
@@ -1204,9 +1213,7 @@ $(document).ready(function(){
 
 if(userType=="Examinee" && App.authenticate()==1)
 {
-    var user = JSON.parse(localStorage.getItem("currentUser"));
-    var userCategory = user[0].category
-    console.log(user);
+    var userCategory = currentUser.category
     console.log(userCategory);    
     $.Mustache.load('templates/examinee.html').done(function(){
     Path.map("#/examineeDashboard").to(function(){
@@ -1229,7 +1236,7 @@ if(userType=="Examinee" && App.authenticate()==1)
         });
     });
     Path.map("#/examsToTake").to(function(){
-        var paramExaminee = App.token+"."+App.userid+"."+userCategory;
+        var paramExaminee = currentUser.token+"."+currentUser.uid+"."+userCategory;
         var examsList = [];
         var getExams = getJSONDoc (App.api + "/viewExamsToTake/:var" + paramExaminee);
         var ctr = 0;
@@ -1272,6 +1279,9 @@ if(userType=="Examinee" && App.authenticate()==1)
             window.location.replace("#/examScores");
             window.location.reload();
         });
+        $("#logout").on('click',function(){
+            window.location.replace("#/logout");
+        });
     });
     Path.map('#/takeExam').to(function(){
         App.canvas.mustache('takeExam');
@@ -1312,8 +1322,26 @@ if(userType=="Examinee" && App.authenticate()==1)
         });
     });
     Path.map("#/logout").to(function(){
-        localStorage.clear();
-        window.location.href = "../auth/#/login";
+
+        $.ajax({
+                type: "post",
+                url: App.api + "/logout/var:" + param,
+                data: {
+                    status:0,
+                    uid : currentUser.uid,
+                    token : currentUser.token
+                },
+                dataType: "json",
+                success: function (response) {
+                    if(response.valid)
+                    {
+                        alert("You are logging out");
+                        window.location.href = "../auth/#/login";
+                    }
+                   
+                }
+            });
+            
     });
     Path.root("#/login");
     Path.listen();

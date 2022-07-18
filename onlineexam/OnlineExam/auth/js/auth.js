@@ -8,22 +8,16 @@ $(document).ready(function(){
             var userid;
             var param = token+"."+userid
             var authentic = getJSONDoc(App.api+ "/authenticate/var:" +param);
-            console.log(authentic);
-            console.log(authentic.verified);
             return authentic.verified;
         }
     }
-    var currentUser = [];
     var userid;
-    var login = JSON.parse(localStorage.getItem('currentUser'));
-    var token = guid();
-    console.log(token);
-    // var auth = App.authenticate(token);
-    // console.log(auth);
+    var login = getJSONDoc(App.api+ "/checkLoggedUser");
+    console.log(login);
     $.Mustache.load('templates/authentication.html').done(function(){
         if(login!=null)
         {
-            var userType = login[0].userType;
+            var userType = login.userType;
             if(userType=="Exam Creator")
             {
                 window.location.href = "../app/#/creatorDashboard";
@@ -59,6 +53,7 @@ $(document).ready(function(){
                 }
                 else
                 {
+                    var token = guid();
                     $.ajax({
                         type: "post",
                         url: "../api/check",
@@ -71,16 +66,13 @@ $(document).ready(function(){
                         success: function (response) {
                             if(response.valid)
                             {
-                                userid=response.uid;
-                                userType=response.usertype;
-                                category=response.category;
-                                console.log(currentUser);
-                                console.log(response.uid);
-                                console.log(response.userType);
+                                
                                 if(response.userType == "Exam Creator")
                                 {
-                                    currentUser.push(response);
-                                   
+                                    userid = response.uid;
+                                    userType = response.userType;
+                                    category = response.category;
+                                    
                                     if(App.authenticate(token,userid)==1)
                                     {
                                         $.ajax({
@@ -89,28 +81,39 @@ $(document).ready(function(){
                                             data: {
                                                 userid:userid,
                                                 token:token,
-                                                userType : userType,
-                                                category:category
+                                                category : category,
+                                                userType : userType
                                             },
                                             dataType: "json",
                                         });
                                         alert("You are now logged in Exam Creator");
-                                        // window.location.replace("../app/#/creatorDashboard");
+                                        window.location.replace("../app/#/creatorDashboard");
                                     }
-                                    
                                     
                                 }
                                 if(response.userType == "Examinee")
                                 {
-                                    alert("You are now logged in Examinee");
-                                    currentUser.push(response);
-                                    userid=response.uid;
-                                    console.log(currentUser);
-                                    console.log(response.uid);
-                                    login++;
-                                    localStorage.setItem("currentUser", JSON.stringify(currentUser));
-                                    localStorage.setItem("userid",userid);
-                                    window.location.replace("../app/#/examineeDashboard");
+                                    userid = response.uid;
+                                    userType = response.userType;
+                                    category = response.category;
+                                    
+                                    if(App.authenticate(token,userid)==1)
+                                    {
+                                        $.ajax({
+                                            type: "post",
+                                            url: App.api + "/storeToken",
+                                            data: {
+                                                userid:userid,
+                                                token:token,
+                                                category : category,
+                                                userType : userType
+                                            },
+                                            dataType: "json",
+                                        });
+                                        alert("You are now logged in Examinee");
+                                        window.location.replace("../app/#/examineeDashboard");
+                                    }
+                                    
                                 }
                             }
                             else
