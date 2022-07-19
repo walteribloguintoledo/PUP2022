@@ -493,6 +493,167 @@ $(document).ready(function(){
                 window.location.reload();
             });
         });
+        Path.map("#/autoCreateExam").to(function(){
+            var examcode = getJSONDoc ( App.api + "/examcode/var:"+param);
+            console.log(examcode);
+            var categoryList = [];
+            var categories = getJSONDoc ( App.api + "/getCategory/var:"+param); 
+            console.log(categories);
+            var ctr = 0;
+            $.each( categories, function( i, item ) {
+                ctr++;
+                var result = {
+                    num: ctr,
+                    id: item.id,
+                    uid: item.uid,
+                    category: item.category             
+                }
+            categoryList.push(result);
+            });
+            
+            var templateData = {
+                categoryOptions:categoryList,
+               }
+            console.log(templateData);
+            App.canvas.html("").append($.Mustache.render("autoCreateExam",templateData));
+            $("#category").on('click',function(e){
+                e.preventDefault();
+                var subjectList = [];
+                var subjectData = {
+                    subjectOption:subjectList
+                };
+                if($("#category").val()!='')
+                {
+                    var examcategory = $("#category").val();
+                    var subjects = getJSONDoc ( App.api + "/subjectExam?category=" + examcategory);
+                        $.each( subjects, function( i, item ) {
+                            ctr++;
+                            var result = {
+                                num: ctr,
+                                id: item.id,
+                                uid: item.uid,
+                                subject: item.subject            
+                            }
+                            subjectList.push(result);
+                            
+                                $("#examsubjects").append('<option value="'+result.subject+'">'+result.subject+'</option>');
+                           
+                        });
+                        console.log(subjectData);
+                }
+                
+            });
+            
+            $("#level").on('click',function(){
+                var level = $("#level").val();
+                
+                if(level==1)
+                {
+                    questioncount=lvl1;
+                    console.log(level);
+                    // console.log(questioncount);
+                }
+                if(level==2)
+                {
+                    questioncount=lvl2;
+                    console.log(level);
+                    // console.log(questioncount);
+                }
+                if(level==3)
+                {
+                    questioncount=lvl3;
+                    console.log(level);
+                    // console.log(questioncount);
+                }
+                if(questioncount!=0)
+                {
+                    $("#addExam").attr("disabled",true);
+                }
+                console.log(questioncount);
+            });
+
+            $("#autoCreateExam-form").on('submit',function(e){
+                e.preventDefault();
+                var category = $("#category").val();
+                var subject = $("#subject").val();
+                var level = $("#level").val();
+                var errorMessage = [];
+                error = 0;
+                
+                if(category==""||category==null)
+                {
+                    errorMessage.push(" Category");
+                    error++;
+                }
+                if(subject==""||subject==null)
+                {
+                    errorMessage.push(" Subject");
+                    error++;
+                }
+                if(level==""||level==null)
+                {
+                    errorMessage.push(" Level");
+                    error++;
+                }
+                if(error!=0)
+                {
+                    alert(errorMessage + " CANNOT BE BLANK");
+                }
+                else
+                {
+                    console.log(category);
+                    console.log(subject);
+                    console.log(level);
+                }
+            });
+
+            $("#creatorDashboard").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#creatorDashboard-logo").on('click', function(){
+                window.location.replace("#/creatorDashboard");
+                window.location.reload();
+            });
+            $("#createExam").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createExam-btn").on('click', function(){
+                window.location.replace("#/createExam");
+                window.location.reload();
+            });
+            $("#createdExams").on('click', function(){
+                window.location.replace("#/createdExams");
+                window.location.reload();
+            });
+            
+            $("#categories").on('click', function(){
+                window.location.replace("#/categories");
+                window.location.reload();
+            });
+
+            $("#subjects").on('click', function(){
+                window.location.replace("#/subjects");
+                window.location.reload();
+            });
+
+            $("#examinees").on('click', function(){
+                window.location.replace("#/examinees");
+                window.location.reload();
+            });
+
+            $("#scores").on('click', function(){
+                window.location.replace("#/scores");
+                window.location.reload();
+            });
+
+            $("#settings").on('click',function(){
+                window.location.replace("#/examSettings");
+                window.location.reload();
+            });
+        });
+
         Path.map("#/createdExams").to(function(){
             var createdExamsList = [];
             var getCreatedExams = getJSONDoc (App.api + "/viewCreatedExams/var:"+param);
@@ -1348,3 +1509,7 @@ if(userType=="Examinee" && App.authenticate()==1)
 });
 }
 });
+function fileValidation()
+{
+    
+}
