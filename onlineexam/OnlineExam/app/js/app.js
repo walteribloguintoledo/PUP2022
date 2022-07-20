@@ -606,6 +606,25 @@ $(document).ready(function(){
                     console.log(level);
                 }
             });
+            
+            $("#importCSV-form").on('submit',function(e){
+                e.preventDefault();
+                var csvfile = $("#fileCSV").val();
+                $.ajax({
+                    type: "post",
+                    url: App.api + "/importCSV/var:" + param,
+                    data:{
+                        file:csvfile
+                    },
+                    dataType: "dataType",
+                    success: function (response) {
+                        if(response.valid)
+                        {
+                            alert("CSV File imported successfully");
+                        }
+                    }
+                });
+            });
 
             $("#creatorDashboard").on('click', function(){
                 window.location.replace("#/creatorDashboard");
@@ -1511,5 +1530,13 @@ if(userType=="Examinee" && App.authenticate()==1)
 });
 function fileValidation()
 {
-    
+    var file = $("#fileCSV").val().split('.').pop().toLowerCase();
+        if($.inArray(file, ["csv"]) == -1) {
+            alert('INVALID FILE TYPE Please upload a .csv file');
+            $("#importFile").attr("disabled",true);
+        }
+        else
+        {
+            $("#importFile").attr("disabled",false);
+        }
 }

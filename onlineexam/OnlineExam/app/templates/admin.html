@@ -329,13 +329,14 @@
                                                 <p class="text-primary m-0 fw-bold">Import .csv File</p>
                                             </div>
                                             <div class="card-body">
-                                                <form>
+                                                <form id="importCSV-form">
                                                     <div class="row">
                                                         <div class="col-xl-8 offset-xl-2">
-                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Select .csv file</strong><br></label><input class="form-control" type="file"></div>
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Select .csv file</strong><br></label><input class="form-control" type="file" id="fileCSV" onchange="fileValidation()"></div>
                                                         </div>
                                                     </div>
-                                                </form><button class="btn btn-primary btn-sm" type="button" style="font-weight: bold;margin-left: 0px;"><i class="fas fa-file-import" style="width: 27px;"></i>IMPORT FILE</button>
+                                                <button class="btn btn-primary btn-sm" type="submit" style="font-weight: bold;margin-left: 0px;" id="importFile"><i class="fas fa-file-import" style="width: 27px;"></i>IMPORT FILE</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

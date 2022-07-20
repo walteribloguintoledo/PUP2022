@@ -495,7 +495,26 @@ $app->post('/settings/:var',function($var){
         }
         
     }
-    
+});
+
+$app->post('/importCSV/:var',function($var){
+    $param = explode(".", $var); //fsgggsgsgsg.4645475
+    $token = $param[0];
+    $uid = $param[1];
+    $verified = 0;
+    $error = 1;
+    $auth = checkToken($uid);
+    if(count($param)===2)
+    {
+        if($auth!=0)
+        {
+            $file = $_FILES['file'];
+            file_put_contents("../api/csv/",$file,FILE_USE_INCLUDE_PATH);
+            $success = array("valid"=>true);
+            echo json_encode($success);
+        }
+        
+    }
 });
 
 //Fetching Examinees data
