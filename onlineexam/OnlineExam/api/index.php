@@ -29,7 +29,8 @@ $app->post("/storeToken",function(){
     $userid = $_POST['userid'];
     $category = $_POST['category'];
     $userType = $_POST['userType'];
-    $logdata = logtoken($token,$userid,$category,$userType);
+    $date = $_POST['date'];
+    $logdata = logtoken($token,$userid,$category,$userType,$date);
 });
 $app->get("/getLoggedUser",function(){
     $loggeduser = getloggedUser();
@@ -43,18 +44,12 @@ $app->post("/logout/:var",function($var){
     $param = explode(".", $var); 
     $token = $param[0];
     $uid = $param[1];
-    $verified = 0;
-    $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2) 
     {
-        if($auth==1)
-        {
-            $tkn = $_POST['token'];
-            $logout = userlogout($uid,$tkn);
-            echo json_encode($logout);
-        }
-        
+        $tkn = $_POST['token'];
+        $dateModified = $_POST['dateModified'];
+        $logout = userlogout($uid,$tkn,$dateModified);
+        echo json_encode($logout);
     }
 });
 //For registration of Exam Creator
@@ -65,15 +60,10 @@ $app->get('/creatorDashboard/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2) 
     {
-        if($auth==1)
-        {
-            $getDashContents = dashboardData();
-            echo json_encode($getDashContents);
-        }
-        
+        $getDashContents = dashboardData();
+        echo json_encode($getDashContents);
     }
     
 });
@@ -497,24 +487,50 @@ $app->post('/settings/:var',function($var){
     }
 });
 
-$app->post('/importCSV/:var',function($var){
+$app->post('/importcsv/:var',function($var){
     $param = explode(".", $var); //fsgggsgsgsg.4645475
-    $token = $param[0];
+    $response = array(); 
+    $token = $param[0]; 
     $uid = $param[1];
     $verified = 0;
     $error = 1;
+    $errors = false;
     $auth = checkToken($uid);
     if(count($param)===2)
-    {
-        if($auth!=0)
+    {        
+        if(isset($_FILES['importcsv']))
         {
-            $file = $_FILES['file'];
-            file_put_contents("../api/csv/",$file,FILE_USE_INCLUDE_PATH);
-            $success = array("valid"=>true);
-            echo json_encode($success);
-        }
-        
+            $file_name = $_FILES['importcsv']['name'];
+            $file_size = $_FILES['importcsv']['size'];
+            $file_tmp = $_FILES['importcsv']['tmp_name'];
+            $file_type = $_FILES['importcsv']['type'];
+            $file_ext = pathinfo($file_name,PATHINFO_EXTENSION); //echo $file_ext;
+
+            $extensions= array("csv");      
+            if(in_array($file_ext,$extensions)=== false){
+                $errors[]="extension not allowed, please choose a csv file.";
+            }
+
+            if($file_size > 200000){
+                $errors[]='File size must be excately 2 MB';
+            }
+
+            if(empty($errors)==true){
+                move_uploaded_file($file_tmp,"csv/".$file_name);
+                $verified=1; $error=0;
+                //functions that reads csv file to save into DB
+            }
+
+
+        }                
     }
+    $response = array(
+
+        "verified" => $verified,
+        "error" => $error,
+        "errors" => $errors
+    );
+    echo json_encode($response);
 });
 
 //Fetching Examinees data

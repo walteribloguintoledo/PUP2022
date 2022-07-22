@@ -5,7 +5,7 @@ $(document).ready(function(){
         api: "../api",
         authenticate: function() {
             var param = App.token+"."+App.userid;
-            var authentic = getJSONDoc(App.api+ "/authenticate/var:" +param);
+            var authentic = getJSONDoc(App.api+ "/authenticate/" +param);
             return authentic.verified;
         },
         settings: function(){
@@ -38,7 +38,7 @@ $(document).ready(function(){
         Path.map("#/creatorDashboard").to(function(){
             App.canvas.mustache('creatorDashboard');
             getSettings;
-            var dashContents = getJSONDoc ( App.api + "/creatorDashboard/var:"+param);
+            var dashContents = getJSONDoc ( App.api + "/creatorDashboard/"+param);
             console.log(dashContents);
             var dashData = {
                 exams:dashContents.exam,
@@ -106,10 +106,10 @@ $(document).ready(function(){
         });
         
         Path.map("#/createExam").to(function(){
-            var examcode = getJSONDoc ( App.api + "/examcode/var:"+param);
+            var examcode = getJSONDoc ( App.api + "/examcode/"+param);
             console.log(examcode);
             var categoryList = [];
-            var categories = getJSONDoc ( App.api + "/getCategory/var:"+param); 
+            var categories = getJSONDoc ( App.api + "/getCategory/"+param); 
             console.log(categories);
             var ctr = 0;
             $.each( categories, function( i, item ) {
@@ -244,7 +244,7 @@ $(document).ready(function(){
                     console.log(answer);
                     $.ajax({
                         type: "post",
-                        url: App.api + "/addQuestion/var:"+param,
+                        url: App.api + "/addQuestion/"+param,
                         data: {
                             examcode: examcode,
                             level:level,
@@ -408,7 +408,7 @@ $(document).ready(function(){
                                 console.log(questioncount);
                                 $.ajax({
                                     type: "post",
-                                    url: App.api + "/createExam/var:"+param,
+                                    url: App.api + "/createExam/"+param,
                                     data: {
                                         examcode:examcode,
                                         category:category,
@@ -428,7 +428,7 @@ $(document).ready(function(){
                                             alert("The exam is already created");
                                             $.ajax({
                                                 type: "post",
-                                                url: App.api +"/deleteDuplicatedExam/var:"+param,
+                                                url: App.api +"/deleteDuplicatedExam/"+param,
                                                 data: {
                                                     examcode:examcode
                                                 },
@@ -494,10 +494,10 @@ $(document).ready(function(){
             });
         });
         Path.map("#/autoCreateExam").to(function(){
-            var examcode = getJSONDoc ( App.api + "/examcode/var:"+param);
+            var examcode = getJSONDoc ( App.api + "/examcode/"+param);
             console.log(examcode);
             var categoryList = [];
-            var categories = getJSONDoc ( App.api + "/getCategory/var:"+param); 
+            var categories = getJSONDoc ( App.api + "/getCategory/"+param); 
             console.log(categories);
             var ctr = 0;
             $.each( categories, function( i, item ) {
@@ -607,16 +607,16 @@ $(document).ready(function(){
                 }
             });
             
-            $("#importCSV-form").on('submit',function(e){
+            $("#importCSVForm").on('submit',function(e){
                 e.preventDefault();
-                var csvfile = $("#fileCSV").val();
+                var csvfile = new FormData(this);
                 $.ajax({
                     type: "post",
-                    url: App.api + "/importCSV/var:" + param,
-                    data:{
-                        file:csvfile
-                    },
-                    dataType: "dataType",
+                    url: App.api + "/importcsv/" + param,
+                    data:csvfile,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
                     success: function (response) {
                         if(response.valid)
                         {
@@ -675,7 +675,7 @@ $(document).ready(function(){
 
         Path.map("#/createdExams").to(function(){
             var createdExamsList = [];
-            var getCreatedExams = getJSONDoc (App.api + "/viewCreatedExams/var:"+param);
+            var getCreatedExams = getJSONDoc (App.api + "/viewCreatedExams/"+param);
             console.log(getCreatedExams);
             var ctr = 0;
                 $.each( getCreatedExams, function( i, item ) {
@@ -700,7 +700,7 @@ $(document).ready(function(){
                 console.log(delID);
                 $.ajax({
                     type: "post",
-                    url: App.api + "/deleteExam/var:"+param,
+                    url: App.api + "/deleteExam/"+param,
                     data: {
                         delID:delID
                     },
@@ -767,7 +767,7 @@ $(document).ready(function(){
         });
         Path.map("#/categories").to(function(){
             var resultsList = [];
-            var results = getJSONDoc ( App.api + "/getCategory/var:"+param); 
+            var results = getJSONDoc ( App.api + "/getCategory/"+param); 
             console.log(results);
                 var ctr = 0;
                 $.each( results, function( i, item ) {
@@ -789,7 +789,7 @@ $(document).ready(function(){
                     console.log(editID);
                     $.ajax({
                         type: "post",
-                        url: App.api + "/fetchCategoryEdit/var:"+param,
+                        url: App.api + "/fetchCategoryEdit/"+param,
                         data: {
                             editID : editID
                         },
@@ -808,7 +808,7 @@ $(document).ready(function(){
                                 {
                                     $.ajax({
                                         type: "post",
-                                        url: App.api + "/editCategory/var:"+param,
+                                        url: App.api + "/editCategory/"+param,
                                         data: {
                                             editID : editID,
                                             newCategory : newCategory
@@ -837,7 +837,7 @@ $(document).ready(function(){
                     console.log(delID);
                     $.ajax({
                         type: "post",
-                        url: App.api + "/deleteCategory/var:"+param,
+                        url: App.api + "/deleteCategory/"+param,
                         data: {
                             delID:delID
                         },
@@ -909,7 +909,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: App.api + "/addCategory/var:"+param,
+                        url: App.api + "/addCategory/"+param,
                         data: {
                             categoryName : categoryName
                         },
@@ -936,7 +936,7 @@ $(document).ready(function(){
         });
         Path.map("#/subjects").to(function(){
             var categoryList = [];
-                var categories = getJSONDoc ( App.api + "/getCategory/var:"+param); 
+                var categories = getJSONDoc ( App.api + "/getCategory/"+param); 
                 console.log(categories);
                 var ctr = 0;
                 $.each( categories, function( i, item ) {
@@ -950,7 +950,7 @@ $(document).ready(function(){
                 categoryList.push(result);
                 });
             var resultsList = [];
-            var results = getJSONDoc ( App.api + "/getSubjects/var:"+param);
+            var results = getJSONDoc ( App.api + "/getSubjects/"+param);
             console.log(results);
                 var ctr = 0;
                 $.each( results, function( i, item ) {
@@ -977,7 +977,7 @@ $(document).ready(function(){
                         console.log(editID);
                         $.ajax({
                             type: "post",
-                            url: App.api + "/getSubjectEdit/var:"+param,
+                            url: App.api + "/getSubjectEdit/"+param,
                             data: {
                                 editID : editID
                             },
@@ -997,7 +997,7 @@ $(document).ready(function(){
                                     {
                                         $.ajax({
                                             type: "post",
-                                            url: App.api + "/editSubject/var:"+param,
+                                            url: App.api + "/editSubject/"+param,
                                             data: {
                                                 editID : editID,
                                                 uid: uid,
@@ -1027,7 +1027,7 @@ $(document).ready(function(){
                         console.log(delID);
                         $.ajax({
                             type: "post",
-                            url: App.api + "/deleteSubject/var:"+param,
+                            url: App.api + "/deleteSubject/"+param,
                             data: {
                                 delID:delID
                             },
@@ -1113,7 +1113,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: App.api + "/addSubject/var:"+param,
+                        url: App.api + "/addSubject/"+param,
                         data: {
                             subjectCategory : subjectCategory,
                             subjectName : subjectName
@@ -1139,7 +1139,7 @@ $(document).ready(function(){
         });
         Path.map("#/examinees").to(function(){
             var examineeList = [];
-            var getExaminees = getJSONDoc (App.api + "/getExaminees/var:"+param);
+            var getExaminees = getJSONDoc (App.api + "/getExaminees/"+param);
             console.log(getExaminees);
             var ctr = 0;
             $.each(getExaminees,function( i , item ){
@@ -1333,7 +1333,7 @@ $(document).ready(function(){
                 {
                     $.ajax({
                         type: "post",
-                        url: App.api + "/settings/var:"+param,
+                        url: App.api + "/settings/"+param,
                         data: {
                             numOfItems1:numOfItems1,
                             numOfItems2:numOfItems2,
@@ -1361,13 +1361,16 @@ $(document).ready(function(){
         });
         
         Path.map("#/logout").to(function(){
+            var today = new Date();
+            var dateModified = today.getFullYear() +"-"+ (today.getMonth()+1) +"-"+today.getDate() + " "+ today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
             $.ajax({
                 type: "post",
-                url: App.api + "/logout/var:" + param,
+                url: App.api + "/logout/" + param,
                 data: {
                     status:0,
                     uid : currentUser.uid,
-                    token : currentUser.token
+                    token : currentUser.token,
+                    dateModified:dateModified
                 },
                 dataType: "json",
                 success: function (response) {
@@ -1418,7 +1421,7 @@ if(userType=="Examinee" && App.authenticate()==1)
     Path.map("#/examsToTake").to(function(){
         var paramExaminee = currentUser.token+"."+currentUser.uid+"."+userCategory;
         var examsList = [];
-        var getExams = getJSONDoc (App.api + "/viewExamsToTake/:var" + paramExaminee);
+        var getExams = getJSONDoc (App.api + "/viewExamsToTake/" + paramExaminee);
         var ctr = 0;
         $.each( getExams, function( i, item) {
             ctr++;
@@ -1505,7 +1508,7 @@ if(userType=="Examinee" && App.authenticate()==1)
 
         $.ajax({
                 type: "post",
-                url: App.api + "/logout/var:" + param,
+                url: App.api + "/logout/" + param,
                 data: {
                     status:0,
                     uid : currentUser.uid,
@@ -1528,7 +1531,7 @@ if(userType=="Examinee" && App.authenticate()==1)
 });
 }
 });
-function fileValidation()
+function fileValidation() // this can be implemented on the PHP part
 {
     var file = $("#fileCSV").val().split('.').pop().toLowerCase();
         if($.inArray(file, ["csv"]) == -1) {

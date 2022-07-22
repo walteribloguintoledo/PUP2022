@@ -9,7 +9,7 @@ function addQuestion($level,$examQuestion,$choice1,$choice2,$choice3,$choice4,$a
         {
             $sqlquestion = ORM::for_table('exam_entry')->create();
             $sqlquestion->set('uid',$examcode);
-            $sqlquestion->set('keyIndex',$keyIndex[$i]);
+            $sqlquestion->set('keyindex',$keyIndex[$i]);
             $sqlquestion->set('value',$value[$i]);
             $sqlquestion->set('level',$level);
             $sqlquestion->save();

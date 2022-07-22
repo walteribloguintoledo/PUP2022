@@ -6,7 +6,7 @@ function registerCreator($userid,$userType, $firstname, $middlename, $lastname,$
         {
             $sql = ORM::for_table('users')->create();
             $sql->set('uid',$userid);
-            $sql->set('userType',$userType);
+            $sql->set('usertype',$userType);
             $sql->set('firstname',$firstname);
             $sql->set('middlename',$middlename);
             $sql->set('lastname',$lastname);
@@ -36,7 +36,7 @@ function registerExaminee($userid,$userType, $firstname, $middlename, $lastname,
         {
             $sql = ORM::for_table('users')->create();
             $sql->set('uid',$userid);
-            $sql->set('userType',$userType);
+            $sql->set('usertype',$userType);
             $sql->set('firstname',$firstname);
             $sql->set('middlename',$middlename);
             $sql->set('lastname',$lastname);

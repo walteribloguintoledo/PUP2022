@@ -6,7 +6,7 @@ function getSubjectExam($categoryName)
     $sql = ORM::for_table('category')->join('subject',array('category.uid','=','subject.uid'))->where('category',$categoryName)->find_many();
     foreach ($sql as $row)
     {
-       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectName);
+       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectname);
     }
 
     return $data;
@@ -17,7 +17,7 @@ function getSubject() // Retrieves Exam Subjects
     $sql = ORM::for_table('subject')->find_many();
     foreach ($sql as $row)
     {
-       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectName);
+       $data[] = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectname);
     }
 
     return $data;
@@ -25,12 +25,12 @@ function getSubject() // Retrieves Exam Subjects
 
 function addSubject($subjectCategory,$subjectName)//Creates and inserts exam subject
 {
-    $existSubject = ORM::for_table('subject')->where('subjectName',$subjectName)->where('uid',$subjectCategory)->count();
+    $existSubject = ORM::for_table('subject')->where('subjectname',$subjectName)->where('uid',$subjectCategory)->count();
     if($existSubject==0)
     {
         $sqlsubject = ORM::for_table('subject')->create();
             $sqlsubject->set('uid',$subjectCategory);
-            $sqlsubject->set('subjectName',$subjectName);
+            $sqlsubject->set('subjectname',$subjectName);
             $sqlsubject->save();
         $data = array("valid"=>true,"uid"=>$subjectCategory, "subject"=>$subjectName);
     }
@@ -46,7 +46,7 @@ function getSubjectData($editID) //Fetches exam subject to edit
     $sql = ORM::for_table('subject')->where('id',$editID)->find_many();
     foreach ($sql as $row)
     {
-       $data = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectName);
+       $data = array("id"=>$row->id, "uid"=>$row->uid, "subject"=>$row->subjectname);
     }
 
     return $data;
@@ -54,11 +54,11 @@ function getSubjectData($editID) //Fetches exam subject to edit
 
 function editSubject($editID,$uid,$newSubject) //Updates exam subject
 {
-    $existSubject = ORM::for_table('subject')->where('subjectName',$newSubject)->where('uid',$uid)->count();
+    $existSubject = ORM::for_table('subject')->where('subjectname',$newSubject)->where('uid',$uid)->count();
     if($existSubject==0)
     {
         $sql = ORM ::for_table('subject')->where('id',$editID)->find_many();
-        $sql->set('subjectName',$newSubject);
+        $sql->set('subjectname',$newSubject);
         $sql->save();
         $data = array("valid"=>true,"id"=>$editID,"subject"=>$newSubject);
     }

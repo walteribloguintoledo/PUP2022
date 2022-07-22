@@ -54,6 +54,9 @@ $(document).ready(function(){
                 else
                 {
                     var token = guid();
+                    var today = new Date();
+                    var dateCreated = today.getFullYear() +"-"+ (today.getMonth()+1) +"-"+today.getDate() + " "+ today.getHours()+ ":" + today.getMinutes() + ":" + today.getSeconds();
+                                 
                     $.ajax({
                         type: "post",
                         url: "../api/check",
@@ -82,7 +85,8 @@ $(document).ready(function(){
                                                 userid:userid,
                                                 token:token,
                                                 category : category,
-                                                userType : userType
+                                                userType : userType,
+                                                date : dateCreated
                                             },
                                             dataType: "json",
                                         });
