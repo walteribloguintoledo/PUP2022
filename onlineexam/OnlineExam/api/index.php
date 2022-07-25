@@ -137,19 +137,13 @@ $app->get('/examcode/:var',function($var){
     $param = explode(".", $var); 
     $token = $param[0];
     $uid = $param[1];
-    $verified = 0;
-    $error = 1;
-    $auth = checkToken($uid);
+    $response = array();
     if(count($param)===2) 
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $examcode = date("Ymd").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
-            echo json_encode($examcode);
-        }
-        
+        $verified = 1; $error = 0;
+        $examcode = date("Ymd").substr(str_shuffle('1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ'),0,6);
     }
+    echo json_encode($examcode);
     
 });
 //For inserting exam questions
@@ -212,16 +206,13 @@ $app->get('/viewCreatedExams/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2) 
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $createdExams = viewCreatedExams();
-            echo json_encode($createdExams);
-        }
-        
+       
+        $verified = 1; $error = 0;
+        $createdExams = viewCreatedExams();
+        echo json_encode($createdExams);
+    
     }   
 
 });
@@ -231,16 +222,12 @@ $app->post('/deleteExam/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2) 
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $delID = $_POST['delID'];
-            $delete = deleteExam($delID);
-            echo json_encode($delete);
-        }
+        $verified = 1; $error = 0;
+        $delID = $_POST['delID'];
+        $delete = deleteExam($delID);
+        echo json_encode($delete);
     }  
 });
 
@@ -271,15 +258,11 @@ $app->get('/getCategory/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)     
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $fetchCategory = getCategory();
-            echo json_encode ($fetchCategory);
-        }
+        $verified = 1; $error = 0;
+        $fetchCategory = getCategory();
+        echo json_encode ($fetchCategory);
     }
 });
 
@@ -290,17 +273,13 @@ $app->post('/addCategory/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2) 
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $categoryCode = mt_rand(1000,9999);
-            $categoryName = $_POST['categoryName'];
-            $insertCategory = addCategory( $categoryCode,$categoryName);
-            echo json_encode($insertCategory);
-        }
+        $verified = 1; $error = 0;
+        $categoryCode = mt_rand(1000,9999);
+        $categoryName = $_POST['categoryName'];
+        $insertCategory = addCategory( $categoryCode,$categoryName);
+        echo json_encode($insertCategory);
     }
 });
 //Fetches category to edit
@@ -310,17 +289,12 @@ $app->post('/fetchCategoryEdit/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2) 
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $editID = $_POST['editID'];
-            $fetch = getCategoryData($editID);
-            echo json_encode($fetch);
-        }
-       
+        $verified = 1; $error = 0;
+        $editID = $_POST['editID'];
+        $fetch = getCategoryData($editID);
+        echo json_encode($fetch);
     }
 });
 //Updating category
@@ -329,18 +303,13 @@ $app->post('/editCategory/:var',function($var){
     $token = $param[0];
     $uid = $param[1];
     $verified = 0;
-    $auth = checkToken($uid);
     if(count($param)===2) 
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $editID = $_POST['editID'];
-            $newCategory = $_POST['newCategory'];
-            $edit = editCategory($editID,$newCategory);
-            echo json_encode($edit);
-        }
-        
+        $verified = 1; $error = 0;
+        $editID = $_POST['editID'];
+        $newCategory = $_POST['newCategory'];
+        $edit = editCategory($editID,$newCategory);
+        echo json_encode($edit);
     }
 });
 //Deleting category
@@ -350,17 +319,12 @@ $app->post('/deleteCategory/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $delID = $_POST['delID'];
-            $delete = deleteCategory($delID);
-            echo json_encode($delete);
-        }
-        
+        $verified = 1; $error = 0;
+        $delID = $_POST['delID'];
+        $delete = deleteCategory($delID);
+        echo json_encode($delete);
     }
 });
 //Fetches Subject
@@ -370,17 +334,13 @@ $app->get('/getSubjects/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $verified = 1; $error = 0;
-            $fetchSubject = getSubject();
-            echo json_encode ($fetchSubject);
-        }
-       
+        $verified = 1; $error = 0;
+        $fetchSubject = getSubject();
+        echo json_encode ($fetchSubject);
     }
+       
 });
 //Creates new subject
 $app->post('/addSubject/:var',function($var){
@@ -389,17 +349,12 @@ $app->post('/addSubject/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $subjectCategory = $_POST['subjectCategory'];
-            $subjectName = $_POST['subjectName'];
-            $insertSubject = addSubject($subjectCategory,$subjectName);
-            echo json_encode($insertSubject);
-        }
-        
+        $subjectCategory = $_POST['subjectCategory'];
+        $subjectName = $_POST['subjectName'];
+        $insertSubject = addSubject($subjectCategory,$subjectName);
+        echo json_encode($insertSubject);
     }
 });
 //Fetches subject to edit
@@ -408,16 +363,11 @@ $app->post('/getSubjectEdit/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $editID = $_POST['editID'];
-            $fetch = getSubjectData($editID);
-            echo json_encode($fetch);
-        }
-        
+        $editID = $_POST['editID'];
+        $fetch = getSubjectData($editID);
+        echo json_encode($fetch);
     }
     
 });
@@ -428,18 +378,13 @@ $app->post('/editSubject/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $editID = $_POST['editID'];
-            $uid = $_POST['uid'];
-            $newSubject = $_POST['newSubject'];
-            $edit = editSubject($editID,$uid,$newSubject);
-            echo json_encode($edit);
-        }
-        
+        $editID = $_POST['editID'];
+        $uid = $_POST['uid'];
+        $newSubject = $_POST['newSubject'];
+        $edit = editSubject($editID,$uid,$newSubject);
+        echo json_encode($edit);
     }
 });
 //Deleting subject
@@ -452,13 +397,9 @@ $app->post('/deleteSubject/:var',function($var){
     $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $delID = $_POST['delID'];
-            $delete = deleteSubject($delID);
-            echo json_encode($delete);
-        }
-        
+        $delID = $_POST['delID'];
+        $delete = deleteSubject($delID);
+        echo json_encode($delete);
     }
 });
 
@@ -469,21 +410,16 @@ $app->post('/settings/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $numOfItems1 = $_POST['numOfItems1'];
-            $numOfItems2 = $_POST['numOfItems2'];
-            $numOfItems3 = $_POST['numOfItems3'];
-            $passingGrade = $_POST['passingGrade'];
-            $settings = array("settings" => array("level1"=>$numOfItems1,"level2"=>$numOfItems2,"level3"=>$numOfItems3,"passingGrade"=>$passingGrade));
-            file_put_contents("../api/json/settings.json",json_encode($settings),FILE_USE_INCLUDE_PATH);
-            $success = array("valid"=>true);
-            echo json_encode($success);
-        }
-        
+        $numOfItems1 = $_POST['numOfItems1'];
+        $numOfItems2 = $_POST['numOfItems2'];
+        $numOfItems3 = $_POST['numOfItems3'];
+        $passingGrade = $_POST['passingGrade'];
+        $settings = array("settings" => array("level1"=>$numOfItems1,"level2"=>$numOfItems2,"level3"=>$numOfItems3,"passingGrade"=>$passingGrade));
+        file_put_contents("../api/json/settings.json",json_encode($settings),FILE_USE_INCLUDE_PATH);
+        $success = array("valid"=>true);
+        echo json_encode($success);
     }
 });
 
@@ -495,7 +431,6 @@ $app->post('/importcsv/:var',function($var){
     $verified = 0;
     $error = 1;
     $errors = false;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {        
         if(isset($_FILES['importcsv']))
@@ -505,13 +440,14 @@ $app->post('/importcsv/:var',function($var){
             $file_tmp = $_FILES['importcsv']['tmp_name'];
             $file_type = $_FILES['importcsv']['type'];
             $file_ext = pathinfo($file_name,PATHINFO_EXTENSION); //echo $file_ext;
-
-            $extensions= array("csv");      
+            $extensions = array("csv");      
             if(in_array($file_ext,$extensions)=== false){
-                $errors[]="extension not allowed, please choose a csv file.";
+                $error=1; $verified=0;
+                $errors[]="File type not allowed, please choose a csv file.";
             }
 
             if($file_size > 200000){
+                $error=1; $verified=0;
                 $errors[]='File size must be excately 2 MB';
             }
 
@@ -519,13 +455,42 @@ $app->post('/importcsv/:var',function($var){
                 move_uploaded_file($file_tmp,"csv/".$file_name);
                 $verified=1; $error=0;
                 //functions that reads csv file to save into DB
+
+                $opencsv = fopen("csv/".$file_name,"r");
+                $readcsv = fgetcsv($opencsv, 1000, ",");
+                // $count = sizeof($readcsv);
+                // echo $readcsv;
+                // echo $count;
+                $row = 0;
+                if (($opencsv) !== FALSE) {
+                    while (($readcsv = fgetcsv($opencsv, 1000, ",")) !== FALSE) {
+                        $num = count($readcsv);
+                        // echo " columns: $num , row: $row <br />";
+                        $row++;
+                        for ($i=0; $i < $num; $i++) 
+                        {
+                            echo $readcsv[$i] . "<br />";
+                        } // this one's ok but how will I pass the value into the database???
+                    }
+                    // fgets($opencsv)
+                    // fgetcsv($opencsv, 1000, ",")
+                    
+                        
+                    // for($i = 1; $i < $row; $i++)
+                    // {
+                    //     for ($col=0; $col > count($readcsv); $col++) 
+                    //     {
+                    //         echo $readcsv[$col][$i] . "<br />";
+                    //     }
+                    // }
+                        
+                    
+                }//this code successfully reads the contents but accessing each may not be possible
+                    
             }
-
-
         }                
     }
     $response = array(
-
         "verified" => $verified,
         "error" => $error,
         "errors" => $errors
@@ -540,15 +505,10 @@ $app->get('/getExaminees/:var',function($var){
     $uid = $param[1];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===2)
     {
-        if($auth!=0)
-        {
-            $fetchExaminees = getExaminees();
-            echo json_encode($fetchExaminees);
-        }
-        
+        $fetchExaminees = getExaminees();
+        echo json_encode($fetchExaminees);
     }
     
 });
@@ -562,14 +522,10 @@ $app->get('/viewExamsToTake/:var', function($var){
     $category = $param[2];
     $verified = 0;
     $error = 1;
-    $auth = checkToken($uid);
     if(count($param)===3)
     {
-        if($auth!=0)
-        {
-            $examsToTake = getExamsToTake($category);
-            echo json_encode($examsToTake);
-        }
+        $examsToTake = getExamsToTake($category);
+        echo json_encode($examsToTake);
     }
     
 });

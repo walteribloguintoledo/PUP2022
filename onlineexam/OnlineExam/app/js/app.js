@@ -4,7 +4,6 @@ $(document).ready(function(){
         url: "http://onlineexam/",
         api: "../api",
         authenticate: function() {
-            var param = App.token+"."+App.userid;
             var authentic = getJSONDoc(App.api+ "/authenticate/" +param);
             return authentic.verified;
         },
@@ -28,6 +27,7 @@ $(document).ready(function(){
     console.log(currentUser);
     var userType = currentUser.userType;
     var param = currentUser.token+"."+currentUser.uid;
+    App.authenticate(param);
     var questioncount = 0;
     var questioncountinit=0;
     var getSettings = App.settings();
@@ -98,11 +98,6 @@ $(document).ready(function(){
                 window.location.replace("#/examSettings");
                 window.location.reload();
             });
-
-            // $("#logout").on('click',function(){
-            //     window.location.replace("#/logout");
-            // });
-
         });
         
         Path.map("#/createExam").to(function(){
@@ -618,9 +613,14 @@ $(document).ready(function(){
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        if(response.valid)
+                        res = JSON.parse(response);
+                        if(res.verified == 1)
                         {
                             alert("CSV File imported successfully");
+                        }
+                        if(res.error == 1)
+                        {
+                            alert(res.errors[0])
                         }
                     }
                 });
@@ -1531,15 +1531,15 @@ if(userType=="Examinee" && App.authenticate()==1)
 });
 }
 });
-function fileValidation() // this can be implemented on the PHP part
-{
-    var file = $("#fileCSV").val().split('.').pop().toLowerCase();
-        if($.inArray(file, ["csv"]) == -1) {
-            alert('INVALID FILE TYPE Please upload a .csv file');
-            $("#importFile").attr("disabled",true);
-        }
-        else
-        {
-            $("#importFile").attr("disabled",false);
-        }
-}
+// function fileValidation() // this can be implemented on the PHP part
+// {
+//     var file = $("#fileCSV").val().split('.').pop().toLowerCase();
+//         if($.inArray(file, ["csv"]) == -1) {
+//             alert('INVALID FILE TYPE Please upload a .csv file');
+//             $("#importFile").attr("disabled",true);
+//         }
+//         else
+//         {
+//             $("#importFile").attr("disabled",false);
+//         }
+// }
