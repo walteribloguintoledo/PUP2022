@@ -6,6 +6,28 @@ include 'functions.loader.php';
 
 $app = new Slim();
 
+$app->get("/" , function(){
+    $opencsv = fopen("csv/sample quiz - Data analytics (2).csv","r");
+    $readcsv = fgetcsv($opencsv, 1000, ",");
+    // $readcsv = fread($opencsv,filesize("csv/sample quiz - Data analytics (1).csv"));
+    $lines = count(file("csv/sample quiz - Data analytics (2).csv"));
+    $cols = count($readcsv);
+    echo "col:$cols";
+    echo " rows: $lines"."<br>";
+    for($i=1; $i < $lines; $i++)
+    {
+        for($j=0; $j < $cols; $j++)
+        {
+            $readcsv = fgetcsv($opencsv, 1000, ",");
+            if($readcsv!=false)
+            {
+                echo json_encode($readcsv)."<br>";
+            }
+           
+        }
+    }
+}); 
+
 $app->get("/authenticate/:var", function($var) {
     $param = explode(".", $var); //fsgggsgsgsg.4645475
     $token = $param[0];
@@ -425,7 +447,10 @@ $app->post('/settings/:var',function($var){
 
 $app->post('/importcsv/:var',function($var){
     $param = explode(".", $var); //fsgggsgsgsg.4645475
-    $response = array(); 
+    $response = array();
+    $csvdata = array(); 
+    $data1 = array(); 
+    $examdata = array();
     $token = $param[0]; 
     $uid = $param[1];
     $verified = 0;
@@ -451,49 +476,57 @@ $app->post('/importcsv/:var',function($var){
                 $errors[]='File size must be excately 2 MB';
             }
 
-            if(empty($errors)==true){
+            if(empty($errors)==true)
+            {
                 move_uploaded_file($file_tmp,"csv/".$file_name);
                 $verified=1; $error=0;
                 //functions that reads csv file to save into DB
-
                 $opencsv = fopen("csv/".$file_name,"r");
                 $readcsv = fgetcsv($opencsv, 1000, ",");
-                // $count = sizeof($readcsv);
-                // echo $readcsv;
-                // echo $count;
-                $row = 0;
-                if (($opencsv) !== FALSE) {
-                    while (($readcsv = fgetcsv($opencsv, 1000, ",")) !== FALSE) {
-                        $num = count($readcsv);
-                        // echo " columns: $num , row: $row <br />";
-                        $row++;
-                        for ($i=0; $i < $num; $i++) 
+                $lines = count(file("csv/".$file_name));
+                $cols = count($readcsv);
+                for($i=1; $i < $lines; $i++)
+                {
+                    for($j=0; $j < $cols; $j++)
+                    {
+                        $readcsv = fgetcsv($opencsv, 1000, ",");
+                        if($readcsv!=false)
                         {
-                            echo $readcsv[$i] . "<br />";
-                        } // this one's ok but how will I pass the value into the database???
+                            // echo json_encode($readcsv);
+                            array_push($csvdata,$readcsv);
+                        }
                     }
-                    // fgets($opencsv)
-                    // fgetcsv($opencsv, 1000, ",")
-                    
-                        
-                    // for($i = 1; $i < $row; $i++)
-                    // {
-                    //     for ($col=0; $col > count($readcsv); $col++) 
-                    //     {
-                    //         echo $readcsv[$col][$i] . "<br />";
-                    //     }
-                    // }
-                        
-                    
-                }//this code successfully reads the contents but accessing each may not be possible
-                    
+                }
             }
+            //the only problem on this is how will I save the data into the database
+            }
+            for($r=0; $r < count($csvdata); $r++)
+            {
+                // for($c=0; $c < $cols; $c++)
+                // {
+                    $examdata = array(
+                        "question" => $csvdata[$r][0],
+                        "choice1" => $csvdata[$r][1],
+                        "choice2" => $csvdata[$r][2],
+                        "choice3" => $csvdata[$r][3],
+                        "choice4" => $csvdata[$r][4],
+                        "answer" => $csvdata[$r][5],
+                        "category" => $csvdata[$r][6],
+                        "subject" => $csvdata[$r][7],
+                        "level" => $csvdata[$r][8]
+                    );
+                    array_push($data1,$examdata);
+                // }
+            }
+            // echo  $examdata;
+            // echo json_encode($data1);
         }                
-    }
+    
     $response = array(
         "verified" => $verified,
         "error" => $error,
-        "errors" => $errors
+        "errors" => $errors,
+        "data" => $data1
     );
     echo json_encode($response);
 });

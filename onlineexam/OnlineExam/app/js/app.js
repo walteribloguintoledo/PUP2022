@@ -491,6 +491,9 @@ $(document).ready(function(){
         Path.map("#/autoCreateExam").to(function(){
             var examcode = getJSONDoc ( App.api + "/examcode/"+param);
             console.log(examcode);
+            var subj = "";
+            var cat = "";
+            var lvl = 0;
             var categoryList = [];
             var categories = getJSONDoc ( App.api + "/getCategory/"+param); 
             console.log(categories);
@@ -567,11 +570,42 @@ $(document).ready(function(){
                 console.log(questioncount);
             });
 
+            
+            
+            $("#importCSVForm").on('submit',function(e){
+                e.preventDefault();
+                var csvfile = new FormData(this);
+                $.ajax({
+                    type: "post",
+                    url: App.api + "/importcsv/" + param,
+                    data:csvfile,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        res = JSON.parse(response);
+                        if(res.verified == 1)
+                        {
+                            alert("CSV File imported successfully");
+                            var data = res.data;
+                            cat = data[0][6];
+                            subj = data[0][7];
+                            lvl = data[0][8];
+                        }
+                        if(res.error == 1)
+                        {
+                            alert(res.errors[0])
+                        }
+                    }
+                });
+            });
+            
+
             $("#autoCreateExam-form").on('submit',function(e){
                 e.preventDefault();
-                var category = $("#category").val();
-                var subject = $("#subject").val();
-                var level = $("#level").val();
+                var category = $("#category").val(cat);
+                var subject = $("#subject").val(subj);
+                var level = $("#level").val(lvl);
                 var errorMessage = [];
                 error = 0;
                 
@@ -600,30 +634,6 @@ $(document).ready(function(){
                     console.log(subject);
                     console.log(level);
                 }
-            });
-            
-            $("#importCSVForm").on('submit',function(e){
-                e.preventDefault();
-                var csvfile = new FormData(this);
-                $.ajax({
-                    type: "post",
-                    url: App.api + "/importcsv/" + param,
-                    data:csvfile,
-                    cache:false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        res = JSON.parse(response);
-                        if(res.verified == 1)
-                        {
-                            alert("CSV File imported successfully");
-                        }
-                        if(res.error == 1)
-                        {
-                            alert(res.errors[0])
-                        }
-                    }
-                });
             });
 
             $("#creatorDashboard").on('click', function(){

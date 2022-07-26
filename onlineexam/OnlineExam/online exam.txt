@@ -284,6 +284,14 @@ Process Flow:
 6. The user selects category, subject and level.
 7. The system creates an exam depending on the category, subject, level, and exam settings set.
 
+NOTES on CREATE EXAM AUTOMATION:
+* Since its automated let the imported file put an input on the category, level, 
+    and subject base on the imported csv file.
+* The Exam details is not connected to the import of exam questions
+* Create a condition that will check the number of items min would be 20 items by default.
+
+
+
 Some things to note on deletion of data
 *IMPLEMENT A SOFT DELETE:
     POSIBLE IDEAS:
