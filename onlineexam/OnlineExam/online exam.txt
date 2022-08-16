@@ -1,0 +1,299 @@
+Database Tables:
+============================================
+exams
+id, uid, category, subject, level, status
+
+1, 2345, BSIT, Programming 101, 1, 1
+2, 2346, BSIT, Programming 101, 1, 1
+3, 2347, BSIT, Javascript 1, 1, 1
+4, 2348, BSIT, Javascript 2, 2, 1
+===========================================
+exam_entry
+id, uid, key, value, status, level
+
+1, 2345, question, one plus one, 1
+2, 2345, choices1, 3, 1
+3, 2345, choices2, 5, 1
+4, 2345, choices3, 6, 1
+5, 2345, choices4, 2, 1
+6, 2345, answer, 2, 1
+===========================================
+category
+id, uid, category
+
+1, 0001, BSIT 
+2, 0002, ComSci
+3 0003, ComEng
+===========================================
+subject
+id, code, subjectName
+1, 0001, Programming 101, 
+2, 0002, Programmming 102, 
+3, 0003, Javascript 1
+4, 0004, Javascript 2
+5, 0005, Pascal
+note: **The Subject name is also the exam name**
+**The code must be equal to the uid category**
+==========================================
+users
+id, uid, usertype, firstname, middlename, lastname, address, Birthday, email, password, contact, category
+1, 0001, admin, 
+2, 0002, user1
+note: **the examinee will only have the category field filled**
+==========================================
+guest
+id, uid, firsname, middlename, lastname, Category
+==========================================
+Scores
+id, uid, examineeFirstName, examineeMiddleName, examineeLastName, ExamTitle, Category, Score 
+==========================================
+setting
+id, uid, key, value, setting
+==========================================
+examTaken
+id, uid, exam subject, exam category, score 
+
+================================================================
+================================================================
+
+MISC:
+Generation of exam code:
+uid Ymd category subject level
+uid 20220601ramdom-0001-0001-1
+uid Ymdramdom
+
+**Each exam have 3 levels of difficulty namely to be Easy, Average , Difficult**
+**Each exam level has its predefined number of items -> 100 points, which is modified in the exam settings**
+**Default Exam Settings:
+    Level 1 = 20 items
+    Level 2 = 30 items
+    Level 3 = 50 items
+    Passing Score = 80 above
+Score computation:
+    Passing Score = (Easy Score + Average Score + Difficult Score)
+
+**Automate the checking of answers**
+Possible options:
+1. Everytime the examinee clicks "next" it calls a function that will check their answer if it matches the answer declared upon creation of the exam.
+2. uid, examinee, item, answer
+
+CREATE EXAM:
+**The exam creator selects the category, subject, and level question,choices, and answer**
+PROBLEM: How will the exam be created???
+CASE:
+**The Create Exam form have two buttons create exam button and add question**
+CONSTRAINTS:
+**The number of question depends on the level of exam Level 1 = 20 items, Level 2 = 30 items, Level 3 = 50 items
+**Once a category is selected the subject field must display the subject under the selected category
+POSSIBLE SOLUTIONS:
+1. Make two separate forms one for the exam details and one for the exam questions. When the create exam button is clicked it will submit the exam details into the database upon submitting exam code will be auto generated and set the status to 1 or enabled.
+2. Since the form have two buttons I can disable the create exam button until the number of question reached a cretain limit.
+3. Let the user input a single entry but on the viewing of created exams put a "DISTINCT" on the SQL
+4. Batch entry-the add question button will display a new add question card, once the desired number of question is reached the user will click the create exam button.
+5. The user will first submit the exam details form, once its submitted the system will show a add question form and will let the user to input the desired number of exam questions that corresponds to the exam details given.
+
+
+
+**The user can't moveon to the next question until the displayed question is not answered**
+**The user can;t move on to the next level until the current level is taken and answer.**
+**Consider having different exam type but for now focus on multiple choice type of questions**
+**Category can have many one or more subjects**
+**Once the user seleted a category the subject under that category should be displayed in the list of options**
+**Integrate Slim PHP framework, use PathJS and Mustache JS** 
+
+================================================================================================================
+================================================================================================================
+OLEX User Functions
+
+Admin [Exam Creator]
+1. Login (if does not exist go to Sign Up)
+2. Exam creator dashboard
+3. Create Exam
+4. View Created Exams
+5. Edit Exam
+6. Delete Exam
+7. Add Category
+8. View Category
+9. Edit Category
+10. Delete Category
+11. Add Subject
+12. View Subject
+13. Edit subject
+14. Delete Subject
+15. View Examinees
+16. View Summary of Scores
+17. Set Exam Settings
+18. Update Profile
+
+User Client [Examinee]
+1. Login (if does not exist go to Sign Up)
+2. Examinee Dashboard
+3. View Exams to take
+4. Take Exam
+5. view Exam Scores
+
+User [Guest]
+1. Login Page for Guest
+2. Take Exam
+========================================================================================================
+========================================================================================================
+
+Queries:
+1. Should I create a dashboard for guest?
+
+REVISIONS:
+3. Exam Settings as JSON
+
+========================================================================================================
+========================================================================================================
+RESOLVED:
+REVISIONS:
+1. Make the add, and edit as modals.[done]
+2. Put add buttons on the listing pages.[done]
+3. Make exam settings as JSON file
+
+IDEAS:    RESOLVED
+
+Case: The Exam Creator creates the exam with its generated UID(exam code) before adding questions in the question bank(exam_entry)
+
+Possible options to attend in the case:
+    1 - In the create exam add a button that enable the user to redirect to the add question page.
+    2 - After the user created the exam set the input field of exam code in the add question page and just select the UID(exam code) which will generate all the information before putting in questions.
+
+
+<!-- {{#tableRecord}}
+                                            <tr>
+                                                <td>{{id}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{category}}</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            {{/tableRecord}} -->
+
+
+===========================================================
+Online Exam File structure:
+root
+	api
+		vendor
+			slim
+		functions
+		index.php
+	app
+		js
+			app.js
+		css
+		template
+			admin.html
+			user.html
+			examinee.html
+		index.html
+	auth
+		js
+			auth.js
+		css
+		template
+		index.html
+	assets
+		js
+		css
+	index.html
+
+July 1,2022 
+PROBLEM:
+When the user selects a category the subject won't appear in the options if the structure is to
+fetch the category data first then render it using mustache then handling an event in which the 
+category field is selected.
+
+GOAL:
+Once a Category is selected the subjects under that category must be shown in the option field of "subject"
+
+POSSIBLE SOLUTION:
+Make the getJSON function for the category involve the fetching of the subjects
+
+$.ajax({
+                        type: "post",
+                        url: App.api + "/addQuestion",
+                        data: {
+                            level:level,
+                            examQuestion : examQuestion,
+                            choice1: choice1,
+                            choice2 : choice2,
+                            choice3 : choice3,
+                            choice4 : choice4,
+                            answer : answer
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            if(response.valid)
+                            {
+                                alert("Exam question added");
+                            }
+                            else
+                            {
+                                alert("The question already exist");
+                            }
+                        }
+                    });
+
+July 11 2022
+PROBLEM:
+The settings.json needs to overwrite [DONE]
+
+POSSIBLE SOLUTIONS:
+-*- Fetch all the data of the settings.json and store it in the localStorage and overwrite it if needed.
+-*- Use the "var fs = require('fs')"
+
+
+
+TO DO :
+
+REFACTOR TOKEN AUTHENTICATION:
+
+*Create a flowchart on how the token authentication work*
+Concept:
+- Once the user accesses the system the authentication runs which then verifies if the token is not expired
+Idea on the process:
+1. The user accesses the online exam system
+2. The token generates
+3. The token is saved into the database
+    *possible DB design 
+    id       userid                      token                     status
+     1    2022-2EX8-7389   1DE295AC-57C7-D5C7-4030-1C14F9E83DDC       1
+
+
+ANOTHER IDEA:
+- Create activity log 
+*possible DB design 
+    logid      userid                      token                            logdate         
+     1    2022-2EX8-7389   1DE295AC-57C7-D5C7-4030-1C14F9E83DDC       2022/07/18 11:17:00 
+On the examinee side:
+1. Before loading the design the token authentication runs
+2. The token authentication function fetches the data of token on the database with the following conditions
+    - the token status must not be expired if it is expired the system must let the user to login
+
+AUTOMATION OF CREATE EXAM
+
+Process Flow:
+1. The user clicks create exam button
+2. The user imports a csv file.
+3. The system reads and validate the contents of the csv file.
+4. The system stores the contents of the csv file in the database.
+5. The user clicks generate exam.
+6. The user selects category, subject and level.
+7. The system creates an exam depending on the category, subject, level, and exam settings set.
+
+NOTES on CREATE EXAM AUTOMATION:
+* Since its automated let the imported file put an input on the category, level, 
+    and subject base on the imported csv file.
+* The Exam details is not connected to the import of exam questions
+* Create a condition that will check the number of items min would be 20 items by default.
+
+
+
+Some things to note on deletion of data
+*IMPLEMENT A SOFT DELETE:
+    POSIBLE IDEAS:
+    * PUT AN ARCHIVED DATE COLUMN 
+    * DELETED [1] [0]

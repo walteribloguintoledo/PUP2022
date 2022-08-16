@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <title>JavaScript Arrays</title>
+</head>
+<body>
+    <h2>JavaScript Arrays</h2>
+
+<p id="arr"></p>
+
+<script>
+const arr = ["Orange", "Apple", "Pineapple", "Guava", "Lemon", "Banana", "Pear"];
+let alen = arr.length;
+let text = "<ul>";
+
+for (let i = 0; i < alen; i++) {
+  text += "<li>" + arr[i] + "</li>";
+}
+text += "</ul>";
+
+document.getElementById("arr").innerHTML = text;
+console.log(arr);
+
+</script>
+<h2>Multi Dimensional Array</h2>
+<script>
+    const mlarr = [
+        ["one","200","100", "89"],
+        ["300", 530, 90, 98],
+        ["29","two", "qwerty"],
+        ["41", "18", 4, 5 ,6]
+    ];
+    let mlen = mlarr.length;
+    
+    for(let i = 0; i < mlarr.length; i++){
+        for (let j = 0; j < mlarr[i].length; j++)
+        {
+            document.write(mlarr[i][j] +" ");
+        }
+        document.write("<br>");
+    }
+    console.table(mlarr);
+    </script>
+<h2>Associative Array</h2>
+<script>
+    var arrAssociative = {
+    "Name": 'Ed Gallardo',
+    "Address": 'Mandaluyong City',
+    "Age" : '22',
+    "Contact no": '09392608805' };
+    for (var key in arrAssociative) {
+    var value = arrAssociative[key];
+    document.write(key + " = " + value + '' + '<br>');
+}
+console.log(arrAssociative);
+
+</script>
+
+</body>
+</html>

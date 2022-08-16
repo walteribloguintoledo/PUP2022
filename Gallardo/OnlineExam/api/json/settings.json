@@ -1,0 +1,8 @@
+{
+    "settings": {
+        "level1": 20,
+        "level2": 30,
+        "level3": 50,
+        "passingGrade": 80
+    }
+}

@@ -1,0 +1,292 @@
+<!--Sign Up Form-->
+<script type="text/template" id="signup">
+    <form id ="signUp">
+        <div class="container">
+            <div class="row">
+            <div class="col align-self-center p-5 pt-0">
+                <br>
+                <h2 class="fw-bold mb-0">Sign Up</h2>
+                <br>
+             <div class="form-floating mb-2 w-200"> <!--input field for name -->
+                <input type="text" class="form-control" id="fullname" placeholder="name" name="fullname" id="name" onkeypress="lettersOnly(event)">
+                <label for="floatingInput">Name</label>
+            </div>
+            <div class="form-floating mb-2 w-200"> <!--input field for Address -->
+                <input type="text" class="form-control" id="address" placeholder="address" name="address" >
+                <label for="floatingInput">Address</label>
+            </div>
+            <div class="form-floating mb-2 w-200"> <!--input field for Username -->
+            <input type="text" class="form-control" id="username" placeholder="username" name="username" onkeypress="noSpace(event)">
+            <label for="floatingInput">Username</label>
+            </div>
+            <div class="form-floating mb-2 w-200"> <!--input field for Email -->
+            <input type="email" class="form-control" id="email" placeholder="email" name="email" onkeypress="noSpace(event)">
+            <label for="floatingInput">Email</label>
+            </div>
+            <div class="form-floating mb-2 w-200"> <!--input field for Password -->
+            <input type="password" class="form-control" id="password" placeholder="password" name="password" onkeypress="noSpace(event)" maxlength="20">
+            <label for="floatingInput">Password</label>
+            </div>
+            <div class="form-floating mb-2 w-200"> <!--input field for Birthday -->
+                <input type="date" class="form-control" id="bday" placeholder="mm-dd-yyyy" name="bday" >
+                <label for="floatingInput">Birthday</label>
+            </div>
+            <div class="form-floating mb-2 w-200"> <!--input field for Contact no. -->
+                <input type="text" class="form-control" id="contact" placeholder="number" maxlength="11" name="contact" onkeypress="numOnly(event)">
+                <label for="floatingInput">Contact no.</label>
+            </div>
+            <div>
+            <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="submit" onclick="">Sign Up</button>
+            <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-info"  id="tologin">Back to Login</button>
+      </form>
+            </div>
+            </div>
+            </div>
+        </div>
+</script>
+<!-- LOGIN FORM-->
+<script type="text/template" id="login">
+  <form  id ="flogin">
+    <div class="logcon">
+        <div class="row">
+          <div class="col align-self-center p-5 pt-0">
+          <br>
+          <h2 class="fw-bold mb-0">Login</h2>
+          <br>
+          <div class="form-floating mb-2 w-200"> <!--input field for Username -->
+            <input type="text" class="form-control" id="uname" placeholder="username" name="username" onkeypress="noSpace(event)">
+            <label for="floatingInput">Username</label>
+          </div>
+          <div class="form-floating mb-2 w-200"> <!--input field for email -->
+            <input type="email" class="form-control" id="logemail" placeholder="email" name="email" onkeypress="noSpace(event)">
+            <label for="floatingInput">Email</label>
+          </div>
+          <div class="form-floating mb-2 w-200"> <!--input field for password -->
+            <input type="password" class="form-control" id="logpassword" placeholder="password" name="password" onkeypress="noSpace(event)" maxlength="20">
+            <label for="floatingInput" maxlength="10">Password</label>
+          </div>
+          <div>
+            <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary" id="lsubmit" >Login</button>
+            <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-primary btn btn-info" id="tosignup">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>      
+</script>
+
+<!-- HOME PAGE -->
+<script type="text/template" id="home">
+    
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ESCAPE</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                <li class="nav-item">
+                <!-- <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link inactive" aria-current="page" href="#">About</a> -->
+                </li>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline-success" id="view">Users</button>
+              <button type="button" class="btn btn-outline-info" id="update">Update</button>
+              <button type="button" class="btn btn-outline-warning" id="logout">Logout</button>
+            </div>
+        </div>
+        </nav>
+    </header>
+    <main class="home">
+        <div class=" imgcon p-4 p-md-4 mb-4 text-white rounded bg-success">
+            
+            <div class="col" id="banner">
+                <h1 class="display-1 fst-italic">Live life in the Comfort of Luxury</h1>
+                <p class="lead my-8">Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                    Voluptates quo animi ut quisquam in, debitis hic praesentium? Quos distinctio ea nam, quae, accusantium explicabo inventore rem cumque iure voluptas repellendus.Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                    Voluptates quo animi ut quisquam in, debitis hic praesentium? Quos distinctio ea nam, quae, accusantium explicabo inventore rem cumque iure voluptas repellendus.Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                    Voluptates quo animi ut quisquam in, debitis hic praesentium? Quos distinctio ea nam, quae, accusantium explicabo inventore rem cumque iure voluptas repellendus.Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+                    Voluptates quo animi ut quisquam in, debitis hic praesentium?  </p>
+                <p class="lead mb-0"><a href="#" class="text-white fw-bold">Continue reading...</a></p>
+            </div>
+        </div>
+        <div class="container px-4 py-5" id="featured-3">
+            <h2 class="pb-2 border-bottom">What's in here for you</h2>
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+              
+              <div class="feature col">
+                <div class="feature-icon bg-primary bg-gradient">
+                  <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+                </div>
+                <h2>Indulge</h2>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+              </div>
+
+              <div class="feature col">
+                <div class="feature-icon bg-primary bg-gradient">
+                  <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+                </div>
+                <h2>Unwind</h2>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+              </div>
+              <div class="feature col">
+                <div class="feature-icon bg-primary bg-gradient">
+                  <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+                </div>
+                <h2>Feel Free</h2>
+                <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+              </div>
+            </div>
+        </div>
+        <div class="container" id="pcontainer">
+            <div class="row">
+              <div class="col-md-8" id="contents">
+                <br>
+                <h2 class="blog-post-title">It always gets better</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, quis alias? 
+                    Ipsum ipsam dolores deserunt, expedita mollitia tempore a sunt necessitatibus! 
+                    Culpa natus, assumenda illo ullam nostrum laboriosam iste veritatis?</p>
+                <hr>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit illo molestias, 
+                    adipisci quo dolorem numquam cumque odio ex placeat deserunt quod officiis ratione fugiat 
+                    possimus fuga? Accusamus, maiores. Modi, doloremque?</p>
+                <br>
+                <br>
+                <hr>
+                <h2 class="blog-post-title">People find the sense of freedom</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit illo molestias, 
+                  adipisci quo dolorem numquam cumque odio ex placeat deserunt quod officiis ratione fugiat 
+                  possimus fuga? Accusamus, maiores. Modi, doloremque?</p>
+                <hr>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit illo molestias, 
+                  adipisci quo dolorem numquam cumque odio ex placeat deserunt quod officiis ratione fugiat 
+                  possimus fuga? Accusamus, maiores. Modi, doloremque?</p>
+              </div>
+              <div class="col">
+                <br>
+                <div class="p-4 mb-3 bg-info bg-gradient rounded">
+                    <h4 class="fst-italic">About</h4>
+                    <p class="mb-0">Customize this section to tell your visitors a little bit about
+                    your publication, writers, content, or something else entirely. Totally up to you.</p>
+                </div>
+                <div class="p-4 mb-3 bg-light rounded">
+                  <h4 class="fst-italic">People</h4>
+                  <p class="mb-0">Customize this section to tell your visitors a little bit about
+                  your publication, writers, content, or something else entirely. Totally up to you.</p>
+              </div>
+              <div class="p-4 mb-3 bg-warning bg-gradient rounded">
+                <h4 class="fst-italic">Reviews</h4>
+                <p class="mb-0">Customize this section to tell your visitors a little bit about
+                your publication, writers, content, or something else entirely. Totally up to you.</p>
+            </div>
+              </div>
+            </div>
+            </div>
+            <div class="container px-4 py-5" id="featured-3">
+              <h2 class="pb-2 border-bottom">What to expect?</h2>
+              <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+                
+                <div class="feature col">
+                  <div class="feature-icon bg-success bg-gradient">
+                    <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+                  </div>
+                  <h2>Delicacies</h2>
+                  <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                </div>
+  
+                <div class="feature col">
+                  <div class="feature-icon bg-success bg-gradient">
+                    <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+                  </div>
+                  <h2>Nature</h2>
+                  <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                </div>
+                <div class="feature col">
+                  <div class="feature-icon bg-success bg-gradient">
+                    <svg class="bi" width="1em" height="1em"><use xlink:href="#toggles2"/></svg>
+                  </div>
+                  <h2>Insta spots</h2>
+                  <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
+                </div>
+              </div>
+          </div>
+</script>
+<!--Update Form-->
+<script type="text/template" id="update">
+  <form   id ="fupdate">
+      <div class="ucontainer">
+          <div class="row">
+          <div class="col align-self-center p-5 pt-0">
+              <br>
+              <h2 class="fw-bold mb-0">Update Info</h2>
+              <br>
+              <div class="form-floating mb-2 w-200">
+                  <input type="text" class="form-control" id="newname" placeholder="name" name="newname"  onkeypress="lettersOnly(event)">
+                  <label for="floatingInput">Name</label>
+              </div>
+              <div class="form-floating mb-2 w-200">
+                  <input type="text" class="form-control" id="newaddress" placeholder="address" name="newaddress" >
+                  <label for="floatingInput">Address</label>
+              </div>
+              <div class="form-floating mb-2 w-200">
+              <input type="text" class="form-control" id="newusername" placeholder="username" name="newusername" onkeypress="noSpace(event)">
+              <label for="floatingInput">Username</label>
+              </div>
+              <div class="form-floating mb-2 w-200">
+              <input type="email" class="form-control" id="newemail" placeholder="email" name="newemail" onkeypress="noSpace(event)">
+              <label for="floatingInput">Email</label>
+              </div>
+              <div class="form-floating mb-2 w-200">
+              <input type="password" class="form-control" id="newpassword" placeholder="password" name="newpassword" onkeypress="noSpace(event)" maxlength="20">
+              <label for="floatingInput" maxlength="10">Password</label>
+              </div>
+              <div class="form-floating mb-2 w-200">
+                  <input type="date" class="form-control" id="newbday" placeholder="MM-DD-YYYY" name="newbday" >
+                  <label for="floatingInput">Birthday</label>
+              </div>
+              <div class="form-floating mb-2 w-200">
+                  <input type="text" class="form-control" id="newcontact" placeholder="number" maxlength="11" name="newcontact" onkeypress="numOnly(event)">
+                  <label for="floatingInput">Contact no.</label>
+              </div>
+              <div>
+              <button type="submit" class="w-100 mb-2 btn btn-lg rounded-4btn btn-success" id="usubmit" onclick="">Save</button>
+              <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-danger" id="cancel" onclick="">Cancel</button>
+              <button type="button" class="w-100 mb-2 btn btn-lg rounded-4btn btn-info" id="back" onclick="">Home</button>
+              </div>
+              </form>
+          </div>
+          </div>
+          </div>
+      </div>
+</script>
+<!-- view users -->
+<script type="text/template" id="view">
+
+  <table id ="usertable" class="table table-sm table-bordered table-hover table-striped table-light">
+
+    <h1 class="display-1 fst-italic">List of Users</h1>
+    <span></span>
+    <tr>
+        <th>ID</th>
+        <th>Fullname</th>
+        <th>Address</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Birthday</th>
+        <th>Contact</th>
+        <th>Delete</th>
+    </tr>
+    <tbody id="tb">
+     
+    </tbody>
+    
+  </table>
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button type="button" class="w-200 mb-2 btn btn-lg rounded-4btn btn-info" id="backhome" onclick="">Home</button>
+  </div>
+</script>
+

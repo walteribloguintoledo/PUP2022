@@ -1,0 +1,31 @@
+QUESTIONS,CHOICE 1,CHOICE 2,CHOICE 3,CHOICE 4,ANSWER,SUBJECT,LEVEL
+"A voluminous amount of structured, semi-structured, and unstructured data that has the potential to be mined for information.",Small Data,Meta Data,Statistical Data,Big Data,Big Data,DATA ANALYTICS,1
+"A free, Java-based programming framework that supports the processing of large data sets in a distributed computing environment.",Hadoop,Python,R,Apache Groovy,Hadoop,DATA ANALYTICS,1
+The branch of data mining concerned with the prediction of future probabilities and trends.,In-memory Analytics,Predictive Analytics,Behavioral Analytics,Big Data Analytics,Predictive Analytics,DATA ANALYTICS,1
+The science of examining raw data with the purpose of drawing conclusions about that information.,Data Analytics,In-memory Analytics,Descriptive Analytics,Predictive Analytics,Data Analytics,DATA ANALYTICS,1
+"An approach to querying data when it resides in a computers random access memory (RAM), as opposed to querying data that is stored on physical disks.",Deep Analytics,Data Visualisation,In-memory Analytics,Data Analytics,In-memory Analytics,DATA ANALYTICS,1
+What is the name of the programming framework originally developed by Google that supports the development of applications for processing large data sets in a distributed computing environment?,Hive,Zookeeper,Hadoop,MapReduce,Hadoop,DATA ANALYTICS,1
+A method of storing data within a system that facilitates the collocation of data in various schemata and structural forms.,Data Visualisation,Data Lake,Big Data Management,Deep Analytics,Data Lake,DATA ANALYTICS,1
+"Leading analyst firm Gartner defines Big Data from three aspects, all starting with the letter V. Which of these are not a part of their consideration of big data?",Value,Volume,Variety,Velocity,Value,DATA ANALYTICS,1
+Where did Hadoop get its name?,A fictional character from literature,Toy elephant,It’s an acronym,It's a synonym of Data,Toy elephant,DATA ANALYTICS,1
+"Last summer, Splunk announced a new product to search, access and report on Hadoop data sets. What is this product called?",Splunk Storm,Splunk Cloud,Hunk,MongoDB,Hunk,DATA ANALYTICS,1
+"According to a study conducted by IBM, what is the largest single source where data is gathered?",Email,Social Media,Business Transactions,Log Data,Business Transactions,DATA ANALYTICS,1
+___________ Analysis is used to analyze a system in terms of its requirements to identify its impact on customers’ satisfaction. Fill in the blank.,Kano,Paretto,RootCause,Impact,Kano,DATA ANALYTICS,1
+What does SAAS stand for?,System Aerosurface Actuator Simulation,Systems as a Service,Software acting as Service,Software as a Service,Software as a Service,DATA ANALYTICS,1
+"According to a very recent Jaspersoft Survey, what is the most popular big data store?",Relational Databases,Hadoop HDFS,Hadoop HDFS,MongoDB,Relational Databases,DATA ANALYTICS,1
+Which of the following is/are correct types of data?,Semi-structured Data,Unstructured Data,Semi Data,Both a & b,Both a & b,DATA ANALYTICS,1
+Which of the following is a component of Hadoop?,YARN,HDFS,MapReduce,All of the Above,All of the Above,DATA ANALYTICS,1
+The archive file created in Hadoop has the extension of,.hrh,.har,.hrc,.hrar,.har,DATA ANALYTICS,1
+What license is Apache Hadoop distributed under?,Apache License 2.0,Shareware,Mozilla Public License,Commercial,Apache License 2.0,DATA ANALYTICS,1
+Which of the following platforms does Apache Hadoop run on?,Bare metal,Unix-like,Cross-platform,Debian,Cross-platform,DATA ANALYTICS,1
+Apache Hadoop achieves reliability by replicating the data across multiple hosts and hence does not require ________ storage on hosts.,Standard RAID levels,RAID,ZFS,Operating system,RAID,DATA ANALYTICS,1
+Which of the following is the correct statement?,Data locality means moving computation to data instead of data to computation.,Data locality means moving data to computation instead of computation to data.,Both the above.,None of the above.,Data locality means moving computation to data instead of data to computation.,DATA ANALYTICS,1
+Hadoop works in,Master-worker fashion,Master–slave fashion,Worker/slave fashion,All of the mentioned,Master–slave fashion,DATA ANALYTICS,1
+Which of the below apache system deals with ingesting streaming data to Hadoop?,Flume,Oozie,Hive,Kafka,Flume,DATA ANALYTICS,1
+Which of the following property gets configured on mapred-site.xml ?,Replication factor,Java Environment variables.,Directory names to store hdfs files.,Host and port where MapReduce job runs.,Host and port where MapReduce job runs.,DATA ANALYTICS,1
+Which statement is false about Hadoop?,It runs with commodity hardware.,It is a part of the Apache project sponsored by the ASF.,It is best for live streaming of data.,None of the above.,It is best for live streaming of data.,DATA ANALYTICS,1
+Which of the following is the daemon of Hadoop?,NameNode,Node manager,DataNode,All of the above,All of the above,DATA ANALYTICS,1
+Which type of data Hadoop can deal with is,Structured,Semi-structured,Unstructured,All of the above,All of the above,DATA ANALYTICS,1
+Which one of the following is false about Hadoop?,It is a distributed framework.,The main algorithm used in it is Map Reduce.,It runs with commodity hardware.,All are true.,All are true.,DATA ANALYTICS,1
+Which command is used to check the status of all daemons running in the HDFS?,Jps,Fsck,Distcp,None of the above,Jps,DATA ANALYTICS,1
+Hadoop Framework is written in,Python,Java,C++,Scala,Java,DATA ANALYTICS,1

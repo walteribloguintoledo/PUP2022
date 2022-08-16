@@ -1,0 +1,1085 @@
+<script type="text/template" id="creatorDashboard">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-dark mb-0">Dashboard</h3><a id ="createExam-btn"class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#/createExam"><i class="fas fa-pencil-alt fa-sm text-white-50" style="font-size: 16px;"></i>&nbsp;Create Exam</a>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 offset-xl-0 offset-xxl-0 mb-4">
+                                <div class="card shadow border-start-primary py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>No. of Exams Created</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span id="numOfExams"></span></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-pencil-ruler fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 offset-xl-0 offset-xxl-0 mb-4">
+                                <div class="card shadow border-start-success py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>No. of Examinees</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span id="numOfExaminees"></span></div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-child fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 col-xxl-4 offset-xl-0 offset-xxl-0 mb-4">
+                                <div class="card shadow border-start-info py-2">
+                                    <div class="card-body">
+                                        <div class="row align-items-center no-gutters">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>No. of Questions</span></div>
+                                                <div class="row g-0 align-items-center">
+                                                    <div class="col-auto col-lg-12">
+                                                        <div class="text-dark fw-bold h5 mb-0 me-3"><span id="numOfQuestions"></span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto"><i class="fas fa-question-circle fa-2x text-gray-300"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-12 col-lg-6 col-xl-8 col-xxl-7 offset-xl-2 offset-xxl-2 mb-4">
+                                <div class="card shadow border-start-primary py-2">
+                                    <div class="card-body">
+                                        <p style="font-weight: bold;color: var(--bs-dark);font-size: 27px;">Exam Settings</p>
+                                        <div class="row align-items-center no-gutters mb-3">
+                                            <div class="col me-2">
+                                                <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 14.2px;color: var(--bs-success);">Average Passing Grade for Each Exam</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span id="passing"></span></div>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center no-gutters mb-3">
+                                            <div class="col-xl-3 offset-xl-0 me-2 mb-3">
+                                                <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 14.2px;">No. of Items in Level 1</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span id="lvl1"></span></div>
+                                            </div>
+                                            <div class="col-xl-3 offset-xl-1 me-2 mb-3">
+                                                <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 14.2px;">No. of Items in Level 2</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span id="lvl2"></span></div>
+                                            </div>
+                                            <div class="col-xl-3 offset-xl-1 me-2">
+                                                <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span style="font-size: 14.2px;">No. of Items in Level 3</span></div>
+                                                <div class="text-dark fw-bold h5 mb-0"><span id="lvl3"></span></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="createExam">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-dark mb-4">Create Exam</h3><a id ="importCSV-btn"class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#/autoCreateExam"><i class="fas fa-file-import" style="width: 27px;"></i>Import and Create</a>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-lg-8">                                
+                                <form id="createExam-form">
+                                <div class="row">
+                                    <div class="col-lg-12 offset-lg-3">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Exam Details</p>
+                                            </div>
+                                            <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Category</strong></label><select class="form-select" id="category">
+        <optgroup label="Exam Categories" id="examcategories">
+            <option value="" selected>Select Exam Category</option>
+            {{#categoryOptions}}
+            <option value="{{category}}">{{category}}</option>
+            {{/categoryOptions}}
+        </optgroup>
+    </select></div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Subject</strong></label><select class="form-select" id="subject">
+        <optgroup label="Exam Subject" id="examsubjects">
+            <option value="" selected>Select Exam Subject</option>
+        </optgroup>
+    </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 offset-xl-3">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Exam Level</strong><br></label><select class="form-select" id="level">
+        <optgroup label="Exam Level" id="examlevels">
+            <option value="" id="opt1" selected >Select Exam Level</option>
+            <option value="1" id="opt2">Level 1 - Easy</option>
+            <option value="2" id="opt3">Level 2 - Average</option>
+            <option value="3" id="opt4">Level 3 - Difficult</option>
+        </optgroup>
+    </select></div>
+                                                        </div>
+                                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 offset-lg-3">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Exam Question</p>
+                                            </div>
+                                            <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-xl-12">
+                                                            <div class="mb-3"><label class="form-label" for="first_name"><strong>Question</strong><br></label><input class="form-control" type="text" id="examQuestion" placeholder="Question" name="question"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Choice 1</strong><br></label><input class="form-control" type="text" id="choice1" placeholder="Choice 1" name="choice1"></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Choice 2</strong><br></label><input class="form-control" type="text" id="choice2" placeholder="Choice 2" name="choice2"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 col-md-6">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Choice 3</strong><br></label><input class="form-control" type="text" id="choice3" placeholder="Choice 3" name="choice1"></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Choice 4</strong><br></label><input class="form-control" type="text" id="choice4" placeholder="Choice 4" name="choice4"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-xl-6">
+                                                                <div class="mb-3"><label class="form-label" for="username"><strong>Answer</strong><br></label><input class="form-control" type="text" id="answer" placeholder="Answer" name="answer"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <button id="addQuestion"class="btn btn-primary btn-sm btn-danger" type="button" style="font-weight: bold;"><i class="fas fa-plus-circle" style="width: 27px;"></i>ADD QUESTION</button><button class="btn btn-primary btn-sm" type="submit" id="addExam" style="font-weight: bold;margin-left: 15px;"><i class="fas fa-pen-alt" style="width: 27px;"></i>CREATE EXAM</button>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="autoCreateExam">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-4">Create Exam</h3>
+                        <div class="row mb-3">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-12 offset-lg-3">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Import .csv File</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <form id="importCSVForm" action="" method="POST" enctype="multipart/form-data">
+                                                    <div class="row">
+                                                        <div class="col-xl-8 offset-xl-2">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Select .csv file</strong><br></label><input class="form-control" type="file" id="fileCSV" name="importcsv"></div>
+                                                        </div>
+                                                    </div>
+                                                <button class="btn btn-primary btn-sm" type="submit" style="font-weight: bold;margin-left: 0px;" id="importFile"><i class="fas fa-file-import" style="width: 27px;"></i>IMPORT FILE</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 offset-lg-3">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Exam Details</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <form id="autoCreateExam-form">
+                                                    <div class="row">
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Category</strong></label><select class="form-select" id="category">
+                                                                <optgroup label="Exam Categories" id="examcategories">
+                                                                    <option value="" selected>Select Exam Category</option>
+                                                                    {{#categoryOptions}}
+                                                                    <option value="{{category}}">{{category}}</option>
+                                                                    {{/categoryOptions}}
+                                                                </optgroup>
+                                                                </select></div>
+                                                        </div>
+                                                        <div class="col-xl-6">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Subject</strong></label><select class="form-select" id="subject">
+                                                                <optgroup label="Exam Subject" id="examsubjects">
+                                                                    <option value="" selected>Select Exam Subject</option>
+                                                                </optgroup>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xl-6 offset-xl-3">
+                                                            <div class="mb-3"><label class="form-label" for="username"><strong>Exam Level</strong><br></label><select class="form-select" id="level">
+                                                                <optgroup label="Exam Level" id="examlevels">
+                                                                    <option value="" id="opt1" selected >Select Exam Level</option>
+                                                                    <option value="1" id="opt2">Level 1 - Easy</option>
+                                                                    <option value="2" id="opt3">Level 2 - Average</option>
+                                                                    <option value="3" id="opt4">Level 3 - Difficult</option>
+                                                                </optgroup>
+                                                            </select></div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-primary btn-sm" type="submit" style="font-weight: bold;margin-left: 0px;"><i class="fas fa-pen-alt" style="width: 27px;"></i>CREATE EXAM</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="createdExams">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-dark mb-0">Created Exams</h3><a id="createExam-btn"class="btn btn-primary btn btn-primary btn-sm d-none d-sm-inline-block" type="button" href="#/createExam"><i class="fas fa-pencil-alt" style="margin-right: 10px;"></i>Create Exam</a>
+                        </div>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">List of Created Exams</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Exam Code</th>
+                                                <th>Category&nbsp;</th>
+                                                <th>Subject</th>
+                                                <th>Level</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#createdExams}}
+                                            <tr>
+                                                <td>{{num}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{category}}</td>
+                                                <td>{{subject}}</td>
+                                                <td>{{level}}</td>
+                                                <td><a class="btn-editExam btn btn-primary btn-success" type="button" href="#/editExam"><i class="fas fa-edit"></i></a></td>
+                                                <td><button class="btn-deleteExam btn btn-primary btn-danger" type="button" delID={{uid}}><i class="fas fa-trash-alt"></i></button></td>
+                                            </tr>
+                                            {{/createdExams}}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr></tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="viewCategories">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-dark text-dark mb-0">Exam Categories</h3><button class="btn btn-primary btn-sm d-none d-sm-inline-block" id="addCategory" type="button" data-bs-toggle="modal" data-bs-target="#addCategoryModal"><i class="fas fa-plus-circle" style="margin-right: 10px;"></i>Add Category</button>
+                        </div>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">List of Categories</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Category Code</th>
+                                                <th>Category Name</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#tableRecords}}
+                                            <tr>
+                                                <td>{{num}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{category}}</td>
+                                                <td><button class="btn-edit btn btn-primary btn-success" id="editCategory" type="button" data-bs-toggle="modal" data-bs-target="#editCategoryModal" editID={{uid}}><i class="fas fa-edit"></i></button></td>
+                                                <td><button class="btn-delete btn btn-primary btn-danger" type="button" id="deleteCategory" delID={{uid}}><i class="fas fa-trash-alt"></i></button></td>
+                                            </tr>
+                                            {{/tableRecords}}
+                                        </tbody>
+                                    </table>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" role="dialog" tabindex="-1" id="addCategoryModal">
+                    <div class="modal-dialog" role="document">
+                        <form id="addCategorymodal-form">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="color: var(--bs-primary);">Add Exam Category</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <div>
+                                            <div class="col-lg-11 offset-xl-0"><label class="col-form-label" style="color: var(--bs-dark);font-weight: bold;">Category Name</label></div>
+                                            <div class="col-lg-11 offset-lg-0 offset-xl-0 w-100"><input type="text" id="category" class="form-control" placeholder="Category Name"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit" id="addCategorybtn">Add</button></div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal fade" role="dialog" tabindex="-1" id="editCategoryModal">
+                    <div class="modal-dialog" role="document">
+                        <form id="editCategoryModal-form">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="color: var(--bs-primary);">Edit Exam Category</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <div>
+                                            <div class="col-lg-11 offset-xl-0"><label class="col-form-label" style="color: var(--bs-dark);font-weight: bold;">New Category Name</label></div>
+                                            <div class="col-lg-11 offset-lg-0 offset-xl-0"><input type="text" id="newCategory" class="form-control" placeholder="New Category Name" name="newCategory"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit" id="saveNewCategory">Save</button></div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="viewSubjects">
+    <div id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                            <h3 class="text-dark mb-0">Exam Subjects</h3><button class="btn btn-primary btn-sm d-none d-sm-inline-block" id="addSubject" type="button" data-bs-toggle="modal" data-bs-target="#addSubjectModal"><i class="fas fa-plus-circle" style="margin-right: 10px;"></i>Add Subject</button>
+                        </div>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">List of Subjects</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Code</th>
+                                                <th>Subject</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                            {{#tableRecords}}
+                                            <tr>
+                                                <td>{{num}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{subject}}</td>
+                                                <td><button class="btn-edit btn btn-primary btn-success" id="editSubeject" type="button" data-bs-toggle="modal" data-bs-target="#editSubjectModal" editID ={{id}}><i class="fas fa-edit"></i></button></td>
+                                                <td><button class="btn-delete btn btn-primary btn-danger" type="button" id="deleteCategory" delID={{id}}><i class="fas fa-trash-alt"></i></button></td>
+                                            </tr>
+                                            {{/tableRecords}}
+                                        </tbody>
+                                        
+                                
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" role="dialog" tabindex="-1" id="addSubjectModal">
+                    <div class="modal-dialog" role="document">
+                        <form id="addSubjectModal-form">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="color: var(--bs-primary);">Add Subject</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <div><label class="form-label" style="border-color: var(--bs-dark);color: var(--bs-dark);font-weight: bold;">Subject for</label></div>
+                                    </div>
+                                    <div class="col"><select class="form-select" id="subjectCategory" name="category">
+        <optgroup label="Exam Category" id="examcategories">
+            <option value="" selected>Select Category</option>
+            {{#categoryOptions}}
+            <option value={{uid}}>{{category}}</option>
+            {{/categoryOptions}}
+        </optgroup>
+    </select></div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-lg-12">
+                                        <div><label class="form-label" style="border-color: var(--bs-dark);color: var(--bs-dark);font-weight: bold;">Subject Name</label></div>
+                                    </div>
+                                    <div class="col"><input type="text" id="subjectName" class="form-control" placeholder="Subject Name"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit" id="addSubjectbtn">Add</button></div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+                <div class="modal fade" role="dialog" tabindex="-1" id="editSubjectModal">
+                    <div class="modal-dialog" role="document">
+                        <form id="editSubjectModal-form">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" style="color: var(--bs-primary);">Edit Subject</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div><label class="form-label" style="border-color: var(--bs-dark);color: var(--bs-dark);font-weight: bold;">New Subject Name</label></div>
+                                    </div>
+                                    <div class="col"><input type="text" id="newSubject" class="form-control" placeholder="New Subject Name"></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Save</button></div>
+                        </div>
+                        </form>
+                    </div>
+                   
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </div>
+</script>
+
+<script type="text/template" id="viewExaminees">
+    <body id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-4">Examinees</h3>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Examinee Info</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>User ID</th>
+                                                <th>Name</th>
+                                                <th>Address</th>
+                                                <th>Birthdate</th>
+                                                <th>Email</th>
+                                                <th>Contact no.</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{#examinees}}
+                                            <tr>
+                                                <td>{{num}}</td>
+                                                <td>{{uid}}</td>
+                                                <td>{{name}}</td>
+                                                <td>{{address}}</td>
+                                                <td>{{birthday}}<br></td>
+                                                <td>{{email}}</td>
+                                                <td>{{contact}}</td>
+                                            </tr>
+                                            {{/examinees}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </body>
+</script>
+
+<script type="text/template" id="viewSummaryScores">
+    <body id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-4">Summary of Scores</h3>
+                        <div class="card shadow">
+                            <div class="card-header py-3">
+                                <p class="text-primary m-0 fw-bold">Examinee Scores</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                    <table class="table my-0" id="dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Exam Name</th>
+                                                <th>Score</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Airi Satou</td>
+                                                <td>JavaScript 1</td>
+                                                <td>95</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Angelica Ramos</td>
+                                                <td>MySQL 1</td>
+                                                <td>79</td>
+                                                <td>Failed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ashton Cox</td>
+                                                <td>PHP 2</td>
+                                                <td>70</td>
+                                                <td>Failed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bradley Greer</td>
+                                                <td>HTML 1</td>
+                                                <td>79</td>
+                                                <td>Failed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Brenden Wagner</td>
+                                                <td>JavaScript 1</td>
+                                                <td>89</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Brielle Williamson</td>
+                                                <td>JavaScript 1</td>
+                                                <td>90</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bruno Nash<br></td>
+                                                <td>HTML 1</td>
+                                                <td>80</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Caesar Vance</td>
+                                                <td>HTML 1</td>
+                                                <td>80</td>
+                                                <td>Passed</td>
+                                            </tr>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr></tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </body>
+</script>
+
+<script type="text/template" id="examSettings">
+    <body id="page-top">
+        <div id="wrapper">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+                <div class="container-fluid d-flex flex-column p-0"><a id="creatorDashboard-logo" class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#/creatorDashboard">
+                        <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-laugh-wink" style="width: 16px;"></i></div>
+                        <div class="sidebar-brand-text mx-3"><span style="font-size: 40px;">LEX</span></div>
+                    </a>
+                    <hr class="sidebar-divider my-0">
+                    <ul class="navbar-nav text-light" id="accordionSidebar">
+                        <li class="nav-item">
+                            <a id="creatorDashboard" class="nav-link active" href="#/creatorDashboard"><i class="fas fa-tachometer-alt" style="font-size: 16px;"></i><span>Dashboard</span></a>
+                            <a id="createExam" class="nav-link active" href="#/createExam"><i class="fa fa-pencil" style="font-size: 16px;"></i><span>Create Exam</span></a>
+                            <a id= "createdExams" class="nav-link active" href="#/createdExams"><i class="fa fa-list-ol" style="font-size: 16px;"></i><span>View Created Exams</span></a>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-briefcase" style="font-size: 16px;"></i><span>Manage Category</span></a>
+                                <div class="dropdown-menu bg-light" style="background: var(--bs-light);"><a id="categories" class="dropdown-item" href="#/categories" style="color: var(--bs-dark);font-weight: bold;">View Category</a></div>
+                            </div>
+                            <div class="nav-item dropdown"><a class="dropdown-toggle nav-link active" aria-expanded="false" data-bs-toggle="dropdown" href="#" style="font-weight: bold;"><i class="fa fa-th-list" style="font-size: 16px;"></i><span>Manage Subject</span></a>
+                                <div class="dropdown-menu bg-light"><a id="subjects" class="dropdown-item" href="#/subjects" style="color: var(--bs-dark);font-weight: bold;">View Subject</a></div>
+                            </div>
+                            <a id="examinees" class="nav-link active" href="#/examinees"><i class="fas fa-child" style="font-size: 16px;"></i><span>View Examinees</span></a>
+                            <a id="scores" class="nav-link active" href="#/scores"><i class="fas fa-medal" style="font-size: 16px;"></i><span>View Summary of Scores</span></a>
+                        </li>
+                    </ul>
+                    <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                </div>
+            </nav>
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
+                        <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                            <ul class="navbar-nav flex-nowrap ms-auto">
+                                <li class="nav-item dropdown no-arrow">
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="d-none d-lg-inline me-2 text-gray-600 small">Exam Creator</span><img class="border rounded-circle img-profile" src="../assets/img/avatars/avatar5.jpeg"></a>
+                                        <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a id="updateProfile" class="dropdown-item" href="#/creatorProfile"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" id="settings" href="#/examSettings"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a>
+                                            <div class="dropdown-divider"></div><a id="logout" class="dropdown-item" href="#/logout"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-4">Exam Settings</h3>
+                        <div class="row mb-3">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-lg-12 offset-lg-3">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 fw-bold">Exam Settings</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <form id="examSettings-form">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-xl-5 col-xxl-4 offset-xl-1 offset-xxl-2">
+                                                            <div class="mb-3"><label class="form-label" style="color: var(--bs-success);"><strong>No. of Items for Level 1 - Easy</strong><br></label><input class="form-control" type="number" id="numOfItems1" placeholder="No. of Items" name="numOfItems1"></div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-xl-5 col-xxl-4">
+                                                            <div class="mb-3"><label class="form-label" style="color: var(--bs-warning);"><strong>No. of Items for Level 2 - Average</strong><br></label><input class="form-control" type="number" id="numOfItems2" placeholder="No. of Items" name="numOfItems2"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-xl-5 col-xxl-4 offset-xl-1 offset-xxl-2">
+                                                            <div class="mb-3"><label class="form-label" for="username" style="color: var(--bs-danger);"><strong>No. of Items for Level 3 - Difficult</strong><br></label><input class="form-control" type="number" id="numOfItems3" placeholder="No. of Items" name="numOfItems3"></div>
+                                                        </div>
+                                                        <div class="col-sm-6 col-lg-6 col-xl-5 col-xxl-4">
+                                                            <div class="mb-3"><label class="form-label"><strong>Passing Grade for each Exam Taken</strong><br></label><input class="form-control" type="number" id="passingGrade" placeholder="Passing Grade" name="passingGrade"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3"><button class="btn btn-primary btn-sm btn-primary" type="submit" style="font-weight: bold;"><i class="fa fa-gear" style="width: 27px;"></i>SAVE SETTINGS</button></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <footer class="bg-white sticky-footer">
+                    <div class="container my-auto">
+                        <div class="text-center my-auto copyright"><span>Copyright © Brand 2022</span></div>
+                    </div>
+                </footer>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+    </body>
+</script>
