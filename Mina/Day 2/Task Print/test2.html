@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Sign Up</title>
+    <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+<body>
+    <div class="jumbotron">
+        <h1 class="text-center">Sign Up</h1>
+        <div style="padding-left: 40% ;">
+        <form class="text-left" id="forms">
+            <div style = "padding-top: 1%;"><label >Full name </label></div>
+            <div><input type="text" placeholder="(Surname, Firstname, M.)" id = "name"></div>
+            <div style = "padding-top: 1%;"><label >Email</label></div>
+            <div><input type="text" placeholder="juandelazruz@exampl.com" id = "email"></div>
+            <div style = "padding-top: 2%;"><label >Address</label></div>
+            <div ><input  type="text" placeholder="Address" id = "address"></div>
+            <div style = "padding-top: 2%;"><label >Birthday</label></div>
+            <div ><input  type="text" placeholder="01/01/2000" id = "birthday"></div>
+            <div style = "padding-top: 2%;"><label  >Contact Number</label></div>
+            <div ><input  type="text" placeholder="09123456789" id = "contactnumber"></div>
+            <div style = "padding-top: 2%;"><label  >Username</label></div>
+            <div ><input  type="text" placeholder="Enter Username" id = "username"></div>
+            <div style = "padding-top: 2%;"><label >Password</label></div>
+            <div ><input  type="password" placeholder="Enter Password" id = "password"></div>
+            <div style="padding-top: 3%;padding-left: 9%;">
+            <button type ="button" onclick="getinfo()"> Sign Up</button></div>
+            <div style="padding-top: 3%; padding-left: 2%; ">
+                <label id = "insert"> </label></div>
+            </div>
+            <script>
+                var age =0;
+                var user = [];
+                function getinfo(){
+                    var name = document.getElementById("name").value;
+                    console.log(name);
+                    var email = document.getElementById("email").value;
+                    console.log(email);
+                    var address = document.getElementById("address").value;
+                    console.log(address);
+                    var birthday = document.getElementById("birthday").value;
+                    console.log(birthday);
+                    var contactnumber = document.getElementById("contactnumber").value;
+                    console.log(contactnumber);
+                    var username = document.getElementById("username").value;
+                    console.log(username);
+                    var password = document.getElementById("password").value;
+                    console.log(password);       
+                    
+                    var message1 = "";
+                    var message2 = "";
+                    if (name==""||email==""||address==""||birthday==""||contactnumber==""||username==""||password==""){
+                        message1 = "Incomplete Details"
+                    }
+                    //number only error
+                    if (isNaN(contactnumber)==true){
+                        message2 = "Invalid Number"
+                    }
+                    
+                    //complete or not complete
+                    if (message1==""&&message2==""){
+                        user["name"] = name;
+                        user["email"] = email;
+                        user["address"] = address;
+                        user["birthday"] = birthday; 
+                        user["age"] = age;
+                        user["cnumber"] = contactnumber;
+                        user["username"] = username; 
+                        user["password"] = password;
+                        var magic = document.getElementById("insert"); 
+                        magic.innerHTML= "      Your Info:<br>Name: "+ name +"<br>Email: "+ email +"<br>Address: "+ address +"<br>Birthday: "+ birthday +"<br>Contact Number: "+ contactnumber + "<br>Username: "+ username +"<br>Password: "+ password  ;
+                        return user;
+                        }
+                    else{
+                        alert("         "+message1 + "\n"+ "        "+message2)
+                    }
+                    
+                }
+
+                function getAge(){
+                    var dob = new Date(birthday);
+                    //calculate month difference from current date in time
+                    var month_diff = Date.now() - dob.getTime();
+                    var age_dt = new Date(month_diff); 
+                    var year = age_dt.getUTCFullYear();
+                    age = Math.abs(year - 1970);
+                    }
+                console.log(user)
+                console.log(getAge(birthday));
+            </script>
+        </form>
+    </div>
+    <script>
+        
+                            
+</script>
+
+    </div>
+</body>
+</html>
