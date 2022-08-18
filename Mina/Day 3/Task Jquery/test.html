@@ -8,6 +8,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+      
     </head>
 <body>
     <div class="jumbotron">
@@ -29,46 +30,21 @@
             <div style = "padding-top: 2%;"><label >Password</label></div>
             <div ><input  type="password" placeholder="Enter Password" id = "password"></div>
             <div style="padding-top: 3%;padding-left: 9%;">
-            <button type ="button" onclick="getinfo()"> Sign Up</button></div>
+            <button type ="button"> Sign Up</button></div>
             <div style="padding-left: 5%;">
                 <label id = "insert"> </label></div>
             </div>
             <script>
                 var alluser = [];
-                var name = ""
-                var email = ""
-                var address = ""
-                var birthday = ""
-                var contactnumber = "" 
-                var username = ""
-                var password = ""
-                var age = ""
-                function validateForm() {
-                let x = document.forms["myform"]["fname"].value;
-                if (x == "") {
-                    alert("Name must be filled out");
-                    return false;
-                }
-                }
-                function getinfo(){
-                    name = document.getElementById("name").value;
-                    console.log(name);
-                    email = document.getElementById("email").value;
-                    console.log(email);
-                    address = document.getElementById("address").value;
-                    console.log(address);
-                    birthday = document.getElementById("birthday").value;
-                    console.log(birthday);
-                    contactnumber = document.getElementById("contactnumber").value;
-                    console.log(contactnumber);
-                    username = document.getElementById("username").value;
-                    console.log(username);
-                    password = document.getElementById("password").value;
-                    console.log(password);
-                    
-                    
-                    //empty error
-                    var message1 = ""
+                var name = "";
+                var email = "";
+                var address = "";
+                var bday = "";
+                var contactnumber = "" ;
+                var username = "";
+                var password = "";
+                var age = "";
+                var message1 = ""
                     var message2 = ""
                     var message3 = ""
                     var message4 = ""
@@ -77,8 +53,19 @@
                     var pwd_expression = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/;
                     var letters = /^[A-Za-z]+$/;
                     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                function getage(bday){
+                    var dob = new Date(bday);
+                    var month_diff = Date.now() - dob.getTime();
+                    var age_dt = new Date(month_diff); 
+                    var year = age_dt.getUTCFullYear();
+                    age = Math.abs(year - 1970);
+                    return age;
+                }
 
-                    if (name==""||email==""||address==""||birthday==""||contactnumber==""||username==""||password==""){
+                function validation (name,email,address,bday,contactnumber,username,password){
+                    
+
+                    if (name==""||email==""||address==""||bday==""||contactnumber==""||username==""||password==""){
                         message1 = "Incomplete Details"
                     }
                     //number only error
@@ -103,21 +90,6 @@
                     }
                     //complete or not complete
                     if (message1==""&&message2==""&&message3==""&&message4==""&&message5==""&&message6==""){
-                        //save to an array
-                        var user = [];
-                        user.name = name;
-                        user.email = email;
-                        user.address = address;
-                        user.birthday = birthday; 
-                        user.age = getage(birthday);
-                        user.cnumber = contactnumber;
-                        user.username = username; 
-                        user.password = password;
-                        console.log(user);
-                        alluser.push(user);
-                        console.log(alluser);
-                        var magic = document.getElementById("insert"); 
-                        magic.innerHTML= "      Your Info:<br>Name: "+ name +"<br>Email: "+ email +"<br>Address: "+ address +"<br>Birthday: "+ birthday +"<br>Age: "+ getage(birthday)+"<br>Contact Number: "+ contactnumber + "<br>Username: "+ username +"<br>Password: "+ password  ;
                         
                         var erase = document.getElementsByTagName("input")
                         erase.innerHTML = ""; 
@@ -125,25 +97,27 @@
                     else{
                         alert("         "+message1 + "\n"+ "        "+message2+ "\n"+ "        "+message3+ "\n"+ "        "+message4+ "\n"+ "        "+message5+ "\n"+ "        "+message6)
                     }
-                    
                 }
-                function getage(birthday){
-                    var dob = new Date(birthday);
-                    var month_diff = Date.now() - dob.getTime();
-                    var age_dt = new Date(month_diff); 
-                    var year = age_dt.getUTCFullYear();
-                    age = Math.abs(year - 1970);
-                    return age;
-                }
+
+                $(document).ready(function(){
+                    $("button").click(function(){
+                         name = $("#name").val();
+                         email = $("#email").val();
+                         address = $("#address").val();
+                         bday = $("#birthday").val();
+                         contactnumber = $("#contactnumber").val();
+                         username = $("#username").val();
+                         password = $("#password").val();
+                        
+                         validation(name,email,address,bday,contactnumber,username,password);
+
+                         console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ bday +"\nAge: "+ getage(bday)+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password);
+                    });
+                    });
             </script>
         </form>
     </div>
-    <div> 
-       
-    </div>
-    </div>
-<script>
-     
-</script>
+   
+    
 </body>
 </html>

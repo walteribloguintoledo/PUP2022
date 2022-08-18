@@ -29,7 +29,7 @@
             <div style = "padding-top: 2%;"><label >Password</label></div>
             <div ><input  type="password" placeholder="Enter Password" id = "password"></div>
             <div style="padding-top: 3%;padding-left: 9%;">
-            <button type ="button" onclick="getinfo()"> Sign Up</button></div>
+            <button type="submit" class="signupbtn" > Sign Up</button></div>
             <div style="padding-top: 3%; padding-left: 2%; ">
                 <label id = "insert"> </label></div>
             </div>
@@ -90,7 +90,9 @@
                     var year = age_dt.getUTCFullYear();
                     age = Math.abs(year - 1970);
                     }
-                console.log(user)
+                var newuser = document.getElementsByTagName("input");
+
+                console.log(newuser);
                 console.log(getAge(birthday));
             </script>
         </form>
