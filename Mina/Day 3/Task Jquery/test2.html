@@ -1,88 +1,128 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
-    <style type="text/css">
-        body
-        {
-            font: 400 11px/15px "Trebuchet MS",Verdana,Helvetica,Arial,sans-serif;
-        }
-        .filterlist
-        {
-            list-style-type: none;
-            margin: 0px;
-            padding: 0px;
-            border: 1px solid #7F9DB9;
-            width: 99%;
-            overflow: hidden;
-        }
-        .filterlist li
-        {
-            float: left;
-        }
-        .filterlist li input
-        {
-            border: none 0px;
-            width: auto;
-            padding-left: 2px;
-        }
-        .filterlist div.item
-        {
-            border: 1px solid #ccc;
-            background-color: #ececec;
-            margin: 2px;
-            padding: 0px 0px 0px 4px;
-        }
-        .filterlist div.item span
-        {
-            display: inline-block;
-        }
-        .filterlist div.item a
-        {
-            background: transparent url(images/delete.gif) no-repeat;
-            font-size: 10px;
-            margin-left: 3px;
-            padding: 4px 6px 1px 8px;
-            text-decoration: none;
-            color: red;
-        }
-    </style>
-    <script type="text/javascript">
-        var cnt = 1;
-        $(document).ready(function() {
-            $("#txtValue").keypress(function(e) {
-                //alert(e.keyCode);
-                if (e.keyCode == 13) {
-                    var txtbox = $('#txtValue');
-                    if (txtbox.val() == "") // You can include the validations here
-                        return false;
-                    $('#fltxtbox').before($('<li id="listItem' + cnt + '"><div class="item"><span>' + txtbox.val() + '</span><a href="javascript:RemoveItem(\'listItem' + cnt + '\');">X</a></div></li>'));
-                    txtbox.val('');
-                    cnt++;
-                    return false;
-                }
-            });
-            $('ul.filterlist').click(function() {
-                $('#txtValue').focus();
-            });
-        });
-        function RemoveItem(id) {
-            $('#' + id).remove();
-        }
+<!DOCTYPE html>
+  <html>
+  <head>
+  <title>Welcome To Registration Form</title>
+  </head>
+
+	<body>
+	<!-- Main div code -->
+	<div id="main">
+	<div class="h-tag">
+	<h2>Create Your Account</h2>
+	</div>
+	<!-- create account div -->
+	<div class="login">
+	<table cellspacing="2" align="center" cellpadding="8" border="0">
+	<tr>
+	<td align="right">Enter Name :</td>
+	<td><input type="text" placeholder="Enter user here" id="t1" class="tb" /></td>
+	</tr>
+	<tr>
+	<td align="right">Enter Email ID :</td>
+	<td><input type="text" placeholder="Enter Email ID here" id="t2" class="tb" /></td>
+	</tr>
+	<tr>
+	<td align="right">Enter Username :</td>
+	<td><input type="text" placeholder="Enter Username here" id="t3" class="tb" /></td>
+	</tr>
+	<tr>
+	<td align="right">Enter Password :</td>
+	<td><input type="password" placeholder="Enter Password here" id="t4" class="tb" /></td>
+	</tr>
+	<tr>
+	<td align="right">Enter Confirm Password :</td>
+	<td><input type="password" placeholder="Enter Password here" id="t5" class="tb" /></td>
+	</tr>
+	<tr>
+	<td></td>
+	<td>
+	<input type="reset" value="Clear Form" onclick="clearFunc()" id="res" class="btn" />
+	<input type="submit" value="Create Account" class="btn" onclick="registration()" /></td>
+	</tr>
+	</table>
+	</div>
+	<!-- create account box ending here.. -->
+	</div>
+	<!-- Main div ending here... -->
+	</body>
+    <script>
+        function registration()
+	{
+
+		var name= document.getElementById("t1").value;
+		var email= document.getElementById("t2").value;
+		var uname= document.getElementById("t3").value;
+		var pwd= document.getElementById("t4").value;			
+		var cpwd= document.getElementById("t5").value;
+		
+        //email id expression code
+		var pwd_expression = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/;
+		var letters = /^[A-Za-z]+$/;
+		var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+		if(name=='')
+		{
+			alert('Please enter your name');
+		}
+		else if(!letters.test(name))
+		{
+			alert('Name field required only alphabet characters');
+		}
+		else if(email=='')
+		{
+			alert('Please enter your user email id');
+		}
+		else if (!filter.test(email))
+		{
+			alert('Invalid email');
+		}
+		else if(uname=='')
+		{
+			alert('Please enter the user name.');
+		}
+		else if(!letters.test(uname))
+		{
+			alert('User name field required only alphabet characters');
+		}
+		else if(pwd=='')
+		{
+			alert('Please enter Password');
+		}
+		else if(cpwd=='')
+		{
+			alert('Enter Confirm Password');
+		}
+		else if(!pwd_expression.test(pwd))
+		{
+			alert ('Upper case, Lower case, Special character and Numeric letter are required in Password filed');
+		}
+		else if(pwd != cpwd)
+		{
+			alert ('Password not Matched');
+		}
+		else if(document.getElementById("t5").value.length < 6)
+		{
+			alert ('Password minimum length is 6');
+		}
+		else if(document.getElementById("t5").value.length > 12)
+		{
+			alert ('Password max length is 12');
+		}
+		else
+		{				                            
+               alert('Thank You for Login & You are Redirecting to Campuslife Website');
+			   // Redirecting to other page or webste code. 
+			   window.location = "http://www.campuslife.co.in"; 
+		}
+	}
+	function clearFunc()
+	{
+		document.getElementById("t1").value="";
+		document.getElementById("t2").value="";
+		document.getElementById("t3").value="";
+		document.getElementById("t4").value="";
+		document.getElementById("t5").value="";
+	}
+
     </script>
-</head>
-<body>
-    <form id="form1">
-    <div>
-        <ul class="filterlist">
-            <li id="fltxtbox">
-                <div>
-                    <input id="txtValue" type="text" />
-                </div>
-            </li>
-        </ul>
-    </div>
-    </form>
-</body>
-</html>
+	</html>

@@ -1,39 +1,22 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
 
-
-<script type="text/javascript">
-
-    function formSubmit() {
-
-        document.getElementById("form1").submit();
-
+</head>
+<body>
+</body>
+<script>
+  var array = [{name:"edward",age:"15"},{name:"diane",age:"14"},{name:"john",age:"18"},{name:"mare",age:"15"}];
+  var search = "15";
+  for (var i= 0; i < array.length; i++) {
+    for(var y in array[i]){
+      if(array[i][y] == search){
+        for(var w in array[i]){
+          document.write(w + ": " + array[i][w]+"<br>")
+        }
+      }
     }
 
-
+  }
 </script>
-
-</head>
-
-<body>
-
-<p>Enter some text in the fields below, then press the "Submit form" button to submit the form.</p>
-
-
-<form id="form1" action="default.aspx">
-
-Enter First name: <input type="text" name="fname" /><br />
-
-Enter Last name: <input type="text" name="lname" /><br /><br />
-
-<input type="button" onclick="formSubmit()" value="Submit form" />
-
-
-</form>
-
-</body>
-
 </html>
