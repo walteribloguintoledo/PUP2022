@@ -79,13 +79,6 @@
     var password = ""
     var cpassword = ""
     var age = ""
-    function validateForm() {
-    let x = document.forms["myform"]["fname"].value;
-    if (x == "") {
-        alert("Name must be filled out");
-        return false;
-    }
-    }
     function validation(username,name,email,address,birthday,contactnumber,password,cpassword){
         if (username==null||username==""){
             message1 = "Please Type Username"
@@ -152,6 +145,7 @@
         }
         return message1;
     }
+    
     function getinfo(){
         username = document.getElementById("username").value;
         name = document.getElementById("name").value;
