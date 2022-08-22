@@ -18,7 +18,7 @@
                 <label  >Username or Email</label>
             </div>
             <div >
-                <input style = "padding-right: 8%;" type="text" placeholder="Enter Username/email" id = "login">
+                <input style = "padding-right: 8%;" type="text" placeholder="Enter Username/email" id = "user">
             </div>
             <div style = "padding-top: 2%;">
                 <label >Password</label>
@@ -32,7 +32,7 @@
             </div>
 
             <div  style="padding-left: 10%; padding-top: 1%;">
-                <button  type="submit" value="Login" onclick="validate()"> Log In</button>
+                <button  type="submit" value="Login" id ="login"> Log In</button>
             </div>
         </form>
     </div>
@@ -41,8 +41,24 @@
     const str = localStorage.getItem("alluser");
     const parsedArr = JSON.parse(str);
     console.log(parsedArr);
-    function validate(){
+    $("#login").click(function(){
+         var search =  $("#user").val();
+         var pass =  $("#password").val();
         
-    }
+        for (var i= 0; i < parsedArr.length; i++) {
+            if(parsedArr[i]["username"] == search||parsedArr[i]["email"] == search){
+                console.log("Confirm");
+                if(parsedArr[i]["password"] == pass){
+                    alert("Your Log-in is successfull!!! \n Welcome, "+ parsedArr[i]["name"]);
+                }
+                else{
+                    alert("Incorrect username/email or password\n Please Try Again!")
+                }
+            }
+            
+        }
+        
+
+    });
 </script>
 </html>

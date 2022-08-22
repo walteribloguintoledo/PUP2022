@@ -56,14 +56,33 @@
                     <button class="capitalize" type ="button" onclick="searchinfo()" id = "searches"> Search </button>
                 </div>
                 <div style="padding-left: 5%;">
-                    <div><label id = "insertuser"> </label></div>
-                    <div><label id = "insertname"> </label></div>
-                    <div><label id = "insertemail"> </label></div>
-                    <div><label id = "insertaddres"> </label></div>
-                    <div><label id = "insertbday"> </label></div>
-                    <div><label id = "insertcnum"> </label></div>
-                    <div><label id = "insertpass"> </label></div>
-                    <div><label id = "insertcpass"> </label></div>
+                    <div>
+                        <label id = "insertuser"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertname"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertemail"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertaddres"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertbday"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertage"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertcnum"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertpass"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertcpass"> </label>
+                    </div>
 
                 </div>
                 
@@ -74,6 +93,12 @@
 </body>
 <script>
     var alluser = [];
+    //recall info in Local Storage
+    var str = localStorage.getItem("alluser");
+    var parsedArr = JSON.parse(str);
+    alluser = parsedArr
+    console.log(alluser)    
+
     var name = "";
     var email = "";
     var address = "";
@@ -86,8 +111,8 @@
     var pwd_expression = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/;
     var letters = /^[A-Za-z]+$/;
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    var alluser = [];
     var message1 = "";
+    var message2 = "";
     var display = "";
     
 
@@ -101,7 +126,7 @@
     }
 
     function validation(username,name,email,address,birthday,contactnumber,password,cpassword){
-
+        message1 ="";
         if (username==null||username==""){
             message1 = "Please Type Username"
         }
@@ -180,9 +205,10 @@
              password = $("#password").val();
              cpassword = $("#cpassword").val();
         });
-        validation(username,name,email,address,bday,contactnumber,password,cpassword);        
-            if (message1==""){
-                console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ bday +"\nAge: "+ getage(bday)+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password+"\nPassword Confirmation: "+ cpassword);
+        validation(username,name,email,address,bday,contactnumber,password,cpassword);
+        checker(username, email);        
+            if (message1==""&&message2==""){
+                console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ getage(bday) +"\nAge: "+ age+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password+"\nPassword Confirmation: "+ cpassword);
                 var user = {};
             user.username = username; 
             user.name = name;
@@ -200,40 +226,98 @@
             $("#insertemail").text("Email: "+ email);
             $("#insertaddres").text("Address: "+ address);
             $("#insertbday").text("Birthday: "+ bday);
+            $("#insertage").text("Age: "+ age);
             $("#insertcnum").text("Contact Number: "+ contactnumber);
             $("#insertpass").text("Password: "+ password);
 
+            
             // Save to Local Storage
             const jsonArr = JSON.stringify(alluser);
             localStorage.setItem("alluser", jsonArr);
             
             }
             else{
-                    alert(message1);
+                    alert(message1+"\n"+message2);
                 }
         });
     }
     function searchinfo(){
         $("#searches").click(function(){
-         var search =  $("#search").val();
-         var match =  $("#insert").val();
-         console.log(search);
+        var search =  $("#search").val();
+        var match =  $("#insert").val();
         var matchuser = "";
+        var usernameinfo = "Username:   ";
+        var nameinfo = "Name:   ";
+        var emailinfo = "Email:     ";
+        var addressinfo = "Address: ";
+        var bdayinfo = "Birthday:   ";
+        var ageinfo = "Age:     ";
+        var contactinfo = "Contact Number: ";
+        var passinfo = "Password";
         for (var i= 0; i < alluser.length; i++) {
             for(var y in alluser[i]){
             if(alluser[i][y] == search){
                 for(var w in alluser[i]){
-                    matchuser = matchuser + "<br>" + w + ": " + alluser[i][w];
+                    if (w == "username"){
+                        usernameinfo += alluser[i][w] + ";      ";
+                        $("#insertuser").text(usernameinfo);
+                    }
+                    if (w == "name"){
+                        nameinfo += alluser[i][w] + ";      ";
+                        $("#insertname").text(nameinfo);
+                    }
+                    if (w == "email"){
+                        emailinfo += alluser[i][w] + ";      ";
+                        $("#insertemail").text(emailinfo);
+                    }
+                    if (w == "address"){
+                        addressinfo += alluser[i][w] + ";      ";
+                        $("#insertaddres").text(addressinfo);
+                    }
+                    if (w == "birthday"){
+                        bdayinfo += alluser[i][w] + ";      ";
+                        $("#insertbday").text(bdayinfo);
+                    }
+                    if (w == "age"){
+                        ageinfo += alluser[i][w] + ";      ";
+                        $("#insertage").text(ageinfo);
+                    }
+                    if (w == "cnumber"){
+                        contactinfo += alluser[i][w] + ";      ";
+                        $("#insertcnum").text(contactinfo);
+                    }
+                    if (w == "password"){
+                        passinfo += alluser[i][w] + ";      ";
+                        $("#insertpass").text(passinfo);
+                    }
                 }
-            }
-            else{
-                matchuser = "No Matched User";
             }
             }
         }
-        console.log("End")
-        $("#insertuser").text("Info: "+ matchuser);
+        
+
     });
+    }
+    function checker(username,email){ 
+        
+        const str = localStorage.getItem("alluser");
+        const parsedArr = JSON.parse(str);
+        console.log(parsedArr);
+        for (var i= 0; i < parsedArr.length; i++) {
+            message2 = "";
+            if(parsedArr[i]["username"] == username){
+                console.log("Confirm");
+                message2 += "That username is Already Taken \n" ;
+            }
+            if(parsedArr[i]["email"] == email){
+                console.log("Confirm");
+                message2 += "That email is already used \n" ;
+            }
+            
+        }
+
+        return message2;
+           
     }   
 </script>
 </html>
