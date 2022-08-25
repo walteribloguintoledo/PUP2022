@@ -94,8 +94,8 @@
 <script>
     var alluser = [];
     //recall info in Local Storage
-    var str = localStorage.getItem("alluser");
-    var parsedArr = JSON.parse(str);
+    var strAlluser = localStorage.getItem("alluser");
+    var parsedArr = JSON.parse(strAlluser);
     alluser = parsedArr
     console.log(alluser)    
 
@@ -130,7 +130,9 @@
         if (username==null||username==""){
             message1 = "Please Type Username"
         }
+       
         else{
+
             if(name==null||name==""){
                 message1 = "Please Type Name"
             }
@@ -142,10 +144,7 @@
                 if (email==null||email==""){
                     message1 = "Please Type email"
                 }
-                else if(!filter.test(email))
-                {
-                    message1 = 'Invalid email';
-                }
+                
                 else{
                     if(address==null||address==""){
                         message1 = "Please Type address"
@@ -206,7 +205,7 @@
              cpassword = $("#cpassword").val();
         });
         validation(username,name,email,address,bday,contactnumber,password,cpassword);
-        checker(username, email);        
+        //checker(username, email);        
             if (message1==""&&message2==""){
                 console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ getage(bday) +"\nAge: "+ age+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password+"\nPassword Confirmation: "+ cpassword);
                 var user = {};
@@ -308,6 +307,7 @@
             if(parsedArr[i]["username"] == username){
                 console.log("Confirm");
                 message2 += "That username is Already Taken \n" ;
+
             }
             if(parsedArr[i]["email"] == email){
                 console.log("Confirm");
@@ -315,7 +315,6 @@
             }
             
         }
-
         return message2;
            
     }   

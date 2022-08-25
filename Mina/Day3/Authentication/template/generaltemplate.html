@@ -1,0 +1,150 @@
+<!-- Home -->
+<script id="home" type="text/html">
+    <div class="jumbotron" style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp'); height: 100vh;">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">Mina Website</a>
+              </div>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href = "https://www.w3schools.com/html/default.asp" >About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href = "https://www.w3schools.com/html/default.asp" >Contact Us</a></li>
+              </ul>
+            </div>
+          </nav>
+        <h2 style="background-color:lavender;">
+            <h1 class="text-center" style = "color: rgb(255, 255, 255)");><strong>Day 1</strong></h1>
+              <div style="padding-left: 5% ; padding-right: 5%;color: rgb(255, 255, 255);">
+                <div style="background-color:rgba(133, 9, 174, 0.323)">
+            <p class = "Define"><h3 class="text-left">What Is HTML?</h3><br>
+                                The language used for the www is HTML (world wide web). HTML is a text formatting language that is used to construct and display web pages.<br>
+                        files consist of two things 1) tags and 2) content formatting it for proper display on pages. <span style="border: 1px Solid Black">Cascading Style Sheets (CSS) and scripting </span><br>
+                        languages like JavaScript can be used by technologies. Hypertext markup language (HTML) stands for hypertext markup language. HTML is also known as HTML <br>
+                        v 1.0.<br><br>
+                
+                          It is the fifth version of HTML 1.0, and it now supports more tags and functionalities. Technically, its HTML version is 5.0, however it is most commonly
+                    referred to as <b>HTML5</b>. The latest versions of browsers such as Safari, Opera, Chrome, and Firefox support all the features of HTML5. A web developer can 
+                    use HTML5 to develop photo sites, web forums, and advanced mapping applications. Hypertext Markup Language (HTML5) is another name for HTML5. 
+                    To Learn More. <br>
+                    <a href = "https://www.w3schools.com/html/default.asp">Click here.</a>
+            </p></div></div>
+            <div style="padding-left: 45%;">
+            <button type="button" class="btn btn-outline-dark btn-secondary btn-lg">Continue...</button>
+        </div>
+    </div>
+</script>
+
+<!-- Sign-In -->
+<script id="signin" type="text/html">
+    <div class="container">
+        <h1 class="text-center">Sign Up</h1>
+        <div class="col-lg">
+            <form name=myform class="text-left" id="forms">
+                
+                <div class="row">
+                    <label class="form-label" >Username:      </label>
+                    <input class="form-control" type="text" placeholder="Enter Username" id = "username">
+                </div>
+                <div class="row">
+                    <label class="form-label">Full name:      </label>
+                    <input class="form-control"  type="name" placeholder="(Surname, Firstname, M.)" id = "name">
+                </div>
+                <div class="row">
+                    <label class="form-label">Email:          </label>
+                    <input class="form-control" type="text" placeholder="juandelazruz@exampl.com" id = "email">
+                </div>
+                <div class="row">
+                    <label class="form-label">Address:        </label>
+                    <input class="form-control" type="text" placeholder="Address" id = "address">
+                </div>
+                <div class="row">
+                    <label class="form-label">Birthday:       </label>
+                    <input class="form-control"type="date" placeholder="01/01/2000" id = "birthday">
+                </div>
+                <div class="row">
+                    <label  class="form-label">Contact Number:</label>
+                    <input class="form-control" type="number" placeholder="09121456789" id = "contactnumber">
+                </div>
+                <div class="row">
+                    <label class="form-label">Password:       </label>
+                    <input class="form-control"type="password" placeholder="Enter Password" id = "password">
+                </div>
+                <div class="row">
+                    <label class="form-label">Confirm Password:</label>
+                    <input class="form-control" type="password" placeholder="Enter Password" id = "cpassword">
+                </div>
+                <div class="row">
+                    <button class="w-100 btn btn-primary btn-lg row"  type ="button" onclick="getinfo()"> Sign Up</button>
+                    
+                </div>
+                <div class="row">
+                    <label class="form-label">Search:</label>
+                    <input class="form-control" type="text" placeholder="Enter Information" id = "search">
+                    <button class="w-100 btn btn-primary btn-lg" type ="button" onclick="searchinfo()" id = "searches"> Search </button>
+                </div>
+                <div class="row">
+                    <div>
+                        <label id = "insertuser"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertname"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertemail"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertaddres"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertbday"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertage"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertcnum"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertpass"> </label>
+                    </div>
+                    <div>
+                        <label id = "insertcpass"> </label>
+                    </div>
+                </div>
+            </form>
+    </div>
+</script>
+
+<!-- Login -->
+<script id="login" type="text/html">
+    <div class="jumbotron">
+        <h1 class="text-center">Log In</h1>
+        <div style="padding-left: 40% ;">
+        <form class="text-left">
+            <div >
+                <label  >Username or Email</label>
+            </div>
+            <div >
+                <input style = "padding-right: 8%;" type="text" placeholder="Enter Username/email" id = "user"></input>
+            </div>
+            <div style = "padding-top: 2%;">
+                <label >Password</label>
+            </div>
+            <div >
+                <input style = "padding-right: 8%;"  type="password" placeholder="Enter Password" id = "password"></input>
+            </div>
+            <div style="padding-top: 2%;">
+                <a  href="#">Forgot Password?</a>
+                Click<a  href="#"> here </a> to sign-up
+            </div>
+  
+            <div  style="padding-left: 8%; padding-top: 1%;">
+                <button  type="submit" value="Login" id ="login"> Log In</button>
+                <button  type="submit" value="logout" id ="logout"> Log Out</button>
+            </div>
+            
+        </form>
+    </div>
+    </div>
+</script>

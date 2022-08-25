@@ -1,0 +1,32 @@
+<html>
+  <body onload="renderHello()">
+    <div id="target">Loading...</div>
+    <script id="template" type="x-tmpl-mustache">
+      Welcome {{ name }}!
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+    </ul>
+    <div class = "content1">
+        <h1>{{title}}</h1>
+        <p>{{text}}</p>
+    </div>
+    <div class = "content2">
+        <h2> {{title}} </h2>
+        <p> {{text}}</p>
+    </div>
+    <div class = "content3">
+        <h2> {{title}} </h2>
+        <p> {{text}}</p>
+    </div>
+    <div class = "content3">
+        <h2> {{title}} </h2>
+        <p> {{text}}</p>
+    </div>
+    </script>
+
+    <script src="https://unpkg.com/mustache@latest"></script>
+    <script src="render.js"></script>
+  </body>
+</html>

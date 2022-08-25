@@ -31,9 +31,11 @@
                 Click<a  href="#"> here </a> to sign-up
             </div>
 
-            <div  style="padding-left: 10%; padding-top: 1%;">
+            <div  style="padding-left: 8%; padding-top: 1%;">
                 <button  type="submit" value="Login" id ="login"> Log In</button>
+                <button  type="submit" value="logout" id ="logout"> Log Out</button>
             </div>
+            
         </form>
     </div>
     </div>
@@ -61,6 +63,15 @@
             
         }
         
+
+    });
+    $("#logout").click(function(){
+        //const str = localStorage.getItem("currentuser");
+        // const parsedArr = JSON.parse(str);
+        // var blank = "";
+        // const jsonArr = JSON.stringify(blank);
+        // localStorage.setItem("currentuser", jsonArr);
+        localStorage.removeItem('currentuser');
 
     });
 </script>

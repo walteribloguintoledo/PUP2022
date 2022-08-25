@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mustache and Path</title>
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<div id="canvas"></div>
+	</div>	
+</body>
+<script src="./js/jquery-1.9.0.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/jquery.mustache.js"></script>
+	<script src="./js/mustache-0.7.2.js"></script>
+	<script src="./js/path.min.js"></script>
+	<script type="text/javascript">
+        var App = {
+            url: "http://joshuamina/Day3/TaskJquery",
+            token: localStorage.getItem("token")
+        }
+        console.log(App.token);
+
+        $.Mustache.load('./template/generaltemplate.html').done(function () {
+            function clearPanel(){
+        // You can put some code in here to do fancy DOM transitions, such as fade-out or slide-in.
+            }
+            var viewData = localStorage.getItem(alluser)
+            Path.map("#/login").to(function(){             
+                    $('#canvas').mustache('login', viewData);
+            });
+
+            Path.map("#/sigin").to(function(){
+                $('#canvas').mustache('signin', viewData);
+            });
+
+            Path.map("#/home").to(function(){            
+                $('#canvas').mustache('home', viewData);
+                });
+            
+
+            Path.root("#/home");
+
+            Path.listen();
+
+        });
+
+
+
+	</script>
+</html>
