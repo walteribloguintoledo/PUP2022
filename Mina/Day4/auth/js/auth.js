@@ -1,6 +1,6 @@
 $(document).ready(function(){
 var App = {
-    url: "http://joshuamina/Day3/auth",
+    url: "http://joshuamina/Day4/auth",
     token: localStorage.getItem("token")
 }
 //recall info in Local Storage
@@ -29,26 +29,33 @@ $.Mustache.load('./templates/auth.html').done(function () {
         $('#canvas').mustache('loginPage');
         
         localStorage.removeItem("currentuser");
-        $("#login").click(function(){
+        $("#formLogin").on("submit",function(e){
+            e.preventDefault();
             var search =  $("#user").val();
             var pass =  $("#password").val();
-            
-            for (var i= 0; i < alluser.length; i++) {
-                if(alluser[i]["username"] == search||alluser[i]["email"] == search){
-                    console.log("Confirm");
-                    if(alluser[i]["password"] == pass){
-                        alert("Your Log-in is successfull!!! \n Welcome, "+ alluser[i]["name"]);
-                        const jsonArr = JSON.stringify(alluser[i]);
-                        localStorage.setItem("currentuser", jsonArr);
-                        window.location.href = 'http://joshuamina/Day3/auth/#/home';
-                    }
-                    else{
-                        alert("Incorrect username/email or password\n Please Try Again!")
-                    }
-                } 
-            }
+            $.ajax({
+                method: "POST",
+                url: "../api/logininfo.php",
+                data: {user: search, password: pass}
+              }).done(function( msg ) {
+                  alert( msg );
+                });
+            // for (var i= 0; i < alluser.length; i++) {
+            //     if(alluser[i]["username"] == search||alluser[i]["email"] == search){
+            //         console.log("Confirm");
+            //         if(alluser[i]["password"] == pass){
+            //             window.location.href = 'http://joshuamina/Day4/auth/#/home';
+            //             alert("You are succesfully Logged In!!! \n Welcome, "+ alluser[i]["name"]);
+            //             const jsonArr = JSON.stringify(alluser[i]);
+            //             localStorage.setItem("currentuser", jsonArr);
+                        
+            //         }
+            //         else{
+            //             alert("Incorrect username/email or password\n Please Try Again!")
+            //         }
+            //     } 
+            // }
         });
-       
     }).enter(clearPanel);
 
     Path.map("#/signin").to(function(){
@@ -82,9 +89,6 @@ $.Mustache.load('./templates/auth.html').done(function () {
             password = $("#password").val();
             cpassword = $("#cpassword").val();
             validation(username,name,email,address,bday,contactnumber,password,cpassword);
-            if (strAlluser!=null){
-                checker(username,email)
-            }     
                 if (message1==""&&message2==""){
                     console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ getage(bday) +"\nAge: "+ age+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password+"\nPassword Confirmation: "+ cpassword);
                 var user = {};
@@ -99,25 +103,33 @@ $.Mustache.load('./templates/auth.html').done(function () {
                 console.log(user);
                 alluser.push(user);
                 console.log(alluser);
-                $("#insertuser").text("Username: "+ username);
-                $("#insertname").text("Name: "+ name);
-                $("#insertemail").text("Email: "+ email);
-                $("#insertaddres").text("Address: "+ address);
-                $("#insertbday").text("Birthday: "+ bday);
-                $("#insertage").text("Age: "+ age);
-                $("#insertcnum").text("Contact Number: "+ contactnumber);
-                $("#insertpass").text("Password: "+ password);
+                $.ajax({
+                    method: "POST",
+                    url: "../api/info.php",
+                    data: user
+                  }).done(function( msg ) {
+                      alert( msg );
+                    });
+                // $("#insertuser").text("Username: "+ username);
+                // $("#insertname").text("Name: "+ name);
+                // $("#insertemail").text("Email: "+ email);
+                // $("#insertaddres").text("Address: "+ address);
+                // $("#insertbday").text("Birthday: "+ bday);
+                // $("#insertage").text("Age: "+ age);
+                // $("#insertcnum").text("Contact Number: "+ contactnumber);
+                // $("#insertpass").text("Password: "+ password);
                 // Save to Local Storage
                 const jsonArr = JSON.stringify(alluser);
                 localStorage.setItem("alluser", jsonArr);
-                window.location.href = 'http://joshuamina/Day3/auth/#/login'
+                window.location.href = 'http://joshuamina/Day4/auth/#/login'
+                
                 }
                 else{
                         alert(message1+"\n"+message2);
                     }
         });
         $("#back").click(function(){
-            window.location.href = 'http://joshuamina/Day3/auth/#/login';
+            window.location.href = 'http://joshuamina/Day4/auth/#/login';
         });
         function getage(bday){
             var dob = new Date(bday);
@@ -249,7 +261,6 @@ $.Mustache.load('./templates/auth.html').done(function () {
 
         });
         function checker(username,email){ 
-            
             for (var i= 0; i < alluser.length; i++) {
                 message2 = "";
                 if(alluser[i]["username"] == username){
@@ -273,10 +284,10 @@ $.Mustache.load('./templates/auth.html').done(function () {
         $("#login").click(function(){
             alert("Your are exiting the Home page, we have to log out current user!");
             localStorage.removeItem("currentuser");
-            window.location.href = 'http://joshuamina/Day3/auth/#/login';
+            window.location.href = 'http://joshuamina/Day4/auth/#/login';
         });
         $("#signin").click(function(){
-            window.location.href = 'http://joshuamina/Day3/auth/#/signin';
+            window.location.href = 'http://joshuamina/Day4/auth/#/signin';
         });
     }).enter(clearPanel);
     

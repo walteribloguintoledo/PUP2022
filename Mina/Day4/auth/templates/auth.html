@@ -1,69 +1,65 @@
 <script id="loginPage" type="text/template">
-    <form class="text-center">
-        <div class="container">
-          <h1 class="h1 mb-3 fw-normal">Log In</h1>
-              <div class="col-lg">
-              <form class="text-center">
-                  <div >
-                      <label class="form-label" >Username or Email</label>
-                  </div>
-                  <div >
-                      <input class="form-control" type="text" placeholder="Enter Username/email" id = "user">
-                  </div>
-                  <div >
-                      <label class="form-label" >Password</label>
-                  </div>
-                  <div >
-                      <input class="form-control" type="password" placeholder="Enter  Password" id = "password">
-                  </div>
-                  <div class="mt-3">
-                      <a  href="#">Forgot Password?</a>
-                      Click<a  href="http://joshuamina/Day3/auth/#/signin"> here </a> to sign-up
-                  </div>
-      
-                  <div>
-                      <button class="btn btn-primary btn-lg btn-sm col w-100 mt-2" type="submit" value="Login" id ="login"> Log In</button>
-                  </div>
-                  
-              </form>
-          </div>
+    <div class="container mt-10">
+        <div class="col-lg">
+            <form   class="text-center mt-10" id="formLogin" >
+                <h1 class="h1 mb-3 fw-normal">Log In</h1>
+                <div >
+                    <label class="form-label" >Username or Email</label>
+                </div>
+                <div >
+                    <input class="form-control" type="text" placeholder="Enter Username/email" id = "user" name="name">
+                </div>
+                <div >
+                    <label class="form-label" >Password</label>
+                </div>
+                <div >
+                    <input class="form-control" type="password" placeholder="Enter  Password" id = "password" name="password">
+                </div>
+                <div class="mt-3">
+                    <a  href="#">Forgot Password?</a>
+                    Click<a  href="http://joshuamina/Day4/auth/#/signin"> here </a> to sign-up
+                </div>
+                <div>
+                    <input class="btn btn-primary btn-lg btn-sm col w-100 mt-2" type="submit" value="Login"/>
+                </div>
+            </form>
         </div>
-      </form>
+    </div>
 </script>
 
 <script id="signinPage" type="text/template">
-    <form action="something" method="post" class= "col align-self-center p-5 pt-0" name=myform class="text-left" id="formSignUp">
+    <form  class= "col align-self-center p-5 pt-0" name=myform class="text-left" id="formSignUp">
         <div class="container">
             <div class="row">
                 <h1 class="text-center">Sign Up</h1>
                 <div class="col-lg">
                     <div class="row">
                         <label class="form-label" >Username:      </label>
-                        <input class="form-control" type="text" placeholder="Enter Username" id = "username">
+                        <input class="form-control" type="text" placeholder="Enter Username" id = "username" name="username">
                     </div>
                     <div class="row">
                         <label class="form-label">Full name:      </label>
-                        <input class="form-control"  type="name" placeholder="(Surname, Firstname, M.)" id = "name">
+                        <input class="form-control"  type="name" placeholder="(Surname, Firstname, M.)" id = "name" name="name">
                     </div>
                     <div class="row">
                         <label class="form-label">Email:          </label>
-                        <input class="form-control" type="text" placeholder="juandelazruz@exampl.com" id = "email">
+                        <input class="form-control" type="text" placeholder="juandelazruz@exampl.com" id = "email" name="email">
                     </div>
                     <div class="row">
                         <label class="form-label">Address:        </label>
-                        <input class="form-control" type="text" placeholder="Address" id = "address">
+                        <input class="form-control" type="text" placeholder="Address" id = "address" name="address">
                     </div>
                     <div class="row">
                         <label class="form-label">Birthday:       </label>
-                        <input class="form-control"type="date" placeholder="01/01/2000" id = "birthday">
+                        <input class="form-control"type="date" placeholder="01/01/2000" id = "birthday" name="bday">
                     </div>
                     <div class="row">
                         <label  class="form-label">Contact Number:</label>
-                        <input class="form-control" type="number" placeholder="09121456789" id = "contactnumber">
+                        <input class="form-control" type="number" placeholder="09121456789" id = "contactnumber" name="contactnumber" maxlength="11"> 
                     </div>
                     <div class="row">
                         <label class="form-label">Password:       </label>
-                        <input class="form-control"type="password" placeholder="Enter Password" id = "password">
+                        <input class="form-control"type="password" placeholder="Enter Password" id = "password" name="password">
                     </div>
                     <div class="row">
                         <label class="form-label">Confirm Password:</label>
@@ -146,7 +142,7 @@
                         To Learn More. <br>
                         <a href = "https://www.w3schools.com/html/default.asp">Click here.</a>
                 </p></div></div>
-                <div style="padding-left: 45%;">
+                <div style="padding-left: 45%;" id="below">
                 <button type="button" class="btn btn-outline-dark btn-secondary btn-lg">Continue...</button>
             </div>
         </div>
