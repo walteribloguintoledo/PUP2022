@@ -502,8 +502,6 @@ $app->post('/importcsv/:var',function($var){
             }
             for($r=0; $r < count($csvdata); $r++)
             {
-                // for($c=0; $c < $cols; $c++)
-                // {
                     $examdata = array(
                         "question" => $csvdata[$r][0],
                         "choice1" => $csvdata[$r][1],
@@ -516,11 +514,9 @@ $app->post('/importcsv/:var',function($var){
                         "level" => $csvdata[$r][8]
                     );
                     array_push($data1,$examdata);
-                // }
             }
-            // echo  $examdata;
-            // echo json_encode($data1);
-        }                
+        }   
+        autoCreateExam($data1);
     
     $response = array(
         "verified" => $verified,

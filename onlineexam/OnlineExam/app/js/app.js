@@ -36,6 +36,7 @@ $(document).ready(function(){
     {
     $.Mustache.load('templates/admin.html').done(function(){
         Path.map("#/creatorDashboard").to(function(){
+            
             App.canvas.mustache('creatorDashboard');
             getSettings;
             var dashContents = getJSONDoc ( App.api + "/creatorDashboard/"+param);
@@ -570,8 +571,6 @@ $(document).ready(function(){
                 console.log(questioncount);
             });
 
-            
-            
             $("#importCSVForm").on('submit',function(e){
                 e.preventDefault();
                 var csvfile = new FormData(this);
@@ -588,9 +587,11 @@ $(document).ready(function(){
                         {
                             alert("CSV File imported successfully");
                             var data = res.data;
-                            cat = data[0][6];
-                            subj = data[0][7];
-                            lvl = data[0][8];
+                            cat = data[0].category;
+                            subj = data[0].subject;
+                            lvl = data[0].level;
+                            console.log(cat, subj, lvl);
+                            console.log(data[0])
                         }
                         if(res.error == 1)
                         {
