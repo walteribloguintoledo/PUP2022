@@ -297,3 +297,6 @@ Some things to note on deletion of data
     POSIBLE IDEAS:
     * PUT AN ARCHIVED DATE COLUMN 
     * DELETED [1] [0]
+AUg 30 2022
+Notes:
+put auth token on processes that connects with datbase manipulation

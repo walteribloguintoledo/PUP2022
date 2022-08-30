@@ -19,7 +19,7 @@
         document.body.classList.toggle('sidebar-toggled');
         sidebar.classList.toggle('toggled');
 
-        if (sidebar.classList.contains('toggled')) {
+        if (sidebar.classList.contains('toggled')) { 
           for (var bsCollapse of sidebarCollapseList) {
             bsCollapse.hide();
           }

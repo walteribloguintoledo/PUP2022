@@ -180,7 +180,18 @@ function addExam($category,$subject,$level) //Creates and inserts exam details
     }
     return $data;
 }
-
+// function autoCreateExam($data1)
+// {
+//     for($r=0; $r < count($data1); $r++)
+//     {
+//         $sqlAutoCreateExam = ORM::for_table('exam_entry')->create();
+//             $sqlAutoCreateExam->set('keyindex','question');
+//             $sqlAutoCreateExam->set('value',$data1[$r][0]);
+//             $sqlAutoCreateExam->set('level',$data1[$r][8]);
+//         $sqlAutoCreateExam->save();
+//     }
+    
+// } This is a function that will save the exam questions in the database
 
 function addCategory($categoryCode,$categoryName) //Creates and inserts exam category
 {
