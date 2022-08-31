@@ -1,18 +1,33 @@
 $(document).ready(function(){
 var App = {
-    canvas: $('#canvas'),
-    url: "http://joshuamina/Day4/auth",
-    api: "http://joshuamina/Day4/api",
+    url: "http://joshuamina/Day5/auth",
     token: localStorage.getItem("token")
 }
-$.Mustache.options.warnOnMissingTemplates = true;
+//recall info in Local Storage
+
+var strAlluser = localStorage.getItem("alluser");
+if (strAlluser==null||strAlluser==""){
+    var alluser = [];
+}
+else {
+    var alluser =JSON.parse(strAlluser);
+    
+}
+
+console.log(alluser)    
+
+console.log(App.token);
+
+
+
 $.Mustache.load('./templates/auth.html').done(function () {
     function clearPanel(){
 // You can put some code in here to do fancy DOM transitions, such as fade-out or slide-in.
     }
-    Path.map("#/login").to(function(){ 
-        //$('#canvas').mustache('loginPage');
-        App.canvas.html("").append($.Mustache.render("loginPage"));
+    //var viewData = localStorage.getItem(alluser)
+    Path.map("#/login").to(function(){             
+        $('#canvas').mustache('loginPage');
+        
         localStorage.removeItem("currentuser");
         $("#formLogin").on("submit",function(e){
             e.preventDefault();
@@ -20,24 +35,17 @@ $.Mustache.load('./templates/auth.html').done(function () {
             var pass =  $("#password").val();
             $.ajax({
                 method: "POST",
-                url: App.api + "/user/login", //"../api/logininfo.php",
+                url: "../api/logininfo.php",
                 data: {user: search, password: pass}
               }).done(function( msg ) {
                   alert( msg );
-                  window.location.href = '#/home';
-                  window.location.reload();
-                  
+                  window.location.href = 'http://joshuamina/Day5/auth/#/home';
                 });
         });
-        $("#gosign").click(function(){
-            window.location.href = 'http://joshuamina/Day4/auth/#/signin';
-            window.location.reload();
-        });
-    });
+    }).enter(clearPanel);
 
     Path.map("#/signin").to(function(){
-        //$('#canvas').mustache('signinPage');
-        App.canvas.html("").append($.Mustache.render("signinPage"));
+        $('#canvas').mustache('signinPage');
         
         var name = "";
         var email = "";
@@ -79,26 +87,18 @@ $.Mustache.load('./templates/auth.html').done(function () {
                 user.cnumber = contactnumber;
                 user.password = password;
                 console.log(user);
+                alluser.push(user);
+                console.log(alluser);
                 $.ajax({
-                    method: "POST", 
-                    dataType: "json",
-                    url: App.api + "/user/signin", //"../api/logininfo.php",
-                    data: user,
-                    success: function(msg){
-                        console.log(msg);
-                      if (parseInt(msg.verified) == 1){
-                        alert(msg.errorMessage);
-                        window.location.href = 'http://joshuamina/Day4/auth/#/login'
-                        
-                      }
-                      else if (parseInt(msg.verified) == 0){
-                        alert(msg.errorMessage)
-                      }
-                      else if (parseInt(msg.verified) == 2){
-                        alert(msg.errorMessage)
-                      }
-                    }
-                  });
+                    method: "POST",
+                    url: "../api/info.php",
+                    data: user
+                  }).done(function( msg ) {
+                      alert( msg );
+                    });
+                const jsonArr = JSON.stringify(alluser);
+                localStorage.setItem("alluser", jsonArr);
+                window.location.href = 'http://joshuamina/Day5/auth/#/login'
                 
                 }
                 else{
@@ -106,8 +106,7 @@ $.Mustache.load('./templates/auth.html').done(function () {
                     }
         });
         $("#back").click(function(){
-            window.location.href = 'http://joshuamina/Day4/auth/#/login';
-            window.location.reload();
+            window.location.href = 'http://joshuamina/Day5/auth/#/login';
         });
         function getage(bday){
             var dob = new Date(bday);
@@ -183,7 +182,7 @@ $.Mustache.load('./templates/auth.html').done(function () {
             }
             return message1;
         }
-        $("#searches").click(function(){
+            $("#searches").click(function(){
             var search =  $("#search").val();
             var match =  $("#insert").val();
             var matchuser = "";
@@ -237,14 +236,28 @@ $.Mustache.load('./templates/auth.html').done(function () {
             }
             
 
-        }); 
+        });
+        function checker(username,email){ 
+            for (var i= 0; i < alluser.length; i++) {
+                message2 = "";
+                if(alluser[i]["username"] == username){
+                    console.log("Confirm");
+                    message2 += "That username is Already Taken \n" ;
+
+                }
+                if(alluser[i]["email"] == email){
+                    console.log("Confirm");
+                    message2 += "That email is already used \n" ;
+                }
+                
+            }
+            return message2;
+                
+        }   
     }).enter(clearPanel);
 
-    Path.map("#/home").to(function(){        
-            
-        //$('#canvas').mustache('homePage');
-        App.canvas.html("").append($.Mustache.render("homePage"));
-        
+    Path.map("#/home").to(function(){            
+        $('#canvas').mustache('homePage');
         $.getJSON( "../api/logininfo.php", function( data ) {
             var items = [];
             $.each( data, function( key, val ) {
@@ -264,14 +277,12 @@ $.Mustache.load('./templates/auth.html').done(function () {
         $("#login").click(function(){
             alert("Your are exiting the Home page, we have to log out current user!");
             localStorage.removeItem("currentuser");
-            window.location.href = 'http://joshuamina/Day4/auth/#/login';
-            window.location.reload();
+            window.location.href = 'http://joshuamina/Day5/auth/#/login';
         });
         $("#signin").click(function(){
-            window.location.href = 'http://joshuamina/Day4/auth/#/signin';
-            window.location.reload();
+            window.location.href = 'http://joshuamina/Day5/auth/#/signin';
         });
-    });
+    }).enter(clearPanel);
     
 
     Path.root("#/login");

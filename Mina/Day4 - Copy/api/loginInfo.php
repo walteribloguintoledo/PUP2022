@@ -16,7 +16,7 @@ else{
     $sql = "SELECT * FROM allusers WHERE Username = '$username' OR Email ='$username' AND Password = '$password' ";
     if ($result = mysqli_query($conn, $sql)) {
         $rowcount = mysqli_num_rows( $result );
-        if ($rowcount>0){
+        if ($rowcount<1){
             echo "Error: In";
         }
         else{
@@ -33,7 +33,6 @@ else{
                 $dbage = $row[5];
                 $dbcnum = $row[6];
                 $dbpass = $row[7];
-                $currentuserinfo = array($dbusername,$dbname,$dbemail,$dbaddress,$dbbday ,$dbage,$dbcnum,$dbpass);
             }
             mysqli_free_result($result);
             }
