@@ -18,16 +18,28 @@ $.Mustache.load('./templates/auth.html').done(function () {
             e.preventDefault();
             var search =  $("#user").val();
             var pass =  $("#password").val();
+            console.log(search,pass);
             $.ajax({
-                method: "POST",
-                url: App.api + "/user/login", //"../api/logininfo.php",
-                data: {user: search, password: pass}
-              }).done(function( msg ) {
-                  alert( msg );
-                  window.location.href = '#/home';
-                  window.location.reload();
-                  
-                });
+                method: "POST", 
+                // dataType: "json",
+                url: "../api/logininfo.php",//App.api + "/user/login", 
+                data: {user: search, password: pass},
+                success: function(msg){
+                    console.log(msg);
+                //   if (parseInt(msg.logToken)==1){
+                //     alert(msg.errorMessage);
+                //     const jsonArr = JSON.stringify(msg.userInfo);
+                //     localStorage.setItem("userInfo", jsonArr);
+                //     window.location.href = 'http://joshuamina/Day4/auth/#/home'
+                //   }
+                //   else if (parseInt(msg.logToken) == 0){
+                //     alert(msg.errorMessage)
+                //   }
+                //   else if (parseInt(msg.logToken) == 2){
+                //     alert(msg.errorMessage)
+                //   }
+                }   
+              });
         });
         $("#gosign").click(function(){
             window.location.href = 'http://joshuamina/Day4/auth/#/signin';
@@ -256,11 +268,6 @@ $.Mustache.load('./templates/auth.html').done(function () {
               html: items.join( "" )
             }).appendTo( "#below" );
           });
-
-
-
-
-          
         $("#login").click(function(){
             alert("Your are exiting the Home page, we have to log out current user!");
             localStorage.removeItem("currentuser");
