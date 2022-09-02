@@ -1,51 +1,54 @@
 $(document).ready(function(){
 var App = {
-    url: "http://joshuamina/Day5/auth",
+    canvas: $('#canvas'),
+    url: "http://joshuamina/Final/auth",
+    api: "http://joshuamina/Final/api",
     token: localStorage.getItem("token")
 }
-//recall info in Local Storage
-
-var strAlluser = localStorage.getItem("alluser");
-if (strAlluser==null||strAlluser==""){
-    var alluser = [];
-}
-else {
-    var alluser =JSON.parse(strAlluser);
-    
-}
-
-console.log(alluser)    
-
-console.log(App.token);
-
-
-
+$.Mustache.options.warnOnMissingTemplates = true;
 $.Mustache.load('./templates/auth.html').done(function () {
     function clearPanel(){
 // You can put some code in here to do fancy DOM transitions, such as fade-out or slide-in.
     }
-    //var viewData = localStorage.getItem(alluser)
-    Path.map("#/login").to(function(){             
-        $('#canvas').mustache('loginPage');
-        
+    Path.map("#/login").to(function(){ 
+        //$('#canvas').mustache('loginPage');
+        App.canvas.html("").append($.Mustache.render("loginPage"));
         localStorage.removeItem("currentuser");
         $("#formLogin").on("submit",function(e){
             e.preventDefault();
             var search =  $("#user").val();
             var pass =  $("#password").val();
+            console.log(search,pass);
             $.ajax({
-                method: "POST",
-                url: "../api/logininfo.php",
-                data: {user: search, password: pass}
-              }).done(function( msg ) {
-                  alert( msg );
-                  window.location.href = 'http://joshuamina/Day5/auth/#/home';
-                });
+                method: "POST", 
+                dataType: "json",
+                url: App.api + "/user/login", 
+                data: {user: search, password: pass},
+                success: function(msg){
+                  if (parseInt(msg.verified)==1){
+                    alert(msg.errorMessage);
+                    const jsonArr = JSON.stringify(msg.userData);
+                    localStorage.setItem("userInfo", jsonArr);
+                    const jsonAr = JSON.stringify(msg.useronline);
+                    localStorage.setItem("onlineToken", jsonAr);
+                    window.location.href = 'http://joshuamina/Final/auth/#/home'
+                  }
+                  else if (parseInt(msg.verified) == 0){
+                    alert(msg.errorMessage)
+                  }
+                }   
+            });
         });
-    }).enter(clearPanel);
+
+        $("#gosign").click(function(){
+            window.location.href = 'http://joshuamina/Final/auth/#/signin';
+            window.location.reload();
+        });
+    });
 
     Path.map("#/signin").to(function(){
-        $('#canvas').mustache('signinPage');
+        //$('#canvas').mustache('signinPage');
+        App.canvas.html("").append($.Mustache.render("signinPage"));
         
         var name = "";
         var email = "";
@@ -87,18 +90,25 @@ $.Mustache.load('./templates/auth.html').done(function () {
                 user.cnumber = contactnumber;
                 user.password = password;
                 console.log(user);
-                alluser.push(user);
-                console.log(alluser);
                 $.ajax({
-                    method: "POST",
-                    url: "../api/info.php",
-                    data: user
-                  }).done(function( msg ) {
-                      alert( msg );
-                    });
-                const jsonArr = JSON.stringify(alluser);
-                localStorage.setItem("alluser", jsonArr);
-                window.location.href = 'http://joshuamina/Day5/auth/#/login'
+                    method: "POST", 
+                    dataType: "json",
+                    url: App.api + "/user/signin", //"../api/logininfo.php",
+                    data: user,
+                    success: function(msg){
+                        console.log(msg);
+                      if (parseInt(msg.verified) == 1){
+                        alert(msg.errorMessage); 
+                      }
+                      else if (parseInt(msg.verified) == 0){
+                        alert(msg.errorMessage)
+                        window.location.href = 'http://joshuamina/Final/auth/#/login'
+                      }
+                      else if (parseInt(msg.verified) == 2){
+                        alert(msg.errorMessage)
+                      }
+                    }
+                  });
                 
                 }
                 else{
@@ -106,7 +116,8 @@ $.Mustache.load('./templates/auth.html').done(function () {
                     }
         });
         $("#back").click(function(){
-            window.location.href = 'http://joshuamina/Day5/auth/#/login';
+            window.location.href = 'http://joshuamina/Final/auth/#/login';
+            window.location.reload();
         });
         function getage(bday){
             var dob = new Date(bday);
@@ -182,7 +193,7 @@ $.Mustache.load('./templates/auth.html').done(function () {
             }
             return message1;
         }
-            $("#searches").click(function(){
+        $("#searches").click(function(){
             var search =  $("#search").val();
             var match =  $("#insert").val();
             var matchuser = "";
@@ -236,53 +247,30 @@ $.Mustache.load('./templates/auth.html').done(function () {
             }
             
 
-        });
-        function checker(username,email){ 
-            for (var i= 0; i < alluser.length; i++) {
-                message2 = "";
-                if(alluser[i]["username"] == username){
-                    console.log("Confirm");
-                    message2 += "That username is Already Taken \n" ;
-
-                }
-                if(alluser[i]["email"] == email){
-                    console.log("Confirm");
-                    message2 += "That email is already used \n" ;
-                }
-                
-            }
-            return message2;
-                
-        }   
+        }); 
     }).enter(clearPanel);
 
-    Path.map("#/home").to(function(){            
-        $('#canvas').mustache('homePage');
-        $.getJSON( "../api/logininfo.php", function( data ) {
-            var items = [];
-            $.each( data, function( key, val ) {
-              items.push( "<li id='" + key + "'>" + val + "</li>" );
-            });
-           
-            $( "<ul/>", {
-              "class": "my-new-list",
-              html: items.join( "" )
-            }).appendTo( "#below" );
-          });
-
-
-
-
-          
-        $("#login").click(function(){
-            alert("Your are exiting the Home page, we have to log out current user!");
-            localStorage.removeItem("currentuser");
-            window.location.href = 'http://joshuamina/Day5/auth/#/login';
-        });
+    Path.map("#/home").to(function(){        
+            
+        //$('#canvas').mustache('homePage');
+        App.canvas.html("").append($.Mustache.render("homePage"));
         $("#signin").click(function(){
-            window.location.href = 'http://joshuamina/Day5/auth/#/signin';
+            var answer = confirm("By leaving the home page you need to log-out first.\nDo you really want to log-out?")
+            if (answer == true){
+                window.location.href = 'http://joshuamina/Final/auth/#/login';
+                //delete token and current user info
+            }
+            
         });
-    }).enter(clearPanel);
+        $("#logout").click(function(){
+            var answer = confirm("Do you really want to logout?")
+            if (answer == true){
+                window.location.href = 'http://joshuamina/Final/auth/#/login';
+                //delete token and current user info
+            }
+            
+        });
+    });
     
 
     Path.root("#/login");

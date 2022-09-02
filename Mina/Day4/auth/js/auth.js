@@ -21,11 +21,12 @@ $.Mustache.load('./templates/auth.html').done(function () {
             console.log(search,pass);
             $.ajax({
                 method: "POST", 
-                // dataType: "json",
-                url: "../api/logininfo.php",//App.api + "/user/login", 
+                dataType: "json",
+                url: App.api + "/user/login", 
                 data: {user: search, password: pass},
                 success: function(msg){
                     console.log(msg);
+                    alert(msg);
                 //   if (parseInt(msg.logToken)==1){
                 //     alert(msg.errorMessage);
                 //     const jsonArr = JSON.stringify(msg.userInfo);
@@ -80,7 +81,7 @@ $.Mustache.load('./templates/auth.html').done(function () {
             cpassword = $("#cpassword").val();
             validation(username,name,email,address,bday,contactnumber,password,cpassword);
                 if (message1==""&&message2==""){
-                    console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ getage(bday) +"\nAge: "+ age+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password+"\nPassword Confirmation: "+ cpassword);
+                    //console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ getage(bday) +"\nAge: "+ age+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password+"\nPassword Confirmation: "+ cpassword);
                 var user = {};
                 user.username = username; 
                 user.name = name;
@@ -94,7 +95,7 @@ $.Mustache.load('./templates/auth.html').done(function () {
                 $.ajax({
                     method: "POST", 
                     dataType: "json",
-                    url: App.api + "/user/signin", //"../api/logininfo.php",
+                    url: App.api + "/user/signin", 
                     data: user,
                     success: function(msg){
                         console.log(msg);
