@@ -34,11 +34,6 @@ function userLogin($conn, $username, $password){
     }
 }
 
-function read_username($username, $password){
-    $data = ORM::forTable('allusers')->where('Username', $username)->where('Password', $password)->findOne();
-    return $data;
-}
-
 function userSignin($conn,$username, $name , $email, $address, $bday, $age, $contactnumber, $password){
     $sql = "SELECT * FROM allusers WHERE Username='$username' OR Email='$email'";
         if ($result = mysqli_query($conn, $sql)) {
@@ -53,13 +48,11 @@ function userSignin($conn,$username, $name , $email, $address, $bday, $age, $con
                 if ($conn->query($sql) === TRUE) {
                     $message = "New record created successfully!";
                     $errorNumber = 1;
-                    //echo $errorNumber;
                 } 
                 else 
                 {
                     $message = "Error: " . $sql . "\n" . $conn->error;
                     $errorNumber = 2;
-                    //echo $errorNumber;
                 }
             }
                
@@ -69,33 +62,53 @@ function userSignin($conn,$username, $name , $email, $address, $bday, $age, $con
     }
 
 
+function read_username($username, $password){
+    $data = ORM::forTable('allusers')->where('Username', $username)->where('Password', $password)->findOne();
+    if ($data){
+        return $data;
+    }
+    else{
+        $data = ORM::forTable('allusers')->where('Email', $username)->where('Password', $password)->findOne();
+        if ($data){
+        return $data;
+        }
+    }
+}
 
-    function read_user_input($username,$password){
+function read_forgot_email($email){
+    $userChecker = ORM::forTable('allusers')->where('Email', $email)->findOne();
+    if ($userChecker){
+        $errorMsg = 0;
+        $userPass = $userChecker->Password;
+    }
+    else{
+        $errorMsg = 1;
+        $userPass = null;
+    }
+    $status = array(
+        "message" => $errorMsg,
+        "password" => $userPass
+    );
+    return $status;
+
+}
+
+function read_user_input($username,$password){
     $userChecker = ORM::forTable('allusers')->where('Username', $username)->where('Password', $password)->findOne();
     if ($userChecker){
-        $errorMsg = 1;
-        $userData = $userChecker;
-        // $person = ORM::for_table('allusers')->create();
-        // $person->Username = $username;
-        // // Returns array('first_name' => 'Fred', 'surname' => 'Bloggs', 'age' => 50)
-        // $data = $person->as_array();
+        $errorMsg = 0;
     }
     else{
         $emailChecker = ORM::forTable('allusers')->where('Email', $username)->where('Password', $password)->findOne();
         if ($emailChecker){
-            $errorMsg = 1;
-            $userData = $emailChecker;
+            $errorMsg = 0;
         }
         else{
-        $errorMsg = 0;
-        $userData= array(0);
+        $errorMsg = 1;
         }
     }
-    $status = array(
-        "existing" => $errorMsg,
-        "userArray" => var_dump($userData) );
-    
-    return $status;
+
+    return $errorMsg;
 }
 
 function create_records($username, $name , $email, $address, $bday, $age, $contactnumber, $password){
@@ -125,21 +138,4 @@ function create_records($username, $name , $email, $address, $bday, $age, $conta
     }
     return $errorMsg;
 
-}
-
-function userIdiormLogin($username, $password){ 
-    $people = ORM::for_table('allusers')
-            ->where_any_is(array(
-                array('Username' => $username, 'Password' => $password),
-                array('Email' => $username, 'Password' => $password)))
-            ->find_many();
-            if ($people=0){
-                $errorNumber = 1;
-            }
-            else{
-                $userInfo = ORM::for_table('allusers')->where('Username', '$username')->find_one();
-                $errorNumber = 0;
-            }
-    return $errorNumber;
-    
 }

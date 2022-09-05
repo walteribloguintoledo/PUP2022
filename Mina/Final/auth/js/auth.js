@@ -5,20 +5,19 @@ var App = {
     api: "http://joshuamina/Final/api",
     token: localStorage.getItem("token")
 }
+
 $.Mustache.options.warnOnMissingTemplates = true;
 $.Mustache.load('./templates/auth.html').done(function () {
     function clearPanel(){
-// You can put some code in here to do fancy DOM transitions, such as fade-out or slide-in.
     }
     Path.map("#/login").to(function(){ 
-        //$('#canvas').mustache('loginPage');
         App.canvas.html("").append($.Mustache.render("loginPage"));
-        localStorage.removeItem("currentuser");
+        localStorage.removeItem('onlineToken');
+        localStorage.removeItem('userInfo');
         $("#formLogin").on("submit",function(e){
             e.preventDefault();
             var search =  $("#user").val();
             var pass =  $("#password").val();
-            console.log(search,pass);
             $.ajax({
                 method: "POST", 
                 dataType: "json",
@@ -44,12 +43,31 @@ $.Mustache.load('./templates/auth.html').done(function () {
             window.location.href = 'http://joshuamina/Final/auth/#/signin';
             window.location.reload();
         });
+
+        $("#forgot").click(function(){
+            var forgotPass = prompt("Please Enter your email.");
+            if (forgotPass!=null){
+                $.ajax({
+                    method: "POST", 
+                    dataType: "json",
+                    url: App.api + "/user/forgot", 
+                    data: {email: forgotPass},
+                    success: function(msg){
+                      if (parseInt(msg.query)==1){
+                        alert(msg.message +"\n      Your Password: "+ msg.password);
+                      }
+                      else if (parseInt(msg.query) == 0){
+                        alert(msg.message);
+                      }
+                    }   
+                });
+            }
+            
+        });
     });
 
     Path.map("#/signin").to(function(){
-        //$('#canvas').mustache('signinPage');
         App.canvas.html("").append($.Mustache.render("signinPage"));
-        
         var name = "";
         var email = "";
         var address = "";
@@ -65,7 +83,6 @@ $.Mustache.load('./templates/auth.html').done(function () {
         var message1 = "";
         var message2 = "";
         var display = "";
-
         //submit event
         $("#formSignUp").on("submit",function(e){
             e.preventDefault();
@@ -80,45 +97,47 @@ $.Mustache.load('./templates/auth.html').done(function () {
             validation(username,name,email,address,bday,contactnumber,password,cpassword);
                 if (message1==""&&message2==""){
                     console.log("      Your Info:\nName: "+ name +"\nEmail: "+ email +"\nAddress: "+ address +"\nbirthday: "+ getage(bday) +"\nAge: "+ age+"\nContact Number: "+ contactnumber + "\nUsername: "+ username +"\nPassword: "+ password+"\nPassword Confirmation: "+ cpassword);
-                var user = {};
-                user.username = username; 
-                user.name = name;
-                user.email = email;
-                user.address = address;
-                user.birthday = bday; 
-                user.age = getage(bday);
-                user.cnumber = contactnumber;
-                user.password = password;
-                console.log(user);
-                $.ajax({
-                    method: "POST", 
-                    dataType: "json",
-                    url: App.api + "/user/signin", //"../api/logininfo.php",
-                    data: user,
-                    success: function(msg){
-                        console.log(msg);
-                      if (parseInt(msg.verified) == 1){
-                        alert(msg.errorMessage); 
-                      }
-                      else if (parseInt(msg.verified) == 0){
-                        alert(msg.errorMessage)
-                        window.location.href = 'http://joshuamina/Final/auth/#/login'
-                      }
-                      else if (parseInt(msg.verified) == 2){
-                        alert(msg.errorMessage)
-                      }
-                    }
-                  });
+                    var user = {};
+                    user.username = username; 
+                    user.name = name;
+                    user.email = email;
+                    user.address = address;
+                    user.birthday = bday; 
+                    user.age = getage(bday);
+                    user.cnumber = contactnumber;
+                    user.password = password;
+                    console.log(user);
+                    $.ajax({
+                        method: "POST", 
+                        dataType: "json",
+                        url: App.api + "/user/signin", //"../api/logininfo.php",
+                        data: user,
+                        success: function(msg){
+                            console.log(msg);
+                        if (parseInt(msg.verified) == 1){
+                            alert(msg.errorMessage); 
+                        }
+                        else if (parseInt(msg.verified) == 0){
+                            alert(msg.errorMessage)
+                            window.location.href = 'http://joshuamina/Final/auth/#/login'
+                        }
+                        else if (parseInt(msg.verified) == 2){
+                            alert(msg.errorMessage)
+                        }
+                        }
+                    });
                 
                 }
                 else{
                         alert(message1+"\n"+message2);
                     }
         });
+
         $("#back").click(function(){
             window.location.href = 'http://joshuamina/Final/auth/#/login';
             window.location.reload();
         });
+
         function getage(bday){
             var dob = new Date(bday);
             var month_diff = Date.now() - dob.getTime();
@@ -127,14 +146,13 @@ $.Mustache.load('./templates/auth.html').done(function () {
             age = Math.abs(year - 1970);
             return age;
         }
+
         function validation(username,name,email,address,birthday,contactnumber,password,cpassword){
             message1 ="";
             if (username==null||username==""){
                 message1 = "Please Type Username"
             }
-            
             else{
-
                 if(name==null||name==""){
                     message1 = "Please Type Name"
                 }
@@ -145,8 +163,7 @@ $.Mustache.load('./templates/auth.html').done(function () {
                 else{
                     if (email==null||email==""){
                         message1 = "Please Type email"
-                    }
-                    
+                    }   
                     else{
                         if(address==null||address==""){
                             message1 = "Please Type address"
@@ -176,23 +193,23 @@ $.Mustache.load('./templates/auth.html').done(function () {
                                         message1 ='Password max length is 12';
                                     }
                                     else{
-                                        
-                                            if(password==cpassword){
-                                                message1 = ""
-                                            }
-                                            else{
-                                                message1 = "Password Unmatched"
-                                            }
+                                        if(password==cpassword){
+                                            message1 = ""
                                         }
+                                        else{
+                                            message1 = "Password Unmatched"
+                                        }
+                                    }
                                     
                                 }
                             }
                         }  
-                        }   
+                    }   
                 }
             }
             return message1;
         }
+
         $("#searches").click(function(){
             var search =  $("#search").val();
             var match =  $("#insert").val();
@@ -251,24 +268,39 @@ $.Mustache.load('./templates/auth.html').done(function () {
     }).enter(clearPanel);
 
     Path.map("#/home").to(function(){        
-            
-        //$('#canvas').mustache('homePage');
         App.canvas.html("").append($.Mustache.render("homePage"));
         $("#signin").click(function(){
             var answer = confirm("By leaving the home page you need to log-out first.\nDo you really want to log-out?")
             if (answer == true){
-                window.location.href = 'http://joshuamina/Final/auth/#/login';
-                //delete token and current user info
+                window.location.href = 'http://joshuamina/Final/auth/#/signin';
+                localStorage.removeItem('onlineToken');
+                localStorage.removeItem('userInfo');
             }
-            
         });
+
         $("#logout").click(function(){
             var answer = confirm("Do you really want to logout?")
             if (answer == true){
                 window.location.href = 'http://joshuamina/Final/auth/#/login';
-                //delete token and current user info
+                localStorage.removeItem('onlineToken');
+                localStorage.removeItem('userInfo');
             }
-            
+        });
+
+        $("#showinfo").on('click', function() {
+            var strAlluser = localStorage.getItem("userInfo");
+            var userInfo = JSON.parse(strAlluser);
+            var token = localStorage.getItem("onlineToken");
+            if (token==null||token==0){
+                window.location.href = 'http://joshuamina/Final/auth/#/login';
+                alert("No account logged in... \nYou need to log-in first!");;
+            }
+            else{
+                var data = { username: userInfo[0], name: userInfo[1], email: userInfo[2], address: userInfo[3], birthday: userInfo[4],  age: userInfo[5], contactnum: userInfo[6]};
+                var template = "<h3     >WELCOME {{username}}!!</h3> <br> <h3>Hello {{ name }} <br> You are living at {{address}}.<br> Your email is {{email}}.<br> Your birthdate is {{birthday}} and you are {{age}} right now. <br>Your registered number is {{contactnum}} </h5>";
+                var text = Mustache.render(template, data);
+                $("#user").html(text);
+            }
         });
     });
     

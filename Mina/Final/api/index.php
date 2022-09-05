@@ -12,38 +12,33 @@ $app->get('/login', function(){
 $app->post('/user/login', function(){
     $username = $_POST['user'];
     $password = $_POST['password'];
-    // $confirmUser = userIdiormLogin($username, $password);
-    // echo $confirmUser;
     $response = array();
     $isValid = 0;
     $msgError = null;
-    $result = read_username($username, $password);
-    if($result){
-        $response = array(
-            "Birthdate" => $result->Birthdate
-        );
-    }
-    // $validate = read_user_input($username,$password);
-    //echo var_dump($validate);
-    // if($validate["existing"]){
-    //     $isValid = 1;
-    //     $msgError = "Welcome ". $username;
-    //     $online = 1; 
-    // }
-    // else{
-    //     $isValid = 0;
-    //     $msgError = "User doesn't exist or Incorrect Username/Email and Password";
-    //     $online = 0; 
-    // }
 
-    // $response = array(
-    //     "verified" => $isValid,
-    //     "errorMessage" => $msgError,
-    //     "userData" => $validate["userArray"] ,
-    //     "useronline" => $online
-    // );
-        echo $result->Birthdate;
-    //echo json_encode($response);
+    $validate = read_user_input($username,$password);
+    $result = read_username($username, $password);
+    if($validate==0){
+        $isValid = 1;
+        $msgError = "Welcome ". $result->Name;
+        $online = 1; 
+        $userInfo = array($result->Username, $result->Name, $result->Email, $result->Address, $result->Birthdate, $result->Age, $result->ContactNumber);
+    }
+    else if ($validate==1){
+        $isValid = 0;
+        $msgError = "Incorrect Username/Email and Password";
+        $online = 0; 
+        $userInfo = array(0);
+    }
+
+    $response = array(
+        "verified" => $isValid,
+        "errorMessage" => $msgError,
+        "userData" => $userInfo ,
+        "useronline" => $online
+    );
+    
+    echo json_encode($response);
 
 });
 
@@ -77,6 +72,27 @@ $app->post('/user/signin', function() {
     $response = array(
         "verified" => $isValid,
         "errorMessage" => $msgError,
+    );
+
+    echo json_encode($response);
+});
+
+$app->post('/user/forgot', function(){
+    $email = $_POST['email'];
+
+    $checker = read_forgot_email($email);
+    if ($checker["message"]== 0){
+        $query = 1;
+        $errorMsg = "One Query Found!";
+    }
+    else{
+        $query = 0;
+        $errorMsg = "No query Found!";
+    }
+    $response = array(
+        "query" => $query,
+        "message" => $errorMsg,
+        "password" => $checker["password"]
     );
 
     echo json_encode($response);
